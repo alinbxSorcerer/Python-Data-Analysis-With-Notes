@@ -1,9 +1,6 @@
-<<groupby>>
+
 * Chapter 10. Data Aggregation and Group Operations
-  :PROPERTIES:
-  :CUSTOM_ID: BE6O3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 Categorizing a dataset and applying a function to each group, whether an aggregation or transformation, is often a critical component of a data analysis workflow. After loading, merging, and preparing a dataset, you may need to compute group statistics or possibly /pivot tables/ for reporting or visualization purposes. pandas provides a flexible =groupby= interface, enabling you to slice, dice, and summarize datasets in a natural way.
 
@@ -18,23 +15,17 @@ One reason for the popularity of relational databases and SQL (which stands for 
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 Aggregation of time series data, a special use case of =groupby=, is referred to as /resampling/ in this book and will receive separate treatment in [[file:part0013_split_000.html#CCNA3-74490f30505748fab61c1c3ee3dc2f27][Chapter 11]].
 
 --------------
 
-<<groupby>>
 
-<<groupby_fundamentals>>
+
+
 * 10.1 GroupBy Mechanics
-  :PROPERTIES:
-  :CUSTOM_ID: BE6OU-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Hadley Wickham, an author of many popular packages for the R programming language, coined the term /split-apply-combine/ for describing group operations. In the first stage of the process, data contained in a pandas object, whether a Series, DataFrame, or otherwise, is /split/ into groups based on one or more /keys/ that you provide. The splitting is performed on a particular axis of an object. For example, a DataFrame can be grouped on its rows (=axis=0=) or its columns (=axis=1=). Once this is done, a function is /applied/ to each group, producing a new value. Finally, the results of all those function applications are /combined/ into a result object. The form of the resulting object will usually depend on what's being done to the data. See [[file:part0012_split_001.html#figure_groupby_agg][Figure 10-1]] for a mockup of a simple group aggregation.
 
@@ -166,16 +157,13 @@ Regardless of the objective in using =groupby=, a generally useful GroupBy metho
 
 Take note that any missing values in a group key will be excluded from the result.
 
-<<groupby>>
 
-<<groupby_fundamentals>>
 
-<<groupby_mech_iteration>>
+
+
+
 ** Iterating Over Groups
-   :PROPERTIES:
-   :CUSTOM_ID: BE78C-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 The GroupBy object supports iteration, generating a sequence of 2-tuples containing the group name along with the chunk of data. Consider the following:
 
@@ -266,16 +254,13 @@ We can print out the groups like so:
     4    a  one
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_fundamentals>>
 
-<<groupby_agg_select_subset>>
+
+
+
 ** Selecting a Column or Subset of Columns
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_3
-   :CLASS: calibre20
-   :END:
+
 
 Indexing a GroupBy object created from a DataFrame with a column name or array of column names has the effect of column subsetting for aggregation. This means that:
 
@@ -322,16 +307,13 @@ The object returned by this indexing operation is a grouped DataFrame if a list 
     Name: data2, dtype: float64
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_fundamentals>>
 
-<<groupby_mech_mapping>>
+
+
+
 ** Grouping with Dicts and Series
-   :PROPERTIES:
-   :CUSTOM_ID: BE7NJ-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Grouping information may exist in a form other than an array. Let's consider another example DataFrame:
 
@@ -399,16 +381,13 @@ The same functionality holds for Series, which can be viewed as a fixed-size map
     Travis     2    3
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_fundamentals>>
 
-<<groupby_mech_functions>>
+
+
+
 ** Grouping with Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_5
-   :CLASS: calibre20
-   :END:
+
 
 Using Python functions is a more generic way of defining a group mapping compared with a dict or Series. Any function passed as a group key will be called once per index value, with the return values being used as the group names. More concretely, consider the example DataFrame from the previous section, which has people's first names as index values. Suppose you wanted to group by the length of the names; while you could compute an array of string lengths, it's simpler to just pass the =len= function:
 
@@ -435,16 +414,13 @@ Mixing functions with arrays, dicts, or Series is not a problem as everything ge
     6 two -0.713544 -0.831154 -2.370232 -1.860761 -0.860757
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_fundamentals>>
 
-<<groupby_mech_levels>>
+
+
+
 ** Grouping by Index Levels
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_6
-   :CLASS: calibre20
-   :END:
+
 
 A final convenience for hierarchically indexed datasets is the ability to aggregate using one of the levels of an axis index. Let's look at an example:
 
@@ -477,14 +453,11 @@ To group by level, pass the level number or name using the =level= keyword:
     3     2   3
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_aggregation>>
+
+
 * 10.2 Data Aggregation
-  :PROPERTIES:
-  :CUSTOM_ID: BE8AO-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Aggregations refer to any data transformation that produces scalar values from arrays. The preceding examples have used several of them, including =mean=, =count=, =min=, and =sum=. You may wonder what is going on when you invoke =mean()= on a GroupBy object. Many common aggregations, such as those found in [[file:part0012_split_007.html#table_opt_groupby_methods][Table 10-1]], have optimized implementations. However, you are not limited to only this set of methods.
 
@@ -565,25 +538,19 @@ I will explain in more detail what has happened here in [[file:part0012_split_01
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
 
 Custom aggregation functions are generally much slower than the optimized functions found in [[file:part0012_split_007.html#table_opt_groupby_methods][Table 10-1]]. This is because there is some extra overhead (function calls, data rearrangement) in constructing the intermediate group data chunks.
 
 --------------
 
-<<groupby>>
 
-<<groupby_aggregation>>
 
-<<groupby_multiple_functions>>
+
+
+
 ** Column-Wise and Multiple Function Application
-   :PROPERTIES:
-   :CUSTOM_ID: BE8IH-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Let's return to the tipping dataset from earlier examples. After loading it with =read_csv=, we add a tipping percentage column =tip_pct=:
 
@@ -758,16 +725,13 @@ Now, suppose you wanted to apply potentially different functions to one or more 
 
 A DataFrame will have hierarchical columns only if multiple functions are applied to at least one column.
 
-<<groupby>>
 
-<<groupby_aggregation>>
 
-<<groupby_agg_no_use_index>>
+
+
+
 ** Returning Aggregated Data Without Row Indexes
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_9
-   :CLASS: calibre20
-   :END:
+
 
 In all of the examples up until now, the aggregated data comes back with an index, potentially hierarchical, composed from the unique group key combinations. Since this isn't always desirable, you can disable this behavior in most cases by passing =as_index=False= to =groupby=:
 
@@ -787,14 +751,11 @@ In all of the examples up until now, the aggregated data comes back with an inde
 
 Of course, it's always possible to obtain the result in this format by calling =reset_index= on the result. Using the =as_index=False= method avoids some unnecessary computations.
 
-<<groupby>>
 
-<<groupby_apply>>
+
+
 * 10.3 Apply: General split-apply-combine
-  :PROPERTIES:
-  :CUSTOM_ID: BE9C7-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 The most general-purpose GroupBy method is =apply=, which is the subject of the rest of this section. As illustrated in [[file:part0012_split_010.html#figure_groupby_agg_again][Figure 10-2]], =apply= splits the object being manipulated into pieces, invokes the passed function on each piece, and then attempts to concatenate the pieces together.
 
@@ -858,10 +819,7 @@ If you pass a function to =apply= that takes other arguments or keywords, you ca
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+
 
 Beyond these basic usage mechanics, getting the most out of =apply= may require some creativity. What occurs inside the function passed is up to you; it only needs to return a pandas object or a scalar value. The rest of this chapter will mainly consist of examples showing you how to solve various problems using =groupby=.
 
@@ -912,16 +870,13 @@ Inside GroupBy, when you invoke a method like =describe=, it is actually just a 
     grouped.apply(f)
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_group_keys>>
+
+
+
 ** Suppressing the Group Keys
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_11
-   :CLASS: calibre20
-   :END:
+
 
 In the preceding examples, you see that the resulting object has a hierarchical index formed from the group keys along with the indexes of each piece of the original object. You can disable this by passing =group_keys=False= to =groupby=:
 
@@ -941,16 +896,13 @@ In the preceding examples, you see that the resulting object has a hierarchical 
     172        7.25  5.15    Yes   Sun  Dinner     2  0.710345
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_quantile>>
+
+
+
 ** Quantile and Bucket Analysis
-   :PROPERTIES:
-   :CUSTOM_ID: BE9VI-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 As you may recall from [[file:part0010_split_000.html#9H5K3-74490f30505748fab61c1c3ee3dc2f27][Chapter 8]], pandas has some tools, in particular =cut= and =qcut=, for slicing data up into buckets with bins of your choosing or by sample quantiles. Combining these functions with =groupby= makes it convenient to perform bucket or quantile analysis on a dataset. Consider a simple random dataset and an equal-length bucket categorization using =cut=:
 
@@ -1022,16 +974,13 @@ These were equal-length buckets; to compute equal-size buckets based on sample q
 
 We will take a closer look at pandas's =Categorical= type in [[file:part0014_split_000.html#DB7S3-74490f30505748fab61c1c3ee3dc2f27][Chapter 12]].
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_fill_group_mean>>
+
+
+
 ** Example: Filling Missing Values with Group-Specific Values
-   :PROPERTIES:
-   :CUSTOM_ID: BEADA-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 When cleaning up missing data, in some cases you will replace data observations using =dropna=, but in others you may want to impute (fill in) the null (NA) values using a fixed value or some value derived from the data. =fillna= is the right tool to use; for example, here I fill in NA values with the mean:
 
@@ -1148,16 +1097,13 @@ In another case, you might have predefined fill values in your code that vary by
     dtype: float64
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_sampling>>
+
+
+
 ** Example: Random Sampling and Permutation
-   :PROPERTIES:
-   :CUSTOM_ID: BEAQI-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Suppose you wanted to draw a random sample (with or without replacement) from a large dataset for Monte Carlo simulation purposes or some other application. There are a number of ways to perform the “draws”; here we use the =sample= method for Series.
 
@@ -1246,16 +1192,13 @@ Alternatively, we could write:
     dtype: int64
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_wavg>>
+
+
+
 ** Example: Group Weighted Average and Correlation
-   :PROPERTIES:
-   :CUSTOM_ID: BEB50-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Under the split-apply-combine paradigm of =groupby=, operations between columns in a DataFrame or two Series, such as a group weighted average, are possible. As an example, take this dataset containing group keys, values, and some weights:
 
@@ -1369,16 +1312,13 @@ You could also compute inter-column correlations. Here we compute the annual cor
     dtype: float64
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_apply>>
 
-<<groupby_apply_linreg>>
+
+
+
 ** Example: Group-Wise Linear Regression
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_16
-   :CLASS: calibre20
-   :END:
+
 
 In the same theme as the previous example, you can use =groupby= to perform more complex group-wise statistical analysis, as long as the function returns a pandas object or scalar value. For example, I can define the following =regress= function (using the =statsmodels= econometrics library), which executes an ordinary least squares (OLS) regression on each chunk of data:
 
@@ -1409,14 +1349,11 @@ Now, to run a yearly linear regression of =AAPL= on =SPX= returns, execute:
     2011  0.806605   0.001514
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby_pivot_table>>
+
+
 * 10.4 Pivot Tables and Cross-Tabulation
-  :PROPERTIES:
-  :CUSTOM_ID: BEBOG-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 A /pivot table/ is a data summarization tool frequently found in spreadsheet programs and other data analysis software. It aggregates a table of data by one or more keys, arranging the data in a rectangle with some of the group keys along the rows and some along the columns. Pivot tables in Python with pandas are made possible through the =groupby= facility described in this chapter combined with reshape operations utilizing hierarchical indexing. DataFrame has a =pivot_table= method, and there is also a top-level =pandas.pivot_table= function. In addition to providing a convenience interface to =groupby=, =pivot_table= can add partial totals, also known as /margins/.
 
@@ -1534,16 +1471,13 @@ See [[file:part0012_split_017.html#table_pivot_table][Table 10-2]] for a summar
 | =margins=       | Add row/column subtotals and grand total (=False= by default)                                                     |
 #+CAPTION: Table 10-2. pivot\_table options
 
-<<groupby>>
 
-<<groupby_pivot_table>>
 
-<<groupby_crosstab>>
+
+
+
 ** Cross-Tabulations: Crosstab
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_18
-   :CLASS: calibre20
-   :END:
+
 
 A cross-tabulation (or /crosstab/ for short) is a special case of a pivot table that computes group frequencies. Here is an example:
 
@@ -1591,14 +1525,9 @@ The first two arguments to =crosstab= can each either be an array or Series or a
     All          151   93  244
 #+END_EXAMPLE
 
-<<groupby>>
 
-<<groupby-summary>>
 * 10.5 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_19
-  :CLASS: calibre8
-  :END:
+
 
 Mastering pandas's data grouping tools can help both with data cleaning as well as modeling or statistical analysis work. In [[file:part0016_split_000.html#F8903-74490f30505748fab61c1c3ee3dc2f27][Chapter 14]] we will look at several more example use cases for =groupby= on real data.
 

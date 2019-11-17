@@ -1,22 +1,13 @@
-<<io>>
+
 * Chapter 6. Data Loading, Storage, and File Formats
-  :PROPERTIES:
-  :CUSTOM_ID: 7K4G3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
 
 Accessing data is a necessary first step for using most of the tools in this book. I'm going to be focused on data input and output using pandas, though there are numerous tools in other libraries to help with reading and writing data in various formats.
 
 Input and output typically falls into a few main categories: reading text files and other more efficient on-disk formats, loading data from databases, and interacting with network sources like web APIs.
 
-<<io>>
 
-<<io_flat_files>>
 * 6.1 Reading and Writing Data in Text Format
-  :PROPERTIES:
-  :CUSTOM_ID: 7K4GA-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 pandas features a number of functions for reading tabular data as a DataFrame object. [[file:part0008_split_001.html#table_parsing_functions][Table 6-1]] summarizes some of them, though =read_csv= and =read_table= are likely the ones you'll use the most.
 
@@ -92,10 +83,7 @@ Handling dates and other custom types can require extra effort. Let's start with
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 Here I used the Unix =cat= shell command to print the raw contents of the file to the screen. If you're on Windows, you can use =type= instead of =cat= to achieve the same effect.
 
@@ -322,16 +310,13 @@ Different NA sentinels can be specified for each column in a dict:
 | =thousands=            | Separator for thousands (e.g., =','= or ='.'=).                                                                                                                                                                                                                                                                        |
 #+CAPTION: Table 6-2. Some read\_csv/read\_table function arguments
 
-<<io>>
 
-<<io_flat_files>>
 
-<<pandas_file_chunking>>
+
+
+
 ** Reading Text Files in Pieces
-   :PROPERTIES:
-   :CUSTOM_ID: 7K5FE-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 When processing very large files or figuring out the right set of arguments to correctly process a large file, you may only want to read in a small piece of a file or iterate through smaller chunks of the file.
 
@@ -417,16 +402,13 @@ We have then:
 
 =TextParser= is also equipped with a =get_chunk= method that enables you to read pieces of an arbitrary size.
 
-<<io>>
 
-<<io_flat_files>>
 
-<<pandas_text_writing>>
+
+
+
 ** Writing Data to Text Format
-   :PROPERTIES:
-   :CUSTOM_ID: 7K5QC-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Data can also be exported to a delimited format. Let's consider one of the CSV files read before:
 
@@ -513,16 +495,13 @@ Series also has a =to_csv= method:
     2000-01-07,6
 #+END_EXAMPLE
 
-<<io>>
 
-<<io_flat_files>>
 
-<<io_file_formats_csv>>
+
+
+
 ** Working with Delimited Formats
-   :PROPERTIES:
-   :CUSTOM_ID: 7K69E-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 It's possible to load most forms of tabular data from disk using functions like =pandas.read_table=. In some cases, however, some manual processing may be necessary. It's not uncommon to receive a file with one or more malformed lines that trip up =read_table=. To illustrate the basic tools, consider a small CSV file:
 
@@ -610,10 +589,7 @@ The possible options (attributes of =csv.Dialect=) and what they do can be found
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
 
 For files with more complicated or fixed multicharacter delimiters, you will not be able to use the =csv= module. In those cases, you'll have to do the line splitting and other cleanup using string's =split= method or the regular expression method =re.split=.
 
@@ -630,16 +606,13 @@ To /write/ delimited files manually, you can use =csv.writer=. It accepts an ope
         writer.writerow(('7', '8', '9'))
 #+END_EXAMPLE
 
-<<io>>
 
-<<io_flat_files>>
 
-<<io_format_json>>
+
+
+
 ** JSON Data
-   :PROPERTIES:
-   :CUSTOM_ID: 7K6K0-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 JSON (short for JavaScript Object Notation) has become one of the standard formats for sending data by HTTP request between web browsers and other applications. It is a much more free-form data format than a tabular text form like CSV. Here is an example:
 
@@ -723,16 +696,13 @@ If you need to export data from pandas to JSON, one way is to use the =to_json= 
     [{"a":1,"b":2,"c":3},{"a":4,"b":5,"c":6},{"a":7,"b":8,"c":9}]
 #+END_EXAMPLE
 
-<<io>>
 
-<<io_flat_files>>
 
-<<io_file_formats_html_xml>>
+
+
+
 ** XML and HTML: Web Scraping
-   :PROPERTIES:
-   :CUSTOM_ID: 7K6VK-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Python has many libraries for reading and writing data in the ubiquitous HTML and XML formats. Examples include [[http://lxml.de][lxml]], Beautiful Soup, and html5lib. While lxml is comparatively much faster in general, the other libraries can better handle malformed HTML or XML files.
 
@@ -794,12 +764,9 @@ As you will learn in later chapters, from here we could proceed to do some data 
     Name: Closing Date, Length: 15, dtype: int64
 #+END_EXAMPLE
 
-<<io_file_formats_xml>>
+
 *** Parsing XML with lxml.objectify
-    :PROPERTIES:
-    :CUSTOM_ID: 7K77F-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 XML (eXtensible Markup Language) is another common structured data format supporting hierarchical, nested data with metadata. The book you are currently reading was actually created from a series of large XML documents.
 
@@ -891,14 +858,11 @@ You can now access any of the fields (like =href=) in the tag or the link text:
     Out[86]: 'Google'
 #+END_EXAMPLE
 
-<<io>>
 
-<<io_binary>>
+
+
 * 6.2 Binary Data Formats
-  :PROPERTIES:
-  :CUSTOM_ID: 7K7EV-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 One of the easiest ways to store data (also known as /serialization/) efficiently in binary format is using Python's built-in =pickle= serialization. pandas objects all have a =to_pickle= method that writes the data to disk in pickle format:
 
@@ -929,10 +893,7 @@ You can read any “pickled” object stored in a file by using the built-in =pi
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+
 
 =pickle= is only recommended as a short-term storage format. The problem is that it is hard to guarantee that the format will be stable over time; an object pickled today may not unpickle with a later version of a library. We have tried to maintain backward compatibility when possible, but at some point in the future it may be necessary to “break” the pickle format.
 
@@ -954,16 +915,13 @@ pandas has built-in support for two more binary data formats: HDF5 and MessagePa
   A cross-language column-oriented file format I designed with the R programming community's [[http://hadley.nz/][Hadley Wickham]]. Feather uses the [[http://apache.arrow.org][Apache Arrow]] columnar memory format.
 #+END_QUOTE
 
-<<io>>
 
-<<io_binary>>
 
-<<io_hdf5>>
+
+
+
 ** Using HDF5 Format
-   :PROPERTIES:
-   :CUSTOM_ID: 7K7J5-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 HDF5 is a well-regarded file format intended for storing large quantities of scientific array data. It is available as a C library, and it has interfaces available in many other languages, including Java, Julia, MATLAB, and Python. The “HDF” in HDF5 stands for /hierarchical data format/. Each HDF5 file can store multiple datasets and supporting metadata. Compared with simpler formats, HDF5 supports on-the-fly compression with a variety of compression modes, enabling data with repeated patterns to be stored more efficiently. HDF5 can be a good choice for working with very large datasets that don't fit into memory, as you can efficiently read and write small sections of much larger arrays.
 
@@ -1050,10 +1008,7 @@ The =pandas.read_hdf= function gives you a shortcut to these tools:
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+
 
 If you are processing data that is stored on remote servers, like Amazon S3 or HDFS, using a different binary format designed for distributed storage like [[http://parquet.apache.org][Apache Parquet]] may be more suitable. Python for Parquet and other such storage formats is still developing, so I do not write about them in this book.
 
@@ -1064,25 +1019,19 @@ If you work with large quantities of data locally, I would encourage you to expl
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+
 
 HDF5 is /not/ a database. It is best suited for write-once, read-many datasets. While data can be added to a file at any time, if multiple writers do so simultaneously, the file can become corrupted.
 
 --------------
 
-<<io>>
 
-<<io_binary>>
 
-<<pandas_excel_files>>
+
+
+
 ** Reading Microsoft Excel Files
-   :PROPERTIES:
-   :CUSTOM_ID: 7K7TN-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 pandas also supports reading tabular data stored in Excel 2003 (and higher) files using either the =ExcelFile= class or =pandas.read_excel= function. Internally these tools use the add-on packages =xlrd= and =openpyxl= to read XLS and XLSX files, respectively. You may need to install these manually with pip or conda.
 
@@ -1132,14 +1081,11 @@ You can also pass a file path to =to_excel= and avoid the =ExcelWriter=:
     In [111]: frame.to_excel('examples/ex2.xlsx')
 #+END_EXAMPLE
 
-<<io>>
 
-<<io_web_apis>>
+
+
 * 6.3 Interacting with Web APIs
-  :PROPERTIES:
-  :CUSTOM_ID: 7K83H-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Many websites have public APIs providing data feeds via JSON or some other format. There are a number of ways to access these APIs from Python; one easy-to-use method that I recommend is the [[http://docs.python-requests.org][=requests= package]].
 
@@ -1202,14 +1148,11 @@ Each element in =data= is a dictionary containing all of the data found on a Git
 
 With a bit of elbow grease, you can create some higher-level interfaces to common web APIs that return DataFrame objects for easy analysis.
 
-<<io>>
 
-<<io_databases>>
+
+
 * 6.4 Interacting with Databases
-  :PROPERTIES:
-  :CUSTOM_ID: 7K8DE-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 In a business setting, most data may not be stored in text or Excel files. SQL-based relational databases (such as SQL Server, PostgreSQL, and MySQL) are in wide use, and many alternative databases have become quite popular. The choice of database is usually dependent on the performance, data integrity, and scalability needs of an application.
 
@@ -1294,14 +1237,7 @@ This is quite a bit of munging that you'd rather not repeat each time you query 
     2   Sacramento  California  1.70  5
 #+END_EXAMPLE
 
-<<io>>
-
-<<io_wrapping_up>>
 * 6.5 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_12
-  :CLASS: calibre8
-  :END:
 
 Getting access to data is frequently the first step in the data analysis process. We have looked at a number of useful tools in this chapter that should help you get started. In the upcoming chapters we will dig deeper into data wrangling, data visualization, time series analysis, and other topics.
 

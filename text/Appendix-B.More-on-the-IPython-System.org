@@ -1,9 +1,506 @@
-* Appendix B More on the IPython System
+* IPython Basics
+In this section, we'll get you up and running with the IPython shell and Jupyter notebook, and introduce you to some of the essential concepts.
+
+** Running the IPython Shell
+
+You can launch the IPython shell on the command line just like launching the regular Python interpreter except with the =ipython= command:
+
+#+BEGIN_EXAMPLE
+    $ ipython
+    Python 3.6.0 | packaged by conda-forge | (default, Jan 13 2017, 23:17:12)
+    Type "copyright", "credits" or "license" for more information.
+
+    IPython 5.1.0 -- An enhanced Interactive Python.
+    ?         -> Introduction and overview of IPython's features.
+    %quickref -> Quick reference.
+    help      -> Python's own help system.
+    object?   -> Details about 'object', use 'object??' for extra details.
+
+    In [1]: a = 5
+
+    In [2]: a
+    Out[2]: 5
+#+END_EXAMPLE
+
+You can execute arbitrary Python statements by typing them in and pressing Return (or Enter). When you type just a variable into IPython, it renders a string representation of the object:
+
+#+BEGIN_EXAMPLE
+    In [5]: import numpy as np
+
+    In [6]: data = {i : np.random.randn() for i in range(7)}
+
+    In [7]: data
+    Out[7]:
+    {0: -0.20470765948471295,
+     1: 0.47894333805754824,
+     2: -0.5194387150567381,
+     3: -0.55573030434749,
+     4: 1.9657805725027142,
+     5: 1.3934058329729904,
+     6: 0.09290787674371767}
+#+END_EXAMPLE
+
+The first two lines are Python code statements; the second statement creates a variable named =data= that refers to a newly created Python dictionary. The last line prints the value of =data= in the console.
+
+Many kinds of Python objects are formatted to be more readable, or /pretty-printed/, which is distinct from normal printing with =print=. If you printed the above =data= variable in the standard Python interpreter, it would be much less readable:
+
+#+BEGIN_EXAMPLE
+    >>> from numpy.random import randn
+    >>> data = {i : randn() for i in range(7)}
+    >>> print(data)
+    {0: -1.5948255432744511, 1: 0.10569006472787983, 2: 1.972367135977295,
+    3: 0.15455217573074576, 4: -0.24058577449429575, 5: -1.2904897053651216,
+    6: 0.3308507317325902}
+#+END_EXAMPLE
+
+IPython also provides facilities to execute arbitrary blocks of code (via a somewhat glorified copy-and-paste approach) and whole Python scripts. You can also use the Jupyter notebook to work with larger blocks of code, as we'll soon see.
+
+** Running the Jupyter Notebook
+
+One of the major components of the Jupyter project is the /notebook/, a type of interactive document for code, text (with or without markup), data visualizations, and other output. The Jupyter notebook interacts with /kernels/, which are implementations of the Jupyter interactive computing protocol in any number of programming languages. Python's Jupyter kernel uses the IPython system for its underlying behavior.
+
+To start up Jupyter, run the command =jupyter notebook= in a terminal:
+
+#+BEGIN_EXAMPLE
+    $ jupyter notebook
+    [I 15:20:52.739 NotebookApp] Serving notebooks from local directory:
+    /home/wesm/code/pydata-book
+    [I 15:20:52.739 NotebookApp] 0 active kernels
+    [I 15:20:52.739 NotebookApp] The Jupyter Notebook is running at:
+    http://localhost:8888/
+    [I 15:20:52.740 NotebookApp] Use Control-C to stop this server and shut down
+    all kernels (twice to skip confirmation).
+    Created new window in existing browser session.
+#+END_EXAMPLE
+
+On many platforms, Jupyter will automatically open up in your default web browser (unless you start it with =--no-browser=). Otherwise, you can navigate to the HTTP address printed when you started the notebook, here =http://localhost:8888/=. See [[file:part0004_split_004.html#figure_jupyter_landing][Figure 2-1]] for what this looks like in Google Chrome.
+
+--------------
+
+*** Note
+
+Many people use Jupyter as a local computing environment, but it can also be deployed on servers and accessed remotely. I won't cover those details here, but encourage you to explore this topic on the internet if it's relevant to your needs.
+
+[[../images/00001.jpeg]]
+
+[default]” option. You should see something like [[file:part0004_split_004.html#figure_jupyter_new_nb][Figure 2-2]]. If this is your first time, try clicking on the empty code “cell” and entering a line of Python code. Then press Shift-Enter to execute it.
+
+[[../images/00002.jpeg]]
+
+When you save the notebook (see “Save and Checkpoint” under the notebook File menu), it creates a file with the extension /.ipynb/. This is a self-contained file format that contains all of the content (including any evaluated code output) currently in the notebook. These can be loaded and edited by other Jupyter users. To load an existing notebook, put the file in the same directory where you started the notebook process (or in a subfolder within it), then double-click the name from the landing page. You can try it out with the notebooks from my /wesm/pydata-book/ repository on GitHub. See [[file:part0004_split_004.html#figure_jupyter_existing_nb][Figure 2-3]].
+
+While the Jupyter notebook can feel like a distinct experience from the IPython shell, nearly all of the commands and tools in this chapter can be used in either environment.
+
+[[../images/00003.jpeg]]
+
+** Tab Completion
+
+On the surface, the IPython shell looks like a cosmetically different version of the standard terminal Python interpreter (invoked with =python=). One of the major improvements over the standard Python shell is /tab completion/, found in many IDEs or other interactive computing analysis environments. While entering expressions in the shell, pressing the Tab key will search the namespace for any variables (objects, functions, etc.) matching the characters you have typed so far:
+
+#+BEGIN_EXAMPLE
+    In [1]: an_apple = 27
+
+    In [2]: an_example = 42
+
+    In [3]: an<Tab>
+    an_apple    and         an_example  any
+#+END_EXAMPLE
+
+In this example, note that IPython displayed both the two variables I defined as well as the Python keyword =and= and built-in function =any=. Naturally, you can also complete methods and attributes on any object after typing a period:
+
+#+BEGIN_EXAMPLE
+    In [3]: b = [1, 2, 3]
+
+    In [4]: b.<Tab>
+    b.append  b.count   b.insert  b.reverse
+    b.clear   b.extend  b.pop     b.sort
+    b.copy    b.index   b.remove
+#+END_EXAMPLE
+
+The same goes for modules:
+
+#+BEGIN_EXAMPLE
+    In [1]: import datetime
+
+    In [2]: datetime.<Tab>
+    datetime.date          datetime.MAXYEAR       datetime.timedelta
+    datetime.datetime      datetime.MINYEAR       datetime.timezone
+    datetime.datetime_CAPI datetime.time          datetime.tzinfo
+#+END_EXAMPLE
+
+In the Jupyter notebook and newer versions of IPython (5.0 and higher), the autocompletions show up in a drop-down box rather than as text output.
+
+--------------
+
+*** Note
+
+
+Note that IPython by default hides methods and attributes starting with underscores, such as magic methods and internal “private” methods and attributes, in order to avoid cluttering the display (and confusing novice users!). These, too, can be tab-completed, but you must first type an underscore to see them. If you prefer to always see such methods in tab completion, you can change this setting in the IPython configuration. See the IPython documentation to find out how to do this.
+
+--------------
+
+Tab completion works in many contexts outside of searching the interactive namespace and completing object or module attributes. When typing anything that looks like a file path (even in a Python string), pressing the Tab key will complete anything on your computer's filesystem matching what you've typed:
+
+#+BEGIN_EXAMPLE
+    In [7]: datasets/movielens/<Tab>
+    datasets/movielens/movies.dat    datasets/movielens/README
+    datasets/movielens/ratings.dat   datasets/movielens/users.dat
+
+    In [7]: path = 'datasets/movielens/<Tab>
+    datasets/movielens/movies.dat    datasets/movielens/README
+    datasets/movielens/ratings.dat   datasets/movielens/users.dat
+#+END_EXAMPLE
+
+Combined with the =%run= command (see [[file:part0004_split_007.html#ipython_basics_magic_run][“The %run Command”]]), this functionality can save you many keystrokes.
+
+Another area where tab completion saves time is in the completion of function keyword arguments (and including the === sign!). See [[file:part0004_split_005.html#figure_jupyter_autocomplete_keywords][Figure 2-4]].
+
+[[../images/00004.jpeg]]
+
+We'll have a closer look at functions in a little bit.
+
+
+
+
+** Introspection
+
+Using a question mark (=?=) before or after a variable will display some general information about the object:
+
+#+BEGIN_EXAMPLE
+    In [8]: b = [1, 2, 3]
+
+    In [9]: b?
+    Type:       list
+    String Form:[1, 2, 3]
+    Length:     3
+    Docstring:
+    list() -> new empty list
+    list(iterable) -> new list initialized from iterable's items
+
+    In [10]: print?
+    Docstring:
+    print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+    Prints the values to a stream, or to sys.stdout by default.
+    Optional keyword arguments:
+    file:  a file-like object (stream); defaults to the current sys.stdout.
+    sep:   string inserted between values, default a space.
+    end:   string appended after the last value, default a newline.
+    flush: whether to forcibly flush the stream.
+    Type:      builtin_function_or_method
+#+END_EXAMPLE
+
+This is referred to as /object introspection/. If the object is a function or instance method, the docstring, if defined, will also be shown. Suppose we'd written the following function (which you can reproduce in IPython or Jupyter):
+
+#+BEGIN_EXAMPLE
+    def add_numbers(a, b):
+        """
+        Add two numbers together
+
+        Returns
+        -------
+        the_sum : type of arguments
+        """
+        return a + b
+#+END_EXAMPLE
+
+Then using =?= shows us the docstring:
+
+#+BEGIN_EXAMPLE
+    In [11]: add_numbers?
+    Signature: add_numbers(a, b)
+    Docstring:
+    Add two numbers together
+
+    Returns
+    -------
+    the_sum : type of arguments
+    File:      <ipython-input-9-6a548a216e27>
+    Type:      function
+#+END_EXAMPLE
+
+Using =??= will also show the function's source code if possible:
+
+#+BEGIN_EXAMPLE
+    In [12]: add_numbers??
+    Signature: add_numbers(a, b)
+    Source:
+    def add_numbers(a, b):
+        """
+        Add two numbers together
+
+        Returns
+        -------
+        the_sum : type of arguments
+        """
+        return a + b
+    File:      <ipython-input-9-6a548a216e27>
+    Type:      function
+#+END_EXAMPLE
+
+=?= has a final usage, which is for searching the IPython namespace in a manner similar to the standard Unix or Windows command line. A number of characters combined with the wildcard (=*=) will show all names matching the wildcard expression. For example, we could get a list of all functions in the top-level NumPy namespace containing =load=:
+
+#+BEGIN_EXAMPLE
+    In [13]: np.*load*?
+    np.__loader__
+    np.load
+    np.loads
+    np.loadtxt
+    np.pkgload
+#+END_EXAMPLE
+
+** The %run Command
+
+You can run any file as a Python program inside the environment of your IPython session using the =%run= command. Suppose you had the following simple script stored in /ipython\_script\_test.py/:
+
+#+BEGIN_EXAMPLE
+    def f(x, y, z):
+        return (x + y) / z
+
+    a = 5
+    b = 6
+    c = 7.5
+
+    result = f(a, b, c)
+#+END_EXAMPLE
+
+You can execute this by passing the filename to =%run=:
+
+#+BEGIN_EXAMPLE
+    In [14]: %run ipython_script_test.py
+#+END_EXAMPLE
+
+The script is run in an /empty namespace/ (with no imports or other variables defined) so that the behavior should be identical to running the program on the command line using =python script.py=. All of the variables (imports, functions, and globals) defined in the file (up until an exception, if any, is raised) will then be accessible in the IPython shell:
+
+#+BEGIN_EXAMPLE
+    In [15]: c
+    Out [15]: 7.5
+
+    In [16]: result
+    Out[16]: 1.4666666666666666
+#+END_EXAMPLE
+
+If a Python script expects command-line arguments (to be found in =sys.argv=), these can be passed after the file path as though run on the command line.
+
+*** Note
+
+
+Should you wish to give a script access to variables already defined in the interactive IPython namespace, use =%run -i= instead of plain =%run=.
+
+--------------
+
+In the Jupyter notebook, you may also use the related =%load= magic function, which imports a script into a code cell:
+
+#+BEGIN_EXAMPLE
+    >>> %load ipython_script_test.py
+
+        def f(x, y, z):
+            return (x + y) / z
+
+        a = 5
+        b = 6
+        c = 7.5
+
+        result = f(a, b, c)
+#+END_EXAMPLE
+
+*** Interrupting running code
+
+
+Pressing Ctrl-C while any code is running, whether a script through =%run= or a long-running command, will cause a =KeyboardInterrupt= to be raised. This will cause nearly all Python programs to stop immediately except in certain unusual cases.
+
+--------------
+
+*** Warning
+
+
+When a piece of Python code has called into some compiled extension modules, pressing Ctrl-C will not always cause the program execution to stop immediately. In such cases, you will have to either wait until control is returned to the Python interpreter, or in more dire circumstances, forcibly terminate the Python process.
+
+--------------
+
+
+
+
+** Executing Code from the Clipboard
+
+
+If you are using the Jupyter notebook, you can copy and paste code into any code cell and execute it. It is also possible to run code from the clipboard in the IPython shell. Suppose you had the following code in some other application:
+
+#+BEGIN_EXAMPLE
+    x = 5
+    y = 7
+    if x > 5:
+        x += 1
+
+        y = 8
+#+END_EXAMPLE
+
+The most foolproof methods are the =%paste= and =%cpaste= magic functions. =%paste= takes whatever text is in the clipboard and executes it as a single block in the shell:
+
+#+BEGIN_EXAMPLE
+    In [17]: %paste
+    x = 5
+    y = 7
+    if x > 5:
+        x += 1
+
+        y = 8
+    ## -- End pasted text --
+#+END_EXAMPLE
+
+=%cpaste= is similar, except that it gives you a special prompt for pasting code into:
+
+#+BEGIN_EXAMPLE
+    In [18]: %cpaste
+    Pasting code; enter '--' alone on the line to stop or use Ctrl-D.
+    :x = 5
+    :y = 7
+    :if x > 5:
+    :    x += 1
+    :
+    :    y = 8
+    :--
+#+END_EXAMPLE
+
+With the =%cpaste= block, you have the freedom to paste as much code as you like before executing it. You might decide to use =%cpaste= in order to look at the pasted code before executing it. If you accidentally paste the wrong code, you can break out of the =%cpaste= prompt by pressing Ctrl-C.
+
+** Terminal Keyboard Shortcuts
+
+
+IPython has many keyboard shortcuts for navigating the prompt (which will be familiar to users of the Emacs text editor or the Unix bash shell) and interacting with the shell's command history. [[file:part0004_split_009.html#table_kbd_shortcuts][Table 2-1]] summarizes some of the most commonly used shortcuts. See [[file:part0004_split_009.html#figure_ipython_keyboard][Figure 2-5]] for an illustration of a few of these, such as cursor movement.
+
+[[../images/00005.gif]]
+
+#+CAPTION: Table 2-1. Standard IPython keyboard shortcuts
+| Keyboard shortcut    | Description                               |
+|----------------------+-------------------------------------------|
+| Ctrl-P or up-arrow   | Search backward in command history        |
+| Ctrl-N or down-arrow | Search forward in command history f       |
+| Ctrl-R               | Readline-style reverse history search     |
+| Ctrl-Shift-V         | Paste text from clipboard                 |
+| Ctrl-C               | Interrupt currently executing code        |
+| Ctrl-A               | Move cursor to beginning of line          |
+| Ctrl-E               | Move cursor to end of line                |
+| Ctrl-K               | Delete text from cursor until end of line |
+| Ctrl-U               | Discard all text on current line          |
+| Ctrl-F               | Move cursor forward one character         |
+| Ctrl-B               | Move cursor back one character            |
+| Ctrl-L               | Clear screen                              |
+
+
+Note that Jupyter notebooks have a largely separate set of keyboard shortcuts for navigation and editing. Since these shortcuts have evolved more rapidly than IPython's, I encourage you to explore the integrated help system in the Jupyter notebook's menus.
+
+** About Magic Commands
+
+
+IPython's special commands (which are not built into Python itself) are known as “magic” commands. These are designed to facilitate common tasks and enable you to easily control the behavior of the IPython system. A magic command is any command prefixed by the percent symbol =%=. For example, you can check the execution time of any Python statement, such as a matrix multiplication, using the =%timeit= magic function (which will be discussed in more detail later):
+
+#+BEGIN_EXAMPLE
+    In [20]: a = np.random.randn(100, 100)
+
+    In [20]: %timeit np.dot(a, a)
+    10000 loops, best of 3: 20.9 µs per loop
+#+END_EXAMPLE
+
+Magic commands can be viewed as command-line programs to be run within the IPython system. Many of them have additional “command-line” options, which can all be viewed (as you might expect) using =?=:
+
+#+BEGIN_EXAMPLE
+    In [21]: %debug?
+    Docstring:
+    ::
+
+      %debug [--breakpoint FILE:LINE] [statement [statement ...]]
+
+    Activate the interactive debugger.
+
+    This magic command support two ways of activating debugger.
+    One is to activate debugger before executing code.  This way, you
+    can set a break point, to step through the code from the point.
+    You can use this mode by giving statements to execute and optionally
+    a breakpoint.
+
+    The other one is to activate debugger in post-mortem mode.  You can
+    activate this mode simply running %debug without any argument.
+    If an exception has just occurred, this lets you inspect its stack
+    frames interactively.  Note that this will always work only on the last
+    traceback that occurred, so you must call this quickly after an
+    exception that you wish to inspect has fired, because if another one
+    occurs, it clobbers the previous one.
+
+    If you want IPython to automatically do this on every exception, see
+    the %pdb magic for more details.
+
+    positional arguments:
+      statement             Code to run in debugger. You can omit this in cell
+                            magic mode.
+
+    optional arguments:
+      --breakpoint <FILE:LINE>, -b <FILE:LINE>
+                            Set break point at LINE in FILE.
+#+END_EXAMPLE
+
+Magic functions can be used by default without the percent sign, as long as no variable is defined with the same name as the magic function in question. This feature is called /automagic/ and can be enabled or disabled with =%automagic=.
+
+Some magic functions behave like Python functions and their output can be assigned to a variable:
+
+#+BEGIN_EXAMPLE
+    In [22]: %pwd
+    Out[22]: '/home/wesm/code/pydata-book
+
+    In [23]: foo = %pwd
+
+    In [24]: foo
+    Out[24]: '/home/wesm/code/pydata-book'
+#+END_EXAMPLE
+
+Since IPython's documentation is accessible from within the system, I encourage you to explore all of the special commands available by typing =%quickref= or =%magic=. [[file:part0004_split_010.html#ipython_magic_table][Table 2-2]] highlights some of the most critical ones for being productive in interactive computing and Python development in IPython.
+
+| Command                   | Description                                                                                                                           |
+|---------------------------+---------------------------------------------------------------------------------------------------------------------------------------|
+| =%quickref=               | Display the IPython Quick Reference Card                                                                                              |
+| =%magic=                  | Display detailed documentation for all of the available magic commands                                                                |
+| =%debug=                  | Enter the interactive debugger at the bottom of the last exception traceback                                                          |
+| =%hist=                   | Print command input (and optionally output) history                                                                                   |
+| =%pdb=                    | Automatically enter debugger after any exception                                                                                      |
+| =%paste=                  | Execute preformatted Python code from clipboard                                                                                       |
+| =%cpaste=                 | Open a special prompt for manually pasting Python code to be executed                                                                 |
+| =%reset=                  | Delete all variables/names defined in interactive namespace                                                                           |
+| =%page= /=OBJECT=/        | Pretty-print the object and display it through a pager                                                                                |
+| =%run= /=script.py=/      | Run a Python script inside IPython                                                                                                    |
+| =%prun= /=statement=/     | Execute /=statement=/ with =cProfile= and report the profiler output                                                                  |
+| =%time= /=statement=/     | Report the execution time of a single statement                                                                                       |
+| =%timeit= /=statement=/   | Run a statement multiple times to compute an ensemble average execution time; useful for timing code with very short execution time   |
+| =%who, %who_ls, %whos=    | Display variables defined in interactive namespace, with varying levels of information/verbosity                                      |
+| =%xdel= /=variable=/      | Delete a variable and attempt to clear any references to the object in the IPython internals                                          |
+#+CAPTION: Table 2-2. Some frequently used IPython magic commands
+
+
+
+** Matplotlib Integration
+
+One reason for IPython's popularity in analytical computing is that it integrates well with data visualization and other user interface libraries like matplotlib. Don't worry if you have never used matplotlib before; it will be discussed in more detail later in this book. The =%matplotlib= magic function configures its integration with the IPython shell or Jupyter notebook. This is important, as otherwise plots you create will either not appear (notebook) or take control of the session until closed (shell).
+
+In the IPython shell, running =%matplotlib= sets up the integration so you can create multiple plot windows without interfering with the console session:
+
+#+BEGIN_EXAMPLE
+    In [26]: %matplotlib
+    Using matplotlib backend: Qt4Agg
+#+END_EXAMPLE
+
+In Jupyter, the command is a little different ([[file:part0004_split_011.html#figure_jupyter_matplotlib_inline][Figure 2-6]]):
+
+#+BEGIN_EXAMPLE
+    In [26]: %matplotlib inline
+#+END_EXAMPLE
+
+[[../images/00006.jpeg]]
+
+* More on the IPython System
 
 In [[file:part0004_split_000.html#3Q283-74490f30505748fab61c1c3ee3dc2f27][Chapter 2]] we looked at the basics of using the IPython shell and Jupyter notebook. In this chapter, we explore some deeper functionality in the IPython system that can either be used from the console or within Jupyter.
 # 总结
 1. %bookmark
-2. %prun cProfile, 
+2. %prun cProfile,
 
 * B.1 Using the Command History
 

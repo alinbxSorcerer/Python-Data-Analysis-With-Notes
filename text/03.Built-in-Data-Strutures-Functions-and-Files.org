@@ -1,35 +1,14 @@
-<<intro-python-stdlib>>
+
 * Chapter 3. Built-in Data Structures, Functions, and Files
-  :PROPERTIES:
-  :CUSTOM_ID: 4OIQ3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
 
 This chapter discusses capabilities built into the Python language that will be used ubiquitously throughout the book. While add-on libraries like pandas and NumPy add advanced computational functionality for larger datasets, they are designed to be used together with Python's built-in data manipulation tools.
 
 We'll start with Python's workhorse data structures: tuples, lists, dicts, and sets. Then, we'll discuss creating your own reusable Python functions. Finally, we'll look at the mechanics of Python file objects and interacting with your local hard drive.
 
-<<intro-python-stdlib>>
-
-<<tut_data_structures>>
 * 3.1 Data Structures and Sequences
-  :PROPERTIES:
-  :CUSTOM_ID: 4OIQA-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 Python's data structures are simple but powerful. Mastering their use is a critical part of becoming a proficient Python programmer.
-
-<<intro-python-stdlib>>
-
-<<tut_data_structures>>
-
-<<tuple>>
 ** Tuple
-   :PROPERTIES:
-   :CUSTOM_ID: 4OIQF-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 A tuple is a fixed-length, immutable sequence of Python objects. The easiest way to create one is with a comma-separated sequence of values:
 
@@ -106,12 +85,8 @@ Multiplying a tuple by an integer, as with lists, has the effect of concatenatin
 
 Note that the objects themselves are not copied, only the references to them.
 
-<<tuple_unpacking>>
+
 *** Unpacking tuples
-    :PROPERTIES:
-    :CUSTOM_ID: 4OJ4U-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
 
 If you try to /assign/ to a tuple-like expression of variables, Python will attempt to /unpack/ the value on the righthand side of the equals sign:
 
@@ -197,12 +172,7 @@ This =rest= bit is sometimes something you want to discard; there is nothing spe
     In [33]: a, b, *_ = values
 #+END_EXAMPLE
 
-<<tuple_methods>>
 *** Tuple methods
-    :PROPERTIES:
-    :CUSTOM_ID: tuple-methods
-    :CLASS: calibre27
-    :END:
 
 Since the size and contents of a tuple cannot be modified, it is very light on instance methods. A particularly useful one (also available on lists) is =count=, which counts the number of occurrences of a value:
 
@@ -213,16 +183,14 @@ Since the size and contents of a tuple cannot be modified, it is very light on i
     Out[35]: 4
 #+END_EXAMPLE
 
-<<intro-python-stdlib>>
+#+begin_src ipython :session alinbx :results output
+tuple.
+#+end_src
 
-<<tut_data_structures>>
+#+RESULTS:
 
-<<list>>
+
 ** List
-   :PROPERTIES:
-   :CUSTOM_ID: 4OJGQ-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 In contrast with tuples, lists are variable-length and their contents can be modified in-place. You can define them using square brackets =[]= or using the =list= type function:
 
@@ -256,12 +224,9 @@ The =list= function is frequently used in data processing as a way to materializ
     Out[44]: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 #+END_EXAMPLE
 
-<<list_add_remove>>
+
 *** Adding and removing elements
-    :PROPERTIES:
-    :CUSTOM_ID: 4OJLK-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 Elements can be appended to the end of the list with the =append= method:
 
@@ -283,17 +248,9 @@ Using =insert= you can insert an element at a specific location in the list:
 
 The insertion index must be between 0 and the length of the list, inclusive.
 
---------------
-
-****** Warning
-       :PROPERTIES:
-       :CUSTOM_ID: warning
-       :CLASS: calibre18
-       :END:
+**** Warning
 
 =insert= is computationally expensive compared with =append=, because references to subsequent elements have to be shifted internally to make room for the new element. If you need to insert elements at both the beginning and end of a sequence, you may wish to explore =collections.deque=, a double-ended queue, for this purpose.
-
---------------
 
 The inverse operation to =insert= is =pop=, which removes and returns an element at a particular index:
 
@@ -337,12 +294,8 @@ The keyword =not= can be used to negate =in=:
 
 Checking whether a list contains a value is a lot slower than doing so with dicts and sets (to be introduced shortly), as Python makes a linear scan across the values of the list, whereas it can check the others (based on hash tables) in constant time.
 
-<<list_concat_combine>>
 *** Concatenating and combining lists
-    :PROPERTIES:
-    :CUSTOM_ID: concatenating-and-combining-lists
-    :CLASS: calibre27
-    :END:
+
 
 Similar to tuples, adding two lists together with =+= concatenates them:
 
@@ -378,12 +331,9 @@ is faster than the concatenative alternative:
         everything = everything + chunk
 #+END_EXAMPLE
 
-<<list_sorting>>
+
 *** Sorting
-    :PROPERTIES:
-    :CUSTOM_ID: sorting
-    :CLASS: calibre27
-    :END:
+
 
 You can sort a list in-place (without creating a new object) by calling its =sort= function:
 
@@ -409,12 +359,9 @@ You can sort a list in-place (without creating a new object) by calling its =sor
 
 Soon, we'll look at the =sorted= function, which can produce a sorted copy of a general sequence.
 
-<<list_binsearch>>
+
 *** Binary search and maintaining a sorted list
-    :PROPERTIES:
-    :CUSTOM_ID: binary-search-and-maintaining-a-sorted-list
-    :CLASS: calibre27
-    :END:
+
 
 The built-in =bisect= module implements binary search and insertion into a sorted list. =bisect.bisect= finds the location where an element should be inserted to keep it sorted, while =bisect.insort= actually inserts the element into that location:
 
@@ -438,21 +385,15 @@ The built-in =bisect= module implements binary search and insertion into a sorte
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+
 
 The =bisect= module functions do not check whether the list is sorted, as doing so would be computationally expensive. Thus, using them with an unsorted list will succeed without error but may lead to incorrect results.
 
 --------------
 
-<<list_slicing>>
+
 *** Slicing
-    :PROPERTIES:
-    :CUSTOM_ID: 4OK86-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 You can select sections of most sequence types by using slice notation, which in its basic form consists of =start:stop= passed to the indexing operator =[]=:
 
@@ -512,25 +453,16 @@ A clever use of this is to pass =-1=, which has the useful effect of reversing a
 
 [[../images/00008.gif]]
 
-<<intro-python-stdlib>>
 
-<<tut_data_structures>>
 
-<<sequence_functions>>
+
 ** Built-in Sequence Functions
-   :PROPERTIES:
-   :CUSTOM_ID: 4OKGU-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Python has a handful of useful sequence functions that you should familiarize yourself with and use at any opportunity.
 
-<<seq_enumerate>>
 *** enumerate
-    :PROPERTIES:
-    :CUSTOM_ID: enumerate
-    :CLASS: calibre27
-    :END:
+
 
 It's common when iterating over a sequence to want to keep track of the index of the current item. A do-it-yourself approach would look like:
 
@@ -562,12 +494,8 @@ When you are indexing data, a helpful pattern that uses =enumerate= is computing
     Out[86]: {'bar': 1, 'baz': 2, 'foo': 0}
 #+END_EXAMPLE
 
-<<seq_sorted>>
 *** sorted
-    :PROPERTIES:
-    :CUSTOM_ID: sorted
-    :CLASS: calibre27
-    :END:
+
 
 The =sorted= function returns a new sorted list from the elements of any sequence:
 
@@ -581,12 +509,8 @@ The =sorted= function returns a new sorted list from the elements of any sequenc
 
 The =sorted= function accepts the same arguments as the =sort= method on lists.
 
-<<seq_zip>>
 *** zip
-    :PROPERTIES:
-    :CUSTOM_ID: zip
-    :CLASS: calibre27
-    :END:
+
 
 =zip= “pairs” up the elements of a number of lists, tuples, or other sequences to create a list of tuples:
 
@@ -636,12 +560,7 @@ Given a “zipped” sequence, =zip= can be applied in a clever way to “unzip�
     Out[99]: ('Ryan', 'Clemens', 'Curt')
 #+END_EXAMPLE
 
-<<seq_reversed>>
 *** reversed
-    :PROPERTIES:
-    :CUSTOM_ID: reversed
-    :CLASS: calibre27
-    :END:
 
 =reversed= iterates over the elements of a sequence in reverse order:
 
@@ -652,16 +571,12 @@ Given a “zipped” sequence, =zip= can be applied in a clever way to “unzip�
 
 Keep in mind that =reversed= is a generator (to be discussed in some more detail later), so it does not create the reversed sequence until materialized (e.g., with =list= or a =for= loop).
 
-<<intro-python-stdlib>>
 
-<<tut_data_structures>>
 
-<<dict>>
+
+
 ** dict
-   :PROPERTIES:
-   :CUSTOM_ID: 4OL04-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 =dict= is likely the most important built-in Python data structure. A more common name for it is /hash map/ or /associative array/. It is a flexibly sized collection of /key-value/ pairs, where /key/ and /value/ are Python objects. One approach for creating one is to use curly braces ={}= and colons to separate keys and values:
 
@@ -754,12 +669,8 @@ You can merge one dict into another using the =update= method:
 
 The =update= method changes dicts in-place, so any existing keys in the data passed to =update= will have their old values discarded.
 
-<<dict_create_from_seq>>
+
 *** Creating dicts from sequences
-    :PROPERTIES:
-    :CUSTOM_ID: creating-dicts-from-sequences
-    :CLASS: calibre27
-    :END:
 
 It's common to occasionally end up with two sequences that you want to pair up element-wise in a dict. As a first cut, you might write code like this:
 
@@ -780,12 +691,8 @@ Since a dict is essentially a collection of 2-tuples, the =dict= function accept
 
 Later we'll talk about /dict comprehensions/, another elegant way to construct dicts.
 
-<<dict_default_values>>
+
 *** Default values
-    :PROPERTIES:
-    :CUSTOM_ID: 4OLGJ-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
 
 It's very common to have logic like:
 
@@ -838,12 +745,9 @@ The built-in =collections= module has a useful class, =defaultdict=, which makes
         by_letter[word[0]].append(word)
 #+END_EXAMPLE
 
-<<dict_valid_keys>>
+
 *** Valid dict key types
-    :PROPERTIES:
-    :CUSTOM_ID: valid-dict-key-types
-    :CLASS: calibre27
-    :END:
+
 
 While the values of a dict can be any Python object, the keys generally have to be immutable objects like scalar types (int, float, string) or tuples (all the objects in the tuple need to be immutable, too). The technical term here is /hashability/. You can check whether an object is hashable (can be used as a key in a dict) with the =hash= function:
 
@@ -873,16 +777,10 @@ To use a list as a key, one option is to convert it to a tuple, which can be has
     Out[132]: {(1, 2, 3): 5}
 #+END_EXAMPLE
 
-<<intro-python-stdlib>>
 
-<<tut_data_structures>>
 
-<<set>>
+
 ** set
-   :PROPERTIES:
-   :CUSTOM_ID: 4OLRM-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 A set is an unordered collection of unique elements. You can think of them like dicts, but keys only, no values. A set can be created in two ways: via the =set= function or via a /set literal/ with curly braces:
 
@@ -991,16 +889,9 @@ Sets are equal if and only if their contents are equal:
     Out[153]: True
 #+END_EXAMPLE
 
-<<intro-python-stdlib>>
 
-<<tut_data_structures>>
 
-<<comprehensions>>
 ** List, Set, and Dict Comprehensions
-   :PROPERTIES:
-   :CUSTOM_ID: 4OM9B-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 /List comprehensions/ are one of the most-loved Python language features. They allow you to concisely form a new list by filtering the elements of a collection, transforming the elements passing the filter in one concise expression. They take the basic form:
 
@@ -1064,12 +955,9 @@ As a simple dict comprehension example, we could create a lookup map of these st
     Out[160]: {'a': 0, 'as': 1, 'bat': 2, 'car': 3, 'dove': 4, 'python': 5}
 #+END_EXAMPLE
 
-<<comprehension_nested>>
+
 *** Nested list comprehensions
-    :PROPERTIES:
-    :CUSTOM_ID: 4OMG3-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 Suppose we have a list of lists containing some English and Spanish names:
 
@@ -1127,14 +1015,7 @@ You can have arbitrarily many levels of nesting, though if you have more than tw
 
 This produces a list of lists, rather than a flattened list of all of the inner elements.
 
-<<intro-python-stdlib>>
-
-<<functions>>
 * 3.2 Functions
-  :PROPERTIES:
-  :CUSTOM_ID: 4OMO8-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 Functions are the primary and most important method of code organization and reuse in Python. As a rule of thumb, if you anticipate needing to repeat the same or very similar code more than once, it may be worth writing a reusable function. Functions can also help make your code more readable by giving a name to a group of Python statements.
 
@@ -1162,11 +1043,8 @@ The main restriction on function arguments is that the keyword arguments /must/ 
 
 --------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+*** Note
+
 
 It is possible to use keywords for passing positional arguments as well. In the preceding example, we could also have written:
 
@@ -1179,16 +1057,12 @@ In some cases this can help with readability.
 
 --------------
 
-<<intro-python-stdlib>>
 
-<<functions>>
 
-<<functions_namespace>>
+
+
+
 ** Namespaces, Scope, and Local Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_9
-   :CLASS: calibre20
-   :END:
 
 Functions can access variables in two different scopes: /global/ and /local/. An alternative and more descriptive name describing a variable scope in Python is a /namespace/. Any variables that are assigned within a function by default are assigned to the local namespace. The local namespace is created when the function is called and immediately populated by the function's arguments. After the function is finished, the local namespace is destroyed (with some exceptions that are outside the purview of this chapter). Consider the following function:
 
@@ -1223,28 +1097,14 @@ Assigning variables outside of the function's scope is possible, but those varia
     []
 #+END_EXAMPLE
 
---------------
 
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+
+*** Caution
+
 
 I generally discourage use of the =global= keyword. Typically global variables are used to store some kind of state in a system. If you find yourself using a lot of them, it may indicate a need for object-oriented programming (using classes).
 
---------------
-
-<<intro-python-stdlib>>
-
-<<functions>>
-
-<<functions_return_multiple>>
 ** Returning Multiple Values
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_10
-   :CLASS: calibre20
-   :END:
 
 When I first programmed in Python after having programmed in Java and C++, one of my favorite features was the ability to return multiple values from a function with simple syntax. Here's an example:
 
@@ -1276,16 +1136,11 @@ In this case, =return_value= would be a 3-tuple with the three returned variable
 
 This alternative technique can be useful depending on what you are trying to do.
 
-<<intro-python-stdlib>>
 
-<<functions>>
 
-<<functions_objects>>
+
+
 ** Functions Are Objects
-   :PROPERTIES:
-   :CUSTOM_ID: 4ON1H-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 Since Python functions are objects, many constructs can be easily expressed that are difficult to do in other languages. Suppose we were doing some data cleaning and needed to apply a bunch of transformations to the following list of strings:
 
@@ -1370,16 +1225,8 @@ You can use functions as arguments to other functions like the built-in =map= fu
     West virginia
 #+END_EXAMPLE
 
-<<intro-python-stdlib>>
 
-<<functions>>
-
-<<functions_lambda>>
 ** Anonymous (Lambda) Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_12
-   :CLASS: calibre20
-   :END:
 
 Python has support for so-called /anonymous/ or /lambda/ functions, which are a way of writing functions consisting of a single statement, the result of which is the return value. They are defined with the =lambda= keyword, which has no meaning other than “we are declaring an anonymous function”:
 
@@ -1417,28 +1264,22 @@ Here we could pass a lambda function to the list's =sort= method:
     Out[179]: ['aaaa', 'foo', 'abab', 'bar', 'card']
 #+END_EXAMPLE
 
---------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
+*** Note
+
 
 One reason lambda functions are called anonymous functions is that , unlike functions declared with the =def= keyword, the function object itself is never given an explicit =__name__= attribute.
 
 --------------
 
-<<intro-python-stdlib>>
 
-<<functions>>
 
-<<functions_fp>>
+
+
+
 ** Currying: Partial Argument Application
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_13
-   :CLASS: calibre20
-   :END:
+
 
 /Currying/ is computer science jargon (named after the mathematician Haskell Curry) that means deriving new functions from existing ones by /partial argument application/. For example, suppose we had a trivial function that adds two numbers together:
 
@@ -1460,16 +1301,13 @@ The second argument to =add_numbers= is said to be /curried/. There's nothing ve
     add_five = partial(add_numbers, 5)
 #+END_EXAMPLE
 
-<<intro-python-stdlib>>
 
-<<functions>>
 
-<<generators>>
+
+
+
 ** Generators
-   :PROPERTIES:
-   :CUSTOM_ID: 4ONFH-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Having a consistent way to iterate over sequences, like objects in a list or lines in a file, is an important Python feature. This is accomplished by means of the /iterator protocol/, a generic way to make objects iterable. For example, iterating over a dict yields the dict keys:
 
@@ -1526,12 +1364,9 @@ It is not until you request elements from the generator that it begins executing
     1 4 9 16 25 36 49 64 81 100
 #+END_EXAMPLE
 
-<<generators_expr>>
+
 *** Generator expresssions
-    :PROPERTIES:
-    :CUSTOM_ID: generator-expresssions
-    :CLASS: calibre27
-    :END:
+
 
 Another even more concise way to make a generator is by using a /generator expression/. This is a generator analogue to list, dict, and set comprehensions; to create one, enclose what would otherwise be a list comprehension within parentheses instead of brackets:
 
@@ -1561,12 +1396,9 @@ Generator expressions can be used instead of list comprehensions as function arg
     Out[192]: {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
 #+END_EXAMPLE
 
-<<generators_itertools>>
+
 *** itertools module
-    :PROPERTIES:
-    :CUSTOM_ID: itertools-module
-    :CLASS: calibre27
-    :END:
+
 
 The standard library =itertools= module has a collection of generators for many common data algorithms. For example, =groupby= takes any sequence and a function, grouping consecutive elements in the sequence by return value of the function. Here's an example:
 
@@ -1595,16 +1427,13 @@ See [[file:part0005_split_014.html#table_itertools][Table 3-2]] for a list of a
 | =product(*iterables, repeat=1)=   | Generates the Cartesian product of the input iterables as tuples, similar to a nested =for= loop                                                                                        |
 #+CAPTION: Table 3-2. Some useful itertools functions
 
-<<intro-python-stdlib>>
 
-<<functions>>
 
-<<control_exceptions>>
+
+
+
 ** Errors and Exception Handling
-   :PROPERTIES:
-   :CUSTOM_ID: 4ONT0-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Handling Python errors or /exceptions/ gracefully is an important part of building robust programs. In data analysis applications, many functions only work on certain kinds of input. As an example, Python's =float= function is capable of casting a string to a floating-point number, but fails with =ValueError= on improper inputs:
 
@@ -1714,12 +1543,9 @@ Here, the file handle =f= will /always/ get closed. Similarly, you can have code
         f.close()
 #+END_EXAMPLE
 
-<<ipython_basics_exceptions>>
+
 *** Exceptions in IPython
-    :PROPERTIES:
-    :CUSTOM_ID: exceptions-in-ipython
-    :CLASS: calibre27
-    :END:
+
 
 If an exception is raised while you are =%run=-ing a script or executing any statement, IPython will by default print a full call stack trace (traceback) with a few lines of context around the position at each point in the stack:
 
@@ -1751,14 +1577,8 @@ If an exception is raised while you are =%run=-ing a script or executing any sta
 
 Having additional context by itself is a big advantage over the standard Python interpreter (which does not provide any additional context). You can control the amount of context shown using the =%xmode= magic command, from =Plain= (same as the standard Python interpreter) to =Verbose= (which inlines function argument values and more). As you will see later in the chapter, you can step /into the stack/ (using the =%debug= or =%pdb= magics) after an error has occurred for interactive post-mortem debugging.
 
-<<intro-python-stdlib>>
 
-<<files_os>>
 * 3.3 Files and the Operating System
-  :PROPERTIES:
-  :CUSTOM_ID: 4OODR-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 Most of this book uses high-level tools like =pandas.read_csv= to read data files from disk into Python data structures. However, it's important to understand the basics of how to work with files in Python. Fortunately, it's very simple, which is one reason why Python is so popular for text and file munging.
 
@@ -1868,15 +1688,16 @@ Lastly, we remember to close the files:
     In [224]: f2.close()
 #+END_EXAMPLE
 
-| Mode   | Description                                                                                                                                                        |
-|--------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| =r=    | Read-only mode                                                                                                                                                     |
-| =w=    | Write-only mode; creates a new file (erasing the data for any file with the same name)                                                                             |
-| =x=    | Write-only mode; creates a new file, but fails if the file path already exists                                                                                     |
-| =a=    | Append to existing file (create the file if it does not already exist)                                                                                             |
-| =r+=   | Read and write                                                                                                                                                     |
-| =b=    | Add to mode for binary files (i.e., ='rb'= or ='wb'=)                                                                                                              |
-| =t=    | Text mode for files (automatically decoding bytes to Unicode). This is the default if not specified. Add =t= to other modes to use this (i.e., ='rt'= or ='xt'=)   |
+| Mode | Description                                                                            |
+|------+----------------------------------------------------------------------------------------|
+| =r=  | Read-only mode                                                                         |
+| =w=  | Write-only mode; creates a new file (erasing the data for any file with the same name) |
+| =x=  | Write-only mode; creates a new file, but fails if the file path already exists         |
+| =a=  | Append to existing file (create the file if it does not already exist)                 |
+| =r+= | Read and write                                                                         |
+| =b=  | Add to mode for binary files (i.e., ='rb'= or ='wb'=)                                  |
+| =t=  | Text mode for files (automatically decoding bytes to Unicode). This is the default if  |
+|      |                                                                                        |
 #+CAPTION: Table 3-3. Python file modes
 
 To write text to a file, you can use the file's =write= or =writelines= methods. For example, we could create a version of /prof\_mod.py/ with no blank lines like so:
@@ -1906,8 +1727,8 @@ See [[file:part0005_split_016.html#table_file_methods][Table 3-4]] for many of 
 
 | Method                  | Description                                                                                               |
 |-------------------------+-----------------------------------------------------------------------------------------------------------|
-| =read([size])=          | Return data from file as a string, with optional =size= argument indicating the number of bytes to read   |
-| =readlines([size])=     | Return list of lines in the file, with optional =size= argument                                           |
+| =read([size])=          | Return data from file as a string, with optional =size=
+| =readlines([size])=     | Return list of lines in the file, with optional =size=
 | =write(str)=            | Write passed string to file                                                                               |
 | =writelines(strings)=   | Write passed sequence of strings to the file                                                              |
 | =close()=               | Close the handle                                                                                          |
@@ -1917,16 +1738,10 @@ See [[file:part0005_split_016.html#table_file_methods][Table 3-4]] for many of 
 | =closed=                | =True= if the file is closed                                                                              |
 #+CAPTION: Table 3-4. Important Python file methods or attributes
 
-<<intro-python-stdlib>>
 
-<<files_os>>
 
-<<files_bytes_unicode>>
 ** Bytes and Unicode with Files
-   :PROPERTIES:
-   :CUSTOM_ID: 4OORC-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 The default behavior for Python files (whether readable or writable) is /text mode/, which means that you intend to work with Python strings (i.e., Unicode). This contrasts with /binary mode/, which you can obtain by appending =b= onto the file mode. Let's look at the file (which contains non-ASCII characters with UTF-8 encoding) from the previous section:
 
@@ -2008,15 +1823,6 @@ Beware using =seek= when opening files in any mode other than binary. If the fil
 
 If you find yourself regularly doing data analysis on non-ASCII text data, mastering Python's Unicode functionality will prove valuable. See [[https://docs.python.org/][Python's online documentation]] for much more.
 
-<<intro-python-stdlib>>
 
-<<stdlib_conclusion>>
 * 3.4 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_18
-  :CLASS: calibre8
-  :END:
-
 With some of the basics and the Python environment and language now under our belt, it's time to move on and learn about NumPy and array-oriented computing in Python.
-
-

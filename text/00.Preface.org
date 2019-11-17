@@ -6,6 +6,27 @@ cat  $(ls *.org | sort -n) > all-in-one.org
 
 #+RESULTS:
 
+#+begin_src ipython :session now :results output :eval yes
+import os
+import subprocess
+
+
+# orgs = !ls
+orgs = os.listdir()
+# print(orgs)
+
+for org in orgs:
+    cmd = f"ln -s text/{org} ../{org}"
+    subprocess.run(cmd, shell=True)
+#+end_src
+
+#+begin_src ipython :session now :results output
+ls  ..
+#+end_src
+
+#+RESULTS:
+: [0m[01;34mimages[0m/  [01;34mtext[0m/
+
 * Section 1. New for the Second Edition
 
 The first edition of this book was published in 2012, during a time when open source data analysis libraries for Python (such as pandas) were very new and developing rapidly. In this updated and expanded second edition, I have overhauled the chapters to account both for incompatible changes and deprecations as well as new features that have occurred in the last five years. I've also added fresh content to introduce tools that either did not exist in 2012 or had not matured enough to make the first cut. Finally, I have tried to avoid writing about new or cutting-edge open source projects that may not have had a chance to mature. I would like readers of this edition to find that the content is still almost as relevant in 2020 or 2021 as it is in 2017.
@@ -113,7 +134,6 @@ For more information, please visit [[http://www.oreilly.com/safari][/http://orei
 
 
 
-
 * Section 5. How to Contact Us
 
 Please address comments and questions concerning this book to the publisher:
@@ -136,7 +156,6 @@ Find us on Facebook: [[http://facebook.com/oreilly][/http://facebook.com/oreilly
 Follow us on Twitter: [[http://twitter.com/oreillymedia][/http://twitter.com/oreillymedia/]]
 
 Watch us on YouTube: [[http://www.youtube.com/oreillymedia][/http://www.youtube.com/oreillymedia/]]
-
 
 
 

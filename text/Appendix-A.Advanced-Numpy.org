@@ -1,22 +1,13 @@
-<<advanced_numpy>>
+
 * Appendix A. Advanced NumPy
-  :PROPERTIES:
-  :CUSTOM_ID: G6PI3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 In this appendix, I will go deeper into the NumPy library for array computing. This will include more internal detail about the ndarray type and more advanced array manipulations and algorithms.
 
 This appendix contains miscellaneous topics and does not necessarily need to be read linearly.
 
-<<advanced_numpy>>
 
-<<numpy_ndarray_internals>>
 * A.1 ndarray Object Internals
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_1
-  :CLASS: calibre8
-  :END:
 
 The NumPy ndarray provides a means to interpret a block of homogeneous data (either contiguous or strided) as a multidimensional array object. The data type, or /dtype/, determines how the data is interpreted as being floating point, integer, boolean, or any of the other types we've been looking at.
 
@@ -47,16 +38,13 @@ While it is rare that a typical NumPy user would be interested in the array stri
 
 [[../images/00065.gif]]
 
-<<advanced_numpy>>
 
-<<numpy_ndarray_internals>>
 
-<<numpy_dtype_hierarchy>>
+
+
+
 ** NumPy dtype Hierarchy
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_2
-   :CLASS: calibre20
-   :END:
+
 
 You may occasionally have code that needs to check whether an array contains integers, floating-point numbers, strings, or Python objects. Because there are multiple types of floating-point numbers (=float16= through =float128=), checking that the dtype is among a list of types would be very verbose. Fortunately, the dtypes have superclasses such as =np.integer= and =np.floating=, which can be used in conjunction with the =np.issubdtype= function:
 
@@ -97,27 +85,21 @@ Most NumPy users will never have to know about this, but it occasionally comes i
 
 [[../images/00066.jpeg]]
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
+
+
 * A.2 Advanced Array Manipulation
-  :PROPERTIES:
-  :CUSTOM_ID: G6PQG-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 There are many ways to work with arrays beyond fancy indexing, slicing, and boolean subsetting. While much of the heavy lifting for data analysis applications is handled by higher-level functions in pandas, you may at some point need to write a data algorithm that is not found in one of the existing libraries.
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
 
-<<numpy_reshaping>>
+
+
+
 ** Reshaping Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: G6PQL-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 In many cases, you can convert an array from one shape to another without copying any data. To do this, pass a tuple indicating the new shape to the =reshape= array instance method. For example, suppose we had a one-dimensional array of values that we wished to rearrange into a matrix (the result is shown in [[file:part0017_split_004.html#figure_c_vs_fortran][Figure A-3]]):
 
@@ -201,16 +183,13 @@ The opposite operation of =reshape= from one-dimensional to a higher dimension i
 
 The data can be reshaped or raveled in different orders. This is a slightly nuanced topic for new NumPy users and is therefore the next subtopic.
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
 
-<<numpy_c_vs_fortran>>
+
+
+
 ** C Versus Fortran Order
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_5
-   :CLASS: calibre20
-   :END:
+
 
 NumPy gives you control and flexibility over the layout of your data in memory. By default, NumPy arrays are created in /row major/ order. Spatially this means that if you have a two-dimensional array of data, the items in each row of the array are stored in adjacent memory locations. The alternative to row major ordering is /column major/ order, which means that values within each column of data are stored in adjacent memory locations.
 
@@ -250,16 +229,13 @@ Fortran/column major order
   Traverse higher dimensions /last/ (e.g., axis 0 before advancing on axis 1).
 #+END_QUOTE
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
 
-<<numpy_concatenate_split>>
+
+
+
 ** Concatenating and Splitting Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: G6QE0-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 =numpy.concatenate= takes a sequence (tuple, list, etc.) of arrays and joins them together in order along the input axis:
 
@@ -341,12 +317,9 @@ See [[file:part0017_split_006.html#table_array_concatenating][Table A-1]] for a
 | =hsplit=/=vsplit=     | Convenience functions for splitting on axis 0 and 1, respectively         |
 #+CAPTION: Table A-1. Array concatenation functions
 
-<<numpy_concat_index_tricks>>
+
 *** Stacking helpers: r\_ and c\_
-    :PROPERTIES:
-    :CUSTOM_ID: G6QQ4-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 There are two special objects in the NumPy namespace, =r_= and =c_=, that make stacking arrays more concise:
 
@@ -390,16 +363,13 @@ These additionally can translate slices to arrays:
 
 See the docstring for more on what you can do with =c_= and =r_=.
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
 
-<<numpy_tile_repeat>>
+
+
+
 ** Repeating Elements: tile and repeat
-   :PROPERTIES:
-   :CUSTOM_ID: G6R13-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Two useful tools for repeating or replicating arrays to produce larger arrays are the =repeat= and =tile= functions. =repeat= replicates each element in an array some number of times, producing a larger array:
 
@@ -416,10 +386,7 @@ Two useful tools for repeating or replicating arrays to produce larger arrays ar
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 The need to replicate or repeat arrays can be less common with NumPy than it is with other array programming frameworks like MATLAB. One reason for this is that /broadcasting/ often fills this need better, which is the subject of the next section.
 
@@ -506,16 +473,13 @@ The second argument is the number of tiles; with a scalar, the tiling is made ro
            [ 1.669 , -0.4386,  1.669 , -0.4386]])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_manips>>
 
-<<numpy_indexing_apis>>
+
+
+
 ** Fancy Indexing Equivalents: take and put
-   :PROPERTIES:
-   :CUSTOM_ID: G6RI4-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 As you may recall from [[file:part0006_split_000.html#5N3C3-74490f30505748fab61c1c3ee3dc2f27][Chapter 4]], one way to get and set subsets of arrays is by /fancy/ indexing using integer arrays:
 
@@ -565,14 +529,11 @@ To use =take= along other axes, you can pass the =axis= keyword:
 
 =put= does not accept an =axis= argument but rather indexes into the flattened (one-dimensional, C order) version of the array. Thus, when you need to set elements using an index array on other axes, it is often easiest to use fancy indexing.
 
-<<advanced_numpy>>
 
-<<numpy_broadcasting>>
+
+
 * A.3 Broadcasting
-  :PROPERTIES:
-  :CUSTOM_ID: G6RR8-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 /Broadcasting/ describes how arithmetic works between arrays of different shapes. It can be a powerful feature, but one that can cause confusion, even for experienced users. The simplest example of broadcasting occurs when combining a scalar value with an array:
 
@@ -615,12 +576,9 @@ This brings us to:
 
 --------------
 
-<<idm139777149710384>>
+
 ***** The Broadcasting Rule
-      :PROPERTIES:
-      :CUSTOM_ID: the-broadcasting-rule
-      :CLASS: calibre47
-      :END:
+
 
 Two arrays are compatible for broadcasting if for each /trailing dimension/ (i.e., starting from the end) the axis lengths match or if either of the lengths is 1. Broadcasting is then performed over the missing or length 1 dimensions.
 
@@ -664,16 +622,13 @@ See [[file:part0017_split_009.html#figure_broadcasting3][Figure A-6]] for anoth
 
 [[../images/00070.gif]]
 
-<<advanced_numpy>>
 
-<<numpy_broadcasting>>
 
-<<broadcasting_length1>>
+
+
+
 ** Broadcasting Over Other Axes
-   :PROPERTIES:
-   :CUSTOM_ID: G6S6N-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Broadcasting with higher dimensional arrays can seem even more mind-bending, but it is really a matter of following the rules. If you don't, you'll get an error like this:
 
@@ -760,16 +715,13 @@ You might be wondering if there's a way to generalize demeaning over an axis wit
         return arr - means[indexer]
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_broadcasting>>
 
-<<numpy_broadcasting_setting>>
+
+
+
 ** Setting Array Values by Broadcasting
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_11
-   :CLASS: calibre20
-   :END:
+
 
 The same broadcasting rule governing arithmetic operations also applies to setting values via array indexing. In a simple case, we can do things like:
 
@@ -810,27 +762,21 @@ However, if we had a one-dimensional array of values we wanted to set into the c
            [ 1.6  ,  1.6  ,  1.6  ]])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<ufunc_advanced>>
+
+
 * A.4 Advanced ufunc Usage
-  :PROPERTIES:
-  :CUSTOM_ID: G6SRC-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 While many NumPy users will only make use of the fast element-wise operations provided by the universal functions, there are a number of additional features that occasionally can help you write more concise code without loops.
 
-<<advanced_numpy>>
 
-<<ufunc_advanced>>
 
-<<ufunc_methods>>
+
+
+
 ** ufunc Instance Methods
-   :PROPERTIES:
-   :CUSTOM_ID: G6SRH-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Each of NumPy's binary ufuncs has special methods for performing certain kinds of special vectorized operations. These are summarized in [[file:part0017_split_013.html#table_ufunc_methods][Table A-2]], but I'll give a few concrete examples to illustrate how they work.
 
@@ -948,16 +894,13 @@ See [[file:part0017_split_013.html#table_ufunc_methods][Table A-2]] for a parti
 | =outer(x, y)=         | Apply operation to all pairs of elements in =x= and =y=; the resulting array has shape =x.shape + y.shape=   |
 #+CAPTION: Table A-2. ufunc methods
 
-<<advanced_numpy>>
 
-<<ufunc_advanced>>
 
-<<ufunc_custom>>
+
+
+
 ** Writing New ufuncs in Python
-   :PROPERTIES:
-   :CUSTOM_ID: G6TGN-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 There are a number of facilities for creating your own NumPy ufuncs. The most general is to use the NumPy C API, but that is beyond the scope of this book. In this section, we will look at pure Python ufuncs.
 
@@ -996,14 +939,11 @@ These functions provide a way to create ufunc-like functions, but they are very 
 
 Later in this chapter we'll show how to create fast ufuncs in Python using the [[http://numba.pydata.org/][Numba project]].
 
-<<advanced_numpy>>
 
-<<numpy_structured>>
+
+
 * A.5 Structured and Record Arrays
-  :PROPERTIES:
-  :CUSTOM_ID: G6TO6-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 You may have noticed up until now that ndarray is a /homogeneous/ data container; that is, it represents a block of memory in which each element takes up the same number of bytes, determined by the dtype. On the surface, this would appear to not allow you to represent heterogeneous or tabular-like data. A /structured/ array is an ndarray in which each element can be thought of as representing a /struct/ in C (hence the “structured” name) or a row in a SQL table with multiple named fields:
 
@@ -1035,16 +975,13 @@ The field names are stored in the =dtype.names= attribute. When you access a fie
     Out[149]: array([ 1.5   ,  3.1416])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_structured>>
 
-<<numpy_structured_nested_varlength>>
+
+
+
 ** Nested dtypes and Multidimensional Fields
-   :PROPERTIES:
-   :CUSTOM_ID: G6TSR-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 When specifying a structured dtype, you can additionally pass a shape (as an int or tuple):
 
@@ -1098,29 +1035,23 @@ This enables you to express more complicated, nested structures as a single bloc
 
 pandas DataFrame does not support this feature directly, though it is similar to hierarchical indexing.
 
-<<advanced_numpy>>
 
-<<numpy_structured>>
 
-<<numpy_why_structured_arrays>>
+
+
+
 ** Why Use Structured Arrays?
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_17
-   :CLASS: calibre20
-   :END:
+
 
 Compared with, say, a pandas DataFrame, NumPy structured arrays are a comparatively low-level tool. They provide a means to interpreting a block of memory as a tabular structure with arbitrarily complex nested columns. Since each element in the array is represented in memory as a fixed number of bytes, structured arrays provide a very fast and efficient way of writing data to and from disk (including memory maps), transporting it over the network, and other such uses.
 
 As another common use for structured arrays, writing data files as fixed-length record byte streams is a common way to serialize data in C and C++ code, which is commonly found in legacy systems in industry. As long as the format of the file is known (the size of each record and the order, byte size, and data type of each element), the data can be read into memory with =np.fromfile=. Specialized uses like this are beyond the scope of this book, but it's worth knowing that such things are possible.
 
-<<advanced_numpy>>
 
-<<numpy_advanced_sorting>>
+
+
 * A.6 More About Sorting
-  :PROPERTIES:
-  :CUSTOM_ID: G6U6S-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Like Python's built-in list, the ndarray =sort= instance method is an /in-place/ sort, meaning that the array contents are rearranged without producing a new array:
 
@@ -1198,16 +1129,13 @@ You may notice that none of the sort methods have an option to sort in descendin
            [ 0.6071,  0.3969, -0.2171, -0.2222, -1.7638]])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_advanced_sorting>>
 
-<<numpy_indirect_sorts>>
+
+
+
 ** Indirect Sorts: argsort and lexsort
-   :PROPERTIES:
-   :CUSTOM_ID: G6ULT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 In data analysis you may need to reorder datasets by one or more keys. For example, a table of data about some students might need to be sorted by last name, then by first name. This is an example of an /indirect/ sort, and if you've read the pandas-related chapters you have already seen many higher-level examples. Given a key or keys (an array of values or multiple arrays of values), you wish to obtain an array of integer /indices/ (I refer to them colloquially as /indexers/) that tells you how to reorder the data to be in sorted order. Two methods for this are =argsort= and =numpy.lexsort=. As an example:
 
@@ -1264,25 +1192,19 @@ As a more complicated example, this code reorders a two-dimensional array by its
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
 
 pandas methods like Series's and DataFrame's =sort_values= method are implemented with variants of these functions (which also must take into account missing values).
 
 --------------
 
-<<advanced_numpy>>
 
-<<numpy_advanced_sorting>>
 
-<<numpy_more_sorting_methods>>
+
+
+
 ** Alternative Sort Algorithms
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_20
-   :CLASS: calibre20
-   :END:
+
 
 A /stable/ sorting algorithm preserves the relative position of equal elements. This can be especially important in indirect sorts where the relative ordering is meaningful:
 
@@ -1312,16 +1234,13 @@ The only stable sort available is /mergesort/, which has guaranteed =O(n log n)=
 | ='heapsort'=    | 3       | No       | 0            | =O(n log n)=   |
 #+CAPTION: Table A-3. Array sorting methods
 
-<<advanced_numpy>>
 
-<<numpy_advanced_sorting>>
 
-<<numpy_partition>>
+
+
+
 ** Partially Sorting Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_21
-   :CLASS: calibre20
-   :END:
+
 
 One of the goals of sorting can be to determine the largest or smallest elements in an array. NumPy has optimized methods, =numpy.partition= and =np.argpartition=, for partitioning an array around the =k=-th smallest element:
 
@@ -1360,16 +1279,13 @@ After you call =partition(arr, 3)=, the first three elements in the result are t
             1.3529,  0.8864,  1.3934,  1.9658,  1.669 ,  1.2464])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_advanced_sorting>>
 
-<<numpy_searchsorted>>
+
+
+
 ** numpy.searchsorted: Finding Elements in a Sorted Array
-   :PROPERTIES:
-   :CUSTOM_ID: G6VDI-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 =searchsorted= is an array method that performs a binary search on a sorted array, returning the location in the array where the value would need to be inserted to maintain sortedness:
 
@@ -1440,14 +1356,11 @@ This, combined with pandas's =groupby=, can be used to bin data:
     dtype: float64
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_numba>>
+
+
 * A.7 Writing Fast NumPy Functions with Numba
-  :PROPERTIES:
-  :CUSTOM_ID: G6VSF-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 [[http://numba.pydata.org/][Numba]] is an open source project that creates fast functions for NumPy-like data using CPUs, GPUs, or other hardware. It uses the [[http://llvm.org/][LLVM Project]] to translate Python code into compiled machine code.
 
@@ -1525,16 +1438,13 @@ In the previous example, we could have written:
 
 I encourage you to learn more by reading the [[http://numba.pydata.org/][online documentation for Numba]]. The next section shows an example of creating custom NumPy ufunc objects.
 
-<<advanced_numpy>>
 
-<<numpy_numba>>
 
-<<numpy_numba_ufunc>>
+
+
+
 ** Creating Custom numpy.ufunc Objects with Numba
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_24
-   :CLASS: calibre20
-   :END:
+
 
 The =numba.vectorize= function creates compiled NumPy ufuncs, which behave like built-in ufuncs. Let's consider a Python implementation of =numpy.add=:
 
@@ -1558,27 +1468,21 @@ Now we have:
     Out[15]: array([  0.,   1.,   3.,   6.,  10.,  15.,  21.,  28.,  36.,  45.])
 #+END_EXAMPLE
 
-<<advanced_numpy>>
 
-<<numpy_io_advanced>>
+
+
 * A.8 Advanced Array Input and Output
-  :PROPERTIES:
-  :CUSTOM_ID: G708P-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 In [[file:part0006_split_000.html#5N3C3-74490f30505748fab61c1c3ee3dc2f27][Chapter 4]], we became acquainted with =np.save= and =np.load= for storing arrays in binary format on disk. There are a number of additional options to consider for more sophisticated use. In particular, memory maps have the additional benefit of enabling you to work with datasets that do not fit into RAM.
 
-<<advanced_numpy>>
 
-<<numpy_io_advanced>>
 
-<<numpy_memmap>>
+
+
+
 ** Memory-Mapped Files
-   :PROPERTIES:
-   :CUSTOM_ID: G7094-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 A /memory-mapped/ file is a method for interacting with binary data on disk as though it is stored in an in-memory array. NumPy implements a =memmap= object that is ndarray-like, enabling small segments of a large file to be read and written without reading the whole array into memory. Additionally, a =memmap= has the same methods as an in-memory array and thus can be substituted into many algorithms where an ndarray would be expected.
 
@@ -1643,27 +1547,21 @@ Whenever a memory map falls out of scope and is garbage-collected, any changes w
 
 Memory maps also work with structured or nested dtypes as described in a previous section.
 
-<<advanced_numpy>>
 
-<<numpy_io_advanced>>
 
-<<numpy_other_hdf5>>
+
+
+
 ** HDF5 and Other Array Storage Options
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_27
-   :CLASS: calibre20
-   :END:
+
 
 PyTables and h5py are two Python projects providing NumPy-friendly interfaces for storing array data in the efficient and compressible HDF5 format (HDF stands for /hierarchical data format/). You can safely store hundreds of gigabytes or even terabytes of data in HDF5 format. To learn more about using HDF5 with Python, I recommend reading the [[http://pandas.pydata.org][pandas online documentation]].
 
-<<advanced_numpy>>
 
-<<numpy_performance_quirks>>
+
+
 * A.9 Performance Tips
-  :PROPERTIES:
-  :CUSTOM_ID: G70ND-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Getting good performance out of code utilizing NumPy is often straightforward, as array operations typically replace otherwise comparatively extremely slow pure Python loops. The following list briefly summarizes some things to keep in mind:
 
@@ -1674,16 +1572,13 @@ Getting good performance out of code utilizing NumPy is often straightforward, a
 
 If you can't get the performance you require after exhausting the capabilities provided by NumPy alone, consider writing code in C, Fortran, or Cython. I use [[http://cython.org][Cython]] frequently in my own work as an easy way to get C-like performance with minimal development.
 
-<<advanced_numpy>>
 
-<<numpy_performance_quirks>>
 
-<<numpy_contiguousness>>
+
+
+
 ** The Importance of Contiguous Memory
-   :PROPERTIES:
-   :CUSTOM_ID: G70NP-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 While the full extent of this topic is a bit outside the scope of this book, in some applications the memory layout of an array can significantly affect the speed of computations. This is based partly on performance differences having to do with the cache hierarchy of the CPU; operations accessing contiguous blocks of memory (e.g., summing the rows of a C order array) will generally be the fastest because the memory subsystem will buffer the appropriate blocks of memory into the ultrafast L1 or L2 CPU cache. Also, certain code paths inside NumPy's C codebase have been optimized for the contiguous case in which generic strided memory access can be avoided.
 

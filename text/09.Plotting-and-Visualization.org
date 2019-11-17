@@ -1,9 +1,6 @@
-<<vis>>
+
 * Chapter 9. Plotting and Visualization
-  :PROPERTIES:
-  :CUSTOM_ID: AFM63-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 Making informative visualizations (sometimes called /plots/) is one of the most important tasks in data analysis. It may be a part of the exploratory process --- for example, to help identify outliers or needed data transformations, or as a way of generating ideas for models. For others, building an interactive visualization for the web may be the end goal. Python has many add-on libraries for making static or dynamic visualizations, but I'll be mainly focused on [[http://matplotlib.sourceforge.net][matplotlib]] and libraries that build on top of it.
 
@@ -17,14 +14,11 @@ The simplest way to follow the code examples in the chapter is to use interactiv
     %matplotlib notebook
 #+END_EXAMPLE
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
+
+
 * 9.1 A Brief matplotlib API Primer
-  :PROPERTIES:
-  :CUSTOM_ID: AFM6H-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 With matplotlib, we use the following import convention:
 
@@ -52,25 +46,19 @@ While libraries like seaborn and pandas's built-in plotting functions will deal 
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 There is not enough room in the book to give a comprehensive treatment to the breadth and depth of functionality in matplotlib. It should be enough to teach you the ropes to get up and running. The matplotlib gallery and documentation are the best resource for learning advanced features.
 
 --------------
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_matplotlib_figs_axes>>
+
+
+
 ** Figures and Subplots
-   :PROPERTIES:
-   :CUSTOM_ID: AFM9E-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Plots in matplotlib reside within a =Figure= object. You can create a new figure with =plt.figure=:
 
@@ -99,10 +87,7 @@ This means that the figure should be 2 × 2 (so up to four plots in total), and 
 --------------
 
 ****** Tip
-       :PROPERTIES:
-       :CUSTOM_ID: tip
-       :CLASS: calibre16
-       :END:
+
 
 One nuance of using Jupyter notebooks is that plots are reset after each cell is evaluated, so for more complex plots you must put all of the plotting commands in a single notebook cell.
 
@@ -165,12 +150,9 @@ This is very useful, as the =axes= array can be easily indexed like a two-dimens
 | =**fig_kw=     | Additional keywords to =subplots= are used when creating the figure, such as =plt.subplots(2, 2, figsize=(8, 6))=   |
 #+CAPTION: Table 9-1. pyplot.subplots options
 
-<<vis_matplotlib_adjust_subplots>>
+
 *** Adjusting the spacing around subplots
-    :PROPERTIES:
-    :CUSTOM_ID: adjusting-the-spacing-around-subplots
-    :CLASS: calibre27
-    :END:
+
 
 By default matplotlib leaves a certain amount of padding around the outside of the subplots and spacing between subplots. This spacing is all specified relative to the height and width of the plot, so that if you resize the plot either programmatically or manually using the GUI window, the plot will dynamically adjust itself. You can change the spacing using the =subplots_adjust= method on =Figure= objects, also available as a top-level function:
 
@@ -193,16 +175,13 @@ By default matplotlib leaves a certain amount of padding around the outside of t
 
 You may notice that the axis labels overlap. matplotlib doesn't check whether the labels overlap, so in a case like this you would need to fix the labels yourself by specifying explicit tick locations and tick labels (we'll look at how to do this in the following sections).
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_matplotlib_styles>>
+
+
+
 ** Colors, Markers, and Line Styles
-   :PROPERTIES:
-   :CUSTOM_ID: AFMNL-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Matplotlib's main =plot= function accepts arrays of x and y coordinates and optionally a string abbreviation indicating color and line style. For example, to plot =x= versus =y= with green dashes, you would execute:
 
@@ -255,25 +234,19 @@ You may notice output like =<matplotlib.lines.Line2D at       ...>= when you run
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
 
 You must call =plt.legend= (or =ax.legend=, if you have a reference to the axes) to create the legend, whether or not you passed the =label= options when plotting the data.
 
 --------------
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_matplotlib_annotation>>
+
+
+
 ** Ticks, Labels, and Legends
-   :PROPERTIES:
-   :CUSTOM_ID: AFMUI-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 For most kinds of plot decorations, there are two main ways to do things: using the procedural =pyplot= interface (i.e., =matplotlib.pyplot=) and the more object-oriented native matplotlib API.
 
@@ -284,12 +257,9 @@ The =pyplot= interface, designed for interactive use, consists of methods like =
 
 All such methods act on the active or most recently created =AxesSubplot=. Each of them corresponds to two methods on the subplot object itself; in the case of =xlim= these are =ax.get_xlim= and =ax.set_xlim=. I prefer to use the subplot instance methods myself in the interest of being explicit (and especially when working with multiple subplots), but you can certainly use whichever you find more convenient.
 
-<<vis_mpl_ticks>>
+
 *** Setting the title, axis labels, ticks, and ticklabels
-    :PROPERTIES:
-    :CUSTOM_ID: AFMVE-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 To illustrate customizing the axes, I'll create a simple figure and plot of a random walk (see [[file:part0011_split_004.html#vis_ticks_one][Figure 9-8]]):
 
@@ -333,12 +303,9 @@ Modifying the y-axis consists of the same process, substituting =y= for =x= in t
     ax.set(**props)
 #+END_EXAMPLE
 
-<<vis_mpl_legends>>
+
 *** Adding legends
-    :PROPERTIES:
-    :CUSTOM_ID: AFN56-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 Legends are another critical element for identifying plot elements. There are a couple of ways to add one. The easiest is to pass the =label= argument when adding each piece of the plot:
 
@@ -369,16 +336,13 @@ The =legend= method has several other choices for the location =loc= argument. S
 
 The =loc= tells matplotlib where to place the plot. If you aren't picky, ='best'= is a good option, as it will choose a location that is most out of the way. To exclude one or more elements from the legend, pass no label or =label='_nolegend_'=.
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_mpl_drawing>>
+
+
+
 ** Annotations and Drawing on a Subplot
-   :PROPERTIES:
-   :CUSTOM_ID: AFNAN-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 In addition to the standard plot types, you may wish to draw your own plot annotations, which could consist of text, arrows, or other shapes. You can add annotations and text using the =text=, =arrow=, and =annotate= functions. =text= draws text at given coordinates =(x, y)= on the plot with optional custom styling:
 
@@ -448,16 +412,13 @@ To add a shape to a plot, you create the patch object =shp= and add it to a subp
 
 If you look at the implementation of many familiar plot types, you will see that they are assembled from patches.
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_matplotlib_saving>>
+
+
+
 ** Saving Plots to File
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_6
-   :CLASS: calibre20
-   :END:
+
 
 You can save the active figure to file using =plt.savefig=. This method is equivalent to the figure object's =savefig= instance method. For example, to save an SVG version of a figure, you need only type:
 
@@ -491,16 +452,13 @@ See [[file:part0011_split_006.html#table_mpl_savefig][Table 9-2]] for a list of
 | =bbox_inches=            | The portion of the figure to save; if ='tight'= is passed, will attempt to trim the empty space around the figure                                           |
 #+CAPTION: Table 9-2. Figure.savefig options
 
-<<vis>>
 
-<<vis_matplotlib_primer>>
 
-<<vis_mpl_configuration>>
+
+
+
 ** matplotlib Configuration
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_7
-   :CLASS: calibre20
-   :END:
+
 
 matplotlib comes configured with color schemes and defaults that are geared primarily toward preparing figures for publication. Fortunately, nearly all of the default behavior can be customized via an extensive set of global parameters governing figure size, subplot spacing, colors, font sizes, grid styles, and so on. One way to modify the configuration programmatically from Python is to use the =rc= method; for example, to set the global default figure size to be 10 × 10, you could enter:
 
@@ -521,14 +479,11 @@ For more extensive customization and to see a list of all the options, matplotli
 
 As we'll see in the next section, the seaborn package has several built-in plot themes or /styles/ that use matplotlib's configuration system internally.
 
-<<vis>>
 
-<<vis_pandas>>
+
+
 * 9.2 Plotting with pandas and seaborn
-  :PROPERTIES:
-  :CUSTOM_ID: AFNQ0-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 matplotlib can be a fairly low-level tool. You assemble a plot from its base components: the data display (i.e., the type of plot: line, bar, box, scatter, contour, etc.), legend, title, tick labels, and other annotations.
 
@@ -537,25 +492,19 @@ In pandas we may have multiple columns of data, along with row and column labels
 --------------
 
 ****** Tip
-       :PROPERTIES:
-       :CUSTOM_ID: tip-1
-       :CLASS: calibre16
-       :END:
+
 
 Importing seaborn modifies the default matplotlib color schemes and plot styles to improve readability and aesthetics. Even if you do not use the seaborn API, you may prefer to import seaborn as a simple way to improve the visual aesthetics of general matplotlib plots.
 
 --------------
 
-<<vis>>
 
-<<vis_pandas>>
 
-<<vis_pandas_line>>
+
+
+
 ** Line Plots
-   :PROPERTIES:
-   :CUSTOM_ID: AFNQG-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Series and DataFrame each have a =plot= attribute for making some basic plot types. By default, =plot()= makes line plots (see [[file:part0011_split_009.html#vis_series_plot_1][Figure 9-13]]):
 
@@ -588,10 +537,7 @@ The =plot= attribute contains a “family” of methods for different plot types
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+
 
 Additional keyword arguments to =plot= are passed through to the respective matplotlib plotting function, so you can further customize these plots by learning more about the matplotlib API.
 
@@ -630,25 +576,19 @@ DataFrame has a number of options allowing some flexibility with how the columns
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-3
-       :CLASS: calibre16
-       :END:
+
 
 For time series plotting, see [[file:part0013_split_000.html#CCNA3-74490f30505748fab61c1c3ee3dc2f27][Chapter 11]].
 
 --------------
 
-<<vis>>
 
-<<vis_pandas>>
 
-<<vis_pandas_barcharts>>
+
+
+
 ** Bar Plots
-   :PROPERTIES:
-   :CUSTOM_ID: AFNV7-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 The =plot.bar()= and =plot.barh()= make vertical and horizontal bar plots, respectively. In this case, the Series or DataFrame index will be used as the x (=bar=) or y (=barh=) ticks (see [[file:part0011_split_010.html#vis_bar_plot_ex][Figure 9-15]]):
 
@@ -702,10 +642,7 @@ We create stacked bar plots from a DataFrame by passing =stacked=True=, resultin
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-4
-       :CLASS: calibre16
-       :END:
+
 
 A useful recipe for bar plots is to visualize a Series's value frequency using =value_counts=: =s.value_counts().plot.bar()=.
 
@@ -790,16 +727,13 @@ Notice that seaborn has automatically changed the aesthetics of plots: the defau
     In [90]: sns.set(style="whitegrid")
 #+END_EXAMPLE
 
-<<vis>>
 
-<<vis_pandas>>
 
-<<vis_pandas_histogram>>
+
+
+
 ** Histograms and Density Plots
-   :PROPERTIES:
-   :CUSTOM_ID: AFOIP-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 A histogram is a kind of bar plot that gives a discretized display of value frequency. The data points are split into discrete, evenly spaced bins, and the number of data points in each bin is plotted. Using the tipping data from before, we can make a histogram of tip percentages of the total bill using the =plot.hist= method on the Series (see [[file:part0011_split_011.html#vis_hist_ex][Figure 9-21]]):
 
@@ -831,16 +765,13 @@ Seaborn makes histograms and density plots even easier through its =distplot= me
 
 [[../images/00035.jpeg]]
 
-<<vis>>
 
-<<vis_pandas>>
 
-<<vis_pandas_splom>>
+
+
+
 ** Scatter or Point Plots
-   :PROPERTIES:
-   :CUSTOM_ID: AFON7-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Point plots or scatter plots can be a useful way of examining the relationship between two one-dimensional data series. For example, here we load the =macrodata= dataset from the statsmodels project, select a few variables, then compute log differences:
 
@@ -882,16 +813,13 @@ In exploratory data analysis it's helpful to be able to look at all the scatter 
 
 You may notice the =plot_kws= argument. This enables us to pass down configuration options to the individual plotting calls on the off-diagonal elements. Check out the =seaborn.pairplot= docstring for more granular configuration options.
 
-<<vis>>
 
-<<vis_pandas>>
 
-<<vis_facet_grid>>
+
+
+
 ** Facet Grids and Categorical Data
-   :PROPERTIES:
-   :CUSTOM_ID: AFOTD-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 What about datasets where we have additional grouping dimensions? One way to visualize data with many categorical variables is to use a /facet grid/. Seaborn has a useful built-in function =factorplot= that simplifies making many kinds of faceted plots (see [[file:part0011_split_013.html#vis_tip_pct_sns_factorplot][Figure 9-26]] for the resulting plot):
 
@@ -923,27 +851,21 @@ Instead of grouping by ='time'= by different bar colors within a facet, we can a
 
 You can create your own facet grid plots using the more general =seaborn.FacetGrid= class. See the [[https://seaborn.pydata.org/][seaborn documentation]] for more.
 
-<<vis>>
 
-<<vis_tool_options>>
+
+
 * 9.3 Other Python Visualization Tools
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_14
-  :CLASS: calibre8
-  :END:
+
 
 As is common with open source, there are a plethora of options for creating graphics in Python (too many to list). Since 2010, much development effort has been focused on creating interactive graphics for publication on the web. With tools like [[http://bokeh.pydata.org/][Bokeh]] and [[https://github.com/plotly/plotly.py][Plotly]], it's now possible to specify dynamic, interactive graphics in Python that are destined for a web browser.
 
 For creating static graphics for print or web, I recommend defaulting to matplotlib and add-on libraries like pandas and seaborn for your needs. For other data visualization requirements, it may be useful to learn one of the other available tools out there. I encourage you to explore the ecosystem as it continues to involve and innovate into the future.
 
-<<vis>>
 
-<<data-visualization-summary>>
+
+
 * 9.4 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_15
-  :CLASS: calibre8
-  :END:
+
 
 The goal of this chapter was to get your feet wet with some basic data visualization using pandas, matplotlib, and seaborn. If visually communicating the results of data analysis is important in your work, I encourage you to seek out resources to learn more about effective data visualization. It is an active field of research and you can practice with many excellent learning resources available online and in print form.
 

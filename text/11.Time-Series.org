@@ -1,9 +1,6 @@
-<<timeseries>>
+
 * Chapter 11. Time Series
-  :PROPERTIES:
-  :CUSTOM_ID: CCNA3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 Time series data is an important form of structured data in many different fields, such as finance, economics, ecology, neuroscience, and physics. Anything that is observed or measured at many points in time forms a time series. Many time series are /fixed frequency/, which is to say that data points occur at regular intervals according to some rule, such as every 15 seconds, every 5 minutes, or once per month. Time series can also be /irregular/ without a fixed unit of time or offset between units. How you mark and refer to time series data depends on the application, and you may have one of the following:
 
@@ -17,10 +14,7 @@ In this chapter, I am mainly concerned with time series in the first three categ
 --------------
 
 ****** Tip
-       :PROPERTIES:
-       :CUSTOM_ID: tip
-       :CLASS: calibre16
-       :END:
+
 
 pandas also supports indexes based on timedeltas, which can be a useful way of representing experiment or elapsed time. We do not explore timedelta indexes in this book, but you can learn more in the [[http://pandas.pydata.org][pandas documentation]].
 
@@ -28,14 +22,11 @@ pandas also supports indexes based on timedeltas, which can be a useful way of r
 
 pandas provides many built-in time series tools and data algorithms. You can efficiently work with very large time series and easily slice and dice, aggregate, and resample irregular- and fixed-frequency time series. Some of these tools are especially useful for financial and economics applications, but you could certainly use them to analyze server log data, too.
 
-<<timeseries>>
 
-<<tseries_python_builtin>>
+
+
 * 11.1 Date and Time Data Types and Tools
-  :PROPERTIES:
-  :CUSTOM_ID: CCNB2-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 The Python standard library includes data types for date and time data, as well as calendar-related functionality. The =datetime=, =time=, and =calendar= modules are the main places to start. The =datetime.datetime= type, or simply =datetime=, is widely used:
 
@@ -91,16 +82,13 @@ You can add (or subtract) a =timedelta= or multiple thereof to a =datetime= obje
 | =tzinfo=      | Base type for storing time zone information                                                    |
 #+CAPTION: Table 11-1. Types in datetime module
 
-<<timeseries>>
 
-<<tseries_python_builtin>>
 
-<<tseries_dateutil>>
+
+
+
 ** Converting Between String and Datetime
-   :PROPERTIES:
-   :CUSTOM_ID: CCNIQ-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 You can format =datetime= objects and pandas =Timestamp= objects, which I'll introduce later, as strings using =str= or the =strftime= method, passing a format specification:
 
@@ -204,10 +192,7 @@ It also handles values that should be considered missing (=None=, empty string, 
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+
 
 =dateutil.parser= is a useful but imperfect tool. Notably, it will recognize some strings as dates that you might prefer that it didn't --- for example, ='42'= will be parsed as the year =2042= with today's calendar date.
 
@@ -227,14 +212,11 @@ It also handles values that should be considered missing (=None=, empty string, 
 | =%X=   | Locale-appropriate time (e.g., '04:24:12 PM')                                                     |
 #+CAPTION: Table 11-3. Locale-specific date formatting
 
-<<timeseries>>
 
-<<tseries_basics>>
+
+
 * 11.2 Time Series Basics
-  :PROPERTIES:
-  :CUSTOM_ID: CCO02-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 A basic kind of time series object in pandas is a Series indexed by timestamps, which is often represented external to pandas as Python strings or =datetime= objects:
 
@@ -302,16 +284,13 @@ Scalar values from a =DatetimeIndex= are pandas =Timestamp= objects:
 
 A =Timestamp= can be substituted anywhere you would use a =datetime= object. Additionally, it can store frequency information (if any) and understands how to do time zone conversions and other kinds of manipulations. More on both of these things later.
 
-<<timeseries>>
 
-<<tseries_basics>>
 
-<<tseries_indexing_selection>>
+
+
+
 ** Indexing, Selection, Subsetting
-   :PROPERTIES:
-   :CUSTOM_ID: CCO9E-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Time series behaves like any other =pandas.Series= when you are indexing and selecting data based on label:
 
@@ -485,16 +464,13 @@ All of this holds true for DataFrame as well, indexing on its rows:
     2001-05-30  3.260383  0.963301  1.201206 -1.852001
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_basics>>
 
-<<tseries_nonunique>>
+
+
+
 ** Time Series with Duplicate Indices
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_5
-   :CLASS: calibre20
-   :END:
+
 
 In some applications, there may be multiple data observations falling on a particular timestamp. Here is an example:
 
@@ -555,14 +531,11 @@ Suppose you wanted to aggregate the data having non-unique timestamps. One way t
     dtype: int64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_frequency>>
+
+
 * 11.3 Date Ranges, Frequencies, and Shifting
-  :PROPERTIES:
-  :CUSTOM_ID: CCPCI-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Generic time series in pandas are assumed to be irregular; that is, they have no fixed frequency. For many applications this is sufficient. However, it's often desirable to work relative to a fixed frequency, such as daily, monthly, or every 15 minutes, even if that means introducing missing values into a time series. Fortunately pandas has a full suite of standard time series frequencies and tools for resampling, inferring frequencies, and generating fixed-frequency date ranges. For example, you can convert the sample time series to be fixed daily frequency by calling =resample=:
 
@@ -584,16 +557,13 @@ The string ='D'= is interpreted as daily frequency.
 
 Conversion between frequencies or /resampling/ is a big enough topic to have its own section later ([[file:part0013_split_019.html#CCU8K-74490f30505748fab61c1c3ee3dc2f27][Section 11.6, “Resampling and Frequency Conversion,”]]). Here I'll show you how to use the base frequencies and multiples thereof.
 
-<<timeseries>>
 
-<<tseries_frequency>>
 
-<<tseries_fixed_date_range>>
+
+
+
 ** Generating Date Ranges
-   :PROPERTIES:
-   :CUSTOM_ID: CCPEU-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 While I used it previously without explanation, =pandas.date_range= is responsible for generating a =DatetimeIndex= with an indicated length according to a particular frequency:
 
@@ -700,16 +670,13 @@ Sometimes you will have start or end dates with time information but want to gen
                   dtype='datetime64[ns]', freq='D')
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_frequency>>
 
-<<tseries_frequencies>>
+
+
+
 ** Frequencies and Date Offsets
-   :PROPERTIES:
-   :CUSTOM_ID: CCPT8-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Frequencies in pandas are composed of a /base frequency/ and a multiplier. Base frequencies are typically referred to by a string alias, like ='M'= for monthly or ='H'= for hourly. For each base frequency, there is an object defined generally referred to as a /date offset/. For example, hourly frequency can be represented with the =Hour= class:
 
@@ -775,21 +742,15 @@ Refer back to [[file:part0013_split_007.html#table_base_frequencies][Table 11-4
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 Users can define their own custom frequency classes to provide date logic not available in pandas, though the full details of that are outside the scope of this book.
 
 --------------
 
-<<tseries_week_of_month>>
+
 *** Week of month dates
-    :PROPERTIES:
-    :CUSTOM_ID: week-of-month-dates
-    :CLASS: calibre27
-    :END:
+
 
 One useful frequency class is “week of month,” starting with =WOM=. This enables you to get dates like the third Friday of each month:
 
@@ -808,16 +769,13 @@ One useful frequency class is “week of month,” starting with =WOM=. This ena
      Timestamp('2012-08-17 00:00:00', freq='WOM-3FRI')]
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_frequency>>
 
-<<tseries_shifting>>
+
+
+
 ** Shifting (Leading and Lagging) Data
-   :PROPERTIES:
-   :CUSTOM_ID: CCQ7M-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 “Shifting” refers to moving data backward and forward through time. Both Series and DataFrame have a =shift= method for doing naive shifts forward or backward, leaving the index unmodified:
 
@@ -892,12 +850,9 @@ Other frequencies can be passed, too, giving you some flexibility in how to lead
 
 The =T= here stands for minutes.
 
-<<tseries_shifting_offsets>>
+
 *** Shifting dates with offsets
-    :PROPERTIES:
-    :CUSTOM_ID: CCQJF-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 The pandas date offsets can also be used with =datetime= or =Timestamp= objects:
 
@@ -981,14 +936,11 @@ Of course, an easier and faster way to do this is using =resample= (we'll discus
     Freq: M, dtype: float64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_time_zones>>
+
+
 * 11.4 Time Zone Handling
-  :PROPERTIES:
-  :CUSTOM_ID: CCR0E-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Working with time zones is generally considered one of the most unpleasant parts of time series manipulation. As a result, many time series users choose to work with time series in /coordinated universal time/ or /UTC/, which is the successor to Greenwich Mean Time and is the current international standard. Time zones are expressed as offsets from UTC; for example, New York is four hours behind UTC during daylight saving time and five hours behind the rest of the year.
 
@@ -1014,16 +966,13 @@ To get a time zone object from =pytz=, use =pytz.timezone=:
 
 Methods in pandas will accept either time zone names or these objects.
 
-<<timeseries>>
 
-<<tseries_time_zones>>
 
-<<tseries_tz_convert>>
+
+
+
 ** Time Zone Localization and Conversion
-   :PROPERTIES:
-   :CUSTOM_ID: CCR3E-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 By default, time series in pandas are /time zone naive/. For example, consider the following time series:
 
@@ -1150,25 +1099,19 @@ In the case of the preceding time series, which straddles a DST transition in th
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+
 
 Localizing naive timestamps also checks for ambiguous or non-existent times around daylight saving time transitions.
 
 --------------
 
-<<timeseries>>
 
-<<tseries_time_zones>>
 
-<<tseries_tz_timestamp>>
+
+
+
 ** Operations with Time Zone−Aware Timestamp Objects
-   :PROPERTIES:
-   :CUSTOM_ID: CCRUB-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Similar to time series and date ranges, individual =Timestamp= objects similarly can be localized from naive to time zone--aware and converted from one time zone to another:
 
@@ -1226,16 +1169,13 @@ Then, 90 minutes before transitioning out of DST:
     Out[141]: Timestamp('2012-11-04 01:30:00-0500', tz='US/Eastern')
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_time_zones>>
 
-<<tseries_tz_align>>
+
+
+
 ** Operations Between Different Time Zones
-   :PROPERTIES:
-   :CUSTOM_ID: CCS60-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 If two time series with different time zones are combined, the result will be UTC. Since the timestamps are stored under the hood in UTC, this is a straightforward operation and requires no conversion to happen:
 
@@ -1273,14 +1213,11 @@ If two time series with different time zones are combined, the result will be UT
                   dtype='datetime64[ns, UTC]', freq='B')
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_periods>>
+
+
 * 11.5 Periods and Period Arithmetic
-  :PROPERTIES:
-  :CUSTOM_ID: CCSE0-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 /Periods/ represent timespans, like days, months, quarters, or years. The =Period= class represents this data type, requiring a string or integer and a frequency from [[file:part0013_split_007.html#table_base_frequencies][Table 11-4]]:
 
@@ -1344,16 +1281,13 @@ If you have an array of strings, you can also use the =PeriodIndex= class:
     ='Q-DEC')
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_periods>>
 
-<<tseries_period_asfreq>>
+
+
+
 ** Period Frequency Conversion
-   :PROPERTIES:
-   :CUSTOM_ID: CCSMO-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Periods and =PeriodIndex= objects can be converted to another frequency with their =asfreq= method. As an example, suppose we had an annual period and wanted to convert it into a monthly period either at the start or end of the year. This is fairly straightforward:
 
@@ -1432,16 +1366,13 @@ Here, the annual periods are replaced with monthly periods corresponding to the 
     Freq: B, dtype: float64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_periods>>
 
-<<tseries_period_quarterly>>
+
+
+
 ** Quarterly Period Frequencies
-   :PROPERTIES:
-   :CUSTOM_ID: CCT2N-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Quarterly data is standard in accounting, finance, and other fields. Much quarterly data is reported relative to a /fiscal year end/, typically the last calendar or business day of one of the 12 months of the year. Thus, the period =2012Q4= has a different meaning depending on fiscal year end. pandas supports all 12 possible quarterly frequencies as =Q-JAN= through =Q-DEC=:
 
@@ -1508,16 +1439,13 @@ You can generate quarterly ranges using =period_range=. Arithmetic is identical,
     dtype: int64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_periods>>
 
-<<tseries_period_stamp_conversion>>
+
+
+
 ** Converting Timestamps to Periods (and Back)
-   :PROPERTIES:
-   :CUSTOM_ID: CCTDR-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Series and DataFrame objects indexed by timestamps can be converted to periods with the =to_period= method:
 
@@ -1597,16 +1525,13 @@ To convert back to timestamps, use =to_timestamp=:
     Freq: D, dtype: float64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_periods>>
 
-<<tseries_period_arrays>>
+
+
+
 ** Creating a PeriodIndex from Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: CCTQF-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Fixed frequency datasets are sometimes stored with timespan information spread across multiple columns. For example, in this macroeconomic dataset, the year and quarter are in different columns:
 
@@ -1722,14 +1647,11 @@ By passing these arrays to =PeriodIndex= with a frequency, you can combine them 
     Freq: Q-DEC, Name: infl, Length: 203, dtype: float64
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_resampling>>
+
+
 * 11.6 Resampling and Frequency Conversion
-  :PROPERTIES:
-  :CUSTOM_ID: CCU8K-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 /Resampling/ refers to the process of converting a time series from one frequency to another. Aggregating higher frequency data to lower frequency is called /downsampling/, while converting lower frequency to higher frequency is called /upsampling/. Not all resampling falls into either of these categories; for example, converting =W-WED= (weekly on Wednesday) to =W-FRI= is neither upsampling nor downsampling.
 
@@ -1797,16 +1719,13 @@ pandas objects are equipped with a =resample= method, which is the workhorse fun
 | =convention=    | When resampling periods, the convention (='start'= or ='end'=) for converting the low-frequency period to high frequency; defaults to ='end'=                                  |
 #+CAPTION: Table 11-5. Resample method arguments
 
-<<timeseries>>
 
-<<tseries_resampling>>
 
-<<tseries_resample_hi_to_low>>
+
+
+
 ** Downsampling
-   :PROPERTIES:
-   :CUSTOM_ID: CCUIJ-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Aggregating data to a regular, lower frequency is a pretty normal time series task. The data you're aggregating doesn't need to be fixed frequently; the desired frequency defines /bin edges/ that are used to slice the time series into pieces to aggregate. For example, to convert to monthly, ='M'= or ='BM'=, you need to chop up the data into one-month intervals. Each interval is said to be /half-open/; a data point can only belong to one interval, and the union of the intervals must make up the whole time frame. There are a couple things to think about when using =resample= to downsample data:
 
@@ -1892,12 +1811,9 @@ Lastly, you might want to shift the result index by some amount, say subtracting
 
 You also could have accomplished the effect of =loffset= by calling the =shift= method on the result without the =loffset=.
 
-<<tseries_resample_ohlc>>
+
 *** Open-High-Low-Close (OHLC) resampling
-    :PROPERTIES:
-    :CUSTOM_ID: open-high-low-close-ohlc-resampling
-    :CLASS: calibre27
-    :END:
+
 
 In finance, a popular way to aggregate a time series is to compute four values for each bucket: the first (open), last (close), maximum (high), and minimal (low) values. By using the =ohlc= aggregate function you will obtain a DataFrame having columns containing these four aggregates, which are efficiently computed in a single sweep of the data:
 
@@ -1910,16 +1826,13 @@ In finance, a popular way to aggregate a time series is to compute four values f
     2000-01-01 00:10:00    10    11   10     11
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_resampling>>
 
-<<tseries_resample_lo_to_high>>
+
+
+
 ** Upsampling and Interpolation
-   :PROPERTIES:
-   :CUSTOM_ID: CCV5Q-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 When converting from a low frequency to a higher frequency, no aggregation is needed. Let's consider a DataFrame with some weekly data:
 
@@ -1996,16 +1909,13 @@ Notably, the new date index need not overlap with the old one at all:
     2000-01-13 -0.046662  0.927238  0.482284 -0.867130
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_resampling>>
 
-<<tseries_period_resampling>>
+
+
+
 ** Resampling with Periods
-   :PROPERTIES:
-   :CUSTOM_ID: CCVK8-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Resampling data indexed by periods is similar to timestamps:
 
@@ -2080,14 +1990,11 @@ If these rules are not satisfied, an exception will be raised. This mainly affec
     2002Q3  0.046303  0.163344  0.251503 -0.157276
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_moving_funcs>>
+
+
 * 11.7 Moving Window Functions
-  :PROPERTIES:
-  :CUSTOM_ID: CD00P-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 An important class of array transformations used for time series operations are statistics and other functions evaluated over a sliding window or with exponentially decaying weights. This can be useful for smoothing noisy or gappy data. I call these /moving window functions/, even though it includes functions without a fixed-length window like exponentially weighted moving average. Like other statistical functions, these also automatically exclude missing data.
 
@@ -2180,16 +2087,13 @@ The =rolling= function also accepts a string indicating a fixed-size time offset
     [2292 rows x 3 columns]
 #+END_EXAMPLE
 
-<<timeseries>>
 
-<<tseries_moving_funcs>>
 
-<<tseries_moving_expw>>
+
+
+
 ** Exponentially Weighted Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_24
-   :CLASS: calibre20
-   :END:
+
 
 An alternative to using a static window size with equally weighted observations is to specify a constant /decay factor/ to give more weight to more recent observations. There are a couple of ways to specify the decay factor. A popular one is using a /span/, which makes the result comparable to a simple moving window function with window size equal to the span.
 
@@ -2215,16 +2119,13 @@ pandas has the =ewm= operator to go along with =rolling= and =expanding=. Here's
 
 [[../images/00048.jpeg]]
 
-<<timeseries>>
 
-<<tseries_moving_funcs>>
 
-<<tseries_moving_binary>>
+
+
+
 ** Binary Moving Window Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_25
-   :CLASS: calibre20
-   :END:
+
 
 Some statistical operators, like correlation and covariance, need to operate on two time series. As an example, financial analysts are often interested in a stock's correlation to a benchmark index like the S&P 500. To have a look at this, we first compute the percent change for all of our time series of interest:
 
@@ -2256,16 +2157,13 @@ Suppose you wanted to compute the correlation of the S&P 500 index with many sto
 
 [[../images/00050.jpeg]]
 
-<<timeseries>>
 
-<<tseries_moving_funcs>>
 
-<<tseries_moving_custom>>
+
+
+
 ** User-Defined Moving Window Functions
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_26
-   :CLASS: calibre20
-   :END:
+
 
 The =apply= method on =rolling= and related methods provides a means to apply an array function of your own devising over a moving window. The only requirement is that the function produce a single value (a reduction) from each piece of the array. For example, while we can compute sample quantiles using =rolling(...).quantile(q)=, we might be interested in the percentile rank of a particular value over the sample. The =scipy.stats.percentileofscore= function does just this (see [[file:part0013_split_026.html#roll_apply_ex][Figure 11-10]] for the resulting plot):
 
@@ -2283,14 +2181,11 @@ The =apply= method on =rolling= and related methods provides a means to apply an
 
 If you don't have SciPy installed already, you can install it with conda or pip.
 
-<<timeseries>>
 
-<<timeseries-conclusion>>
+
+
 * 11.8 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_27
-  :CLASS: calibre8
-  :END:
+
 
 Time series data calls for different types of analysis and data transformation tools than the other types of data we have explored in previous chapters.
 

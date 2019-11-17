@@ -1,9 +1,4 @@
-<<intro-python-environment>>
 * Chapter 2. Python Language Basics, IPython, and Jupyter Notebooks
-  :PROPERTIES:
-  :CUSTOM_ID: 3Q283-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
 
 When I wrote the first edition of this book in 2011 and 2012, there were fewer resources available for learning about doing data analysis in Python. This was partially a chicken-and-egg problem; many libraries that we now take for granted, like pandas, scikit-learn, and statsmodels, were comparatively immature back then. In 2017, there is now a growing literature on data science, data analysis, and machine learning, supplementing the prior works on general-purpose scientific computing geared toward computational scientists, physicists, and professionals in other research fields. There are also excellent books about learning the Python programming language itself and becoming an effective software engineer.
 
@@ -15,13 +10,9 @@ Much of this book focuses on table-based analytics and data preparation tools fo
 
 Some of the tools in this book are best explored from a live IPython or Jupyter session. Once you learn how to start up IPython and Jupyter, I recommend that you follow along with the examples so you can experiment and try different things. As with any keyboard-driven console-like environment, developing muscle-memory for the common commands is also part of the learning curve.
 
---------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
+** Note
 
 There are introductory Python concepts that this chapter does not cover, like classes and object-oriented programming, which you may find useful in your foray into data analysis in Python.
 
@@ -31,16 +22,7 @@ To deepen your Python language knowledge, I recommend that you supplement this c
 - /Fluent Python/ by Luciano Ramalho (O'Reilly)
 - /Effective Python/ by Brett Slatkin (Pearson)
 
---------------
-
-<<intro-python-environment>>
-
-<<python_interpreter>>
 * 2.1 The Python Interpreter
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_1
-  :CLASS: calibre8
-  :END:
 
 Python is an /interpreted/ language. The Python interpreter runs a program by executing one statement at a time. The standard interactive Python interpreter can be invoked on the command line with the =python= command:
 
@@ -90,27 +72,13 @@ While some Python programmers execute all of their Python code in this way, thos
 
 The default IPython prompt adopts the numbered =In [2]:= style compared with the standard =>>>= prompt.
 
-<<intro-python-environment>>
 
-<<ipython_basics>>
 * 2.2 IPython Basics
-  :PROPERTIES:
-  :CUSTOM_ID: 3Q2D5-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 In this section, we'll get you up and running with the IPython shell and Jupyter notebook, and introduce you to some of the essential concepts.
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_basics_shell>>
 ** Running the IPython Shell
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_3
-   :CLASS: calibre20
-   :END:
 
 You can launch the IPython shell on the command line just like launching the regular Python interpreter except with the =ipython= command:
 
@@ -139,7 +107,7 @@ You can execute arbitrary Python statements by typing them in and pressing Retur
     In [6]: data = {i : np.random.randn() for i in range(7)}
 
     In [7]: data
-    Out[7]: 
+    Out[7]:
     {0: -0.20470765948471295,
      1: 0.47894333805754824,
      2: -0.5194387150567381,
@@ -164,16 +132,7 @@ Many kinds of Python objects are formatted to be more readable, or /pretty-print
 
 IPython also provides facilities to execute arbitrary blocks of code (via a somewhat glorified copy-and-paste approach) and whole Python scripts. You can also use the Jupyter notebook to work with larger blocks of code, as we'll soon see.
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_basics_notebook>>
 ** Running the Jupyter Notebook
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q2I1-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 One of the major components of the Jupyter project is the /notebook/, a type of interactive document for code, text (with or without markup), data visualizations, and other output. The Jupyter notebook interacts with /kernels/, which are implementations of the Jupyter interactive computing protocol in any number of programming languages. Python's Jupyter kernel uses the IPython system for its underlying behavior.
 
@@ -195,19 +154,13 @@ On many platforms, Jupyter will automatically open up in your default web browse
 
 --------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+*** Note
 
 Many people use Jupyter as a local computing environment, but it can also be deployed on servers and accessed remotely. I won't cover those details here, but encourage you to explore this topic on the internet if it's relevant to your needs.
 
---------------
-
 [[../images/00001.jpeg]]
 
-To create a new notebook, click the New button and select the “Python 3” or “conda [default]” option. You should see something like [[file:part0004_split_004.html#figure_jupyter_new_nb][Figure 2-2]]. If this is your first time, try clicking on the empty code “cell” and entering a line of Python code. Then press Shift-Enter to execute it.
+[default]” option. You should see something like [[file:part0004_split_004.html#figure_jupyter_new_nb][Figure 2-2]]. If this is your first time, try clicking on the empty code “cell” and entering a line of Python code. Then press Shift-Enter to execute it.
 
 [[../images/00002.jpeg]]
 
@@ -217,16 +170,7 @@ While the Jupyter notebook can feel like a distinct experience from the IPython 
 
 [[../images/00003.jpeg]]
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_completion>>
 ** Tab Completion
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_5
-   :CLASS: calibre20
-   :END:
 
 On the surface, the IPython shell looks like a cosmetically different version of the standard terminal Python interpreter (invoked with =python=). One of the major improvements over the standard Python shell is /tab completion/, found in many IDEs or other interactive computing analysis environments. While entering expressions in the shell, pressing the Tab key will search the namespace for any variables (objects, functions, etc.) matching the characters you have typed so far:
 
@@ -265,11 +209,8 @@ In the Jupyter notebook and newer versions of IPython (5.0 and higher), the auto
 
 --------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+*** Note
+
 
 Note that IPython by default hides methods and attributes starting with underscores, such as magic methods and internal “private” methods and attributes, in order to avoid cluttering the display (and confusing novice users!). These, too, can be tab-completed, but you must first type an underscore to see them. If you prefer to always see such methods in tab completion, you can change this setting in the IPython configuration. See the IPython documentation to find out how to do this.
 
@@ -295,16 +236,10 @@ Another area where tab completion saves time is in the completion of function ke
 
 We'll have a closer look at functions in a little bit.
 
-<<intro-python-environment>>
 
-<<ipython_basics>>
 
-<<ipython_introspection>>
+
 ** Introspection
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q2L5-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 Using a question mark (=?=) before or after a variable will display some general information about the object:
 
@@ -391,16 +326,7 @@ Using =??= will also show the function's source code if possible:
     np.pkgload
 #+END_EXAMPLE
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_basics_magic_run>>
 ** The %run Command
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_7
-   :CLASS: calibre20
-   :END:
 
 You can run any file as a Python program inside the environment of your IPython session using the =%run= command. Suppose you had the following simple script stored in /ipython\_script\_test.py/:
 
@@ -433,13 +359,8 @@ The script is run in an /empty namespace/ (with no imports or other variables de
 
 If a Python script expects command-line arguments (to be found in =sys.argv=), these can be passed after the file path as though run on the command line.
 
---------------
+*** Note
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-3
-       :CLASS: calibre16
-       :END:
 
 Should you wish to give a script access to variables already defined in the interactive IPython namespace, use =%run -i= instead of plain =%run=.
 
@@ -460,37 +381,25 @@ In the Jupyter notebook, you may also use the related =%load= magic function, wh
         result = f(a, b, c)
 #+END_EXAMPLE
 
-<<ipython_run_interrupt>>
 *** Interrupting running code
-    :PROPERTIES:
-    :CUSTOM_ID: interrupting-running-code
-    :CLASS: calibre27
-    :END:
+
 
 Pressing Ctrl-C while any code is running, whether a script through =%run= or a long-running command, will cause a =KeyboardInterrupt= to be raised. This will cause nearly all Python programs to stop immediately except in certain unusual cases.
 
 --------------
 
-****** Warning
-       :PROPERTIES:
-       :CUSTOM_ID: warning
-       :CLASS: calibre18
-       :END:
+*** Warning
+
 
 When a piece of Python code has called into some compiled extension modules, pressing Ctrl-C will not always cause the program execution to stop immediately. In such cases, you will have to either wait until control is returned to the Python interpreter, or in more dire circumstances, forcibly terminate the Python process.
 
 --------------
 
-<<intro-python-environment>>
 
-<<ipython_basics>>
 
-<<ipython_basics_code_blocks>>
+
 ** Executing Code from the Clipboard
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_8
-   :CLASS: calibre20
-   :END:
+
 
 If you are using the Jupyter notebook, you can copy and paste code into any code cell and execute it. It is also possible to run code from the clipboard in the IPython shell. Suppose you had the following code in some other application:
 
@@ -532,49 +441,34 @@ The most foolproof methods are the =%paste= and =%cpaste= magic functions. =%pas
 
 With the =%cpaste= block, you have the freedom to paste as much code as you like before executing it. You might decide to use =%cpaste= in order to look at the pasted code before executing it. If you accidentally paste the wrong code, you can break out of the =%cpaste= prompt by pressing Ctrl-C.
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_basics_keyboard_shortcuts>>
 ** Terminal Keyboard Shortcuts
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_9
-   :CLASS: calibre20
-   :END:
+
 
 IPython has many keyboard shortcuts for navigating the prompt (which will be familiar to users of the Emacs text editor or the Unix bash shell) and interacting with the shell's command history. [[file:part0004_split_009.html#table_kbd_shortcuts][Table 2-1]] summarizes some of the most commonly used shortcuts. See [[file:part0004_split_009.html#figure_ipython_keyboard][Figure 2-5]] for an illustration of a few of these, such as cursor movement.
 
 [[../images/00005.gif]]
 
-| Keyboard shortcut      | Description                                                                            |
-|------------------------+----------------------------------------------------------------------------------------|
-| Ctrl-P or up-arrow     | Search backward in command history for commands starting with currently entered text   |
-| Ctrl-N or down-arrow   | Search forward in command history for commands starting with currently entered text    |
-| Ctrl-R                 | Readline-style reverse history search (partial matching)                               |
-| Ctrl-Shift-V           | Paste text from clipboard                                                              |
-| Ctrl-C                 | Interrupt currently executing code                                                     |
-| Ctrl-A                 | Move cursor to beginning of line                                                       |
-| Ctrl-E                 | Move cursor to end of line                                                             |
-| Ctrl-K                 | Delete text from cursor until end of line                                              |
-| Ctrl-U                 | Discard all text on current line                                                       |
-| Ctrl-F                 | Move cursor forward one character                                                      |
-| Ctrl-B                 | Move cursor back one character                                                         |
-| Ctrl-L                 | Clear screen                                                                           |
 #+CAPTION: Table 2-1. Standard IPython keyboard shortcuts
+| Keyboard shortcut    | Description                               |
+|----------------------+-------------------------------------------|
+| Ctrl-P or up-arrow   | Search backward in command history        |
+| Ctrl-N or down-arrow | Search forward in command history f       |
+| Ctrl-R               | Readline-style reverse history search     |
+| Ctrl-Shift-V         | Paste text from clipboard                 |
+| Ctrl-C               | Interrupt currently executing code        |
+| Ctrl-A               | Move cursor to beginning of line          |
+| Ctrl-E               | Move cursor to end of line                |
+| Ctrl-K               | Delete text from cursor until end of line |
+| Ctrl-U               | Discard all text on current line          |
+| Ctrl-F               | Move cursor forward one character         |
+| Ctrl-B               | Move cursor back one character            |
+| Ctrl-L               | Clear screen                              |
+
 
 Note that Jupyter notebooks have a largely separate set of keyboard shortcuts for navigation and editing. Since these shortcuts have evolved more rapidly than IPython's, I encourage you to explore the integrated help system in the Jupyter notebook's menus.
 
-<<intro-python-environment>>
-
-<<ipython_basics>>
-
-<<ipython_magic>>
 ** About Magic Commands
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q380-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 IPython's special commands (which are not built into Python itself) are known as “magic” commands. These are designed to facilitate common tasks and enable you to easily control the behavior of the IPython system. A magic command is any command prefixed by the percent symbol =%=. For example, you can check the execution time of any Python statement, such as a matrix multiplication, using the =%timeit= magic function (which will be discussed in more detail later):
 
@@ -657,16 +551,9 @@ Since IPython's documentation is accessible from within the system, I encourage 
 | =%xdel= /=variable=/      | Delete a variable and attempt to clear any references to the object in the IPython internals                                          |
 #+CAPTION: Table 2-2. Some frequently used IPython magic commands
 
-<<intro-python-environment>>
 
-<<ipython_basics>>
 
-<<ipython_pylab>>
 ** Matplotlib Integration
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_11
-   :CLASS: calibre20
-   :END:
 
 One reason for IPython's popularity in analytical computing is that it integrates well with data visualization and other user interface libraries like matplotlib. Don't worry if you have never used matplotlib before; it will be discussed in more detail later in this book. The =%matplotlib= magic function configures its integration with the IPython shell or Jupyter notebook. This is important, as otherwise plots you create will either not appear (notebook) or take control of the session until closed (shell).
 
@@ -685,36 +572,17 @@ In Jupyter, the command is a little different ([[file:part0004_split_011.html#fi
 
 [[../images/00006.jpeg]]
 
-<<intro-python-environment>>
 
-<<tut_basics>>
 * 2.3 Python Language Basics
-  :PROPERTIES:
-  :CUSTOM_ID: 3Q3JF-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 In this section, I will give you an overview of essential Python programming concepts and language mechanics. In the next chapter, I will go into more detail about Python's data structures, functions, and other built-in tools.
 
-<<intro-python-environment>>
-
-<<tut_basics>>
-
-<<language_semantics>>
 ** Language Semantics
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q3JJ-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 The Python language design is distinguished by its emphasis on readability, simplicity, and explicitness. Some people go so far as to liken it to “executable pseudocode.”
 
-<<semantics_whitespace>>
+
 *** Indentation, not braces
-    :PROPERTIES:
-    :CUSTOM_ID: indentation-not-braces
-    :CLASS: calibre27
-    :END:
 
 Python uses whitespace (tabs or spaces) to structure code instead of using braces as in many other languages like R, C++, Java, and Perl. Consider a =for= loop from a sorting algorithm:
 
@@ -733,10 +601,7 @@ Love it or hate it, significant whitespace is a fact of life for Python programm
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-4
-       :CLASS: calibre16
-       :END:
+
 
 I strongly recommend using /four spaces/ as your default indentation and replacing tabs with four spaces. Many text editors have a setting that will replace tab stops with spaces automatically (do this!). Some people use tabs or a different number of spaces, with two spaces not being terribly uncommon. By and large, four spaces is the standard adopted by the vast majority of Python programmers, so I recommend doing that in the absence of a compelling reason otherwise.
 
@@ -750,21 +615,13 @@ As you can see by now, Python statements also do not need to be terminated by se
 
 Putting multiple statements on one line is generally discouraged in Python as it often makes code less readable.
 
-<<semantics_everything_object>>
 *** Everything is an object
-    :PROPERTIES:
-    :CUSTOM_ID: everything-is-an-object
-    :CLASS: calibre27
-    :END:
+
 
 An important characteristic of the Python language is the consistency of its /object model/. Every number, string, data structure, function, class, module, and so on exists in the Python interpreter in its own “box,” which is referred to as a /Python object/. Each object has an associated /type/ (e.g., /string/ or /function/) and internal data. In practice this makes the language very flexible, as even functions can be treated like any other object.
 
-<<semantics_comments>>
 *** Comments
-    :PROPERTIES:
-    :CUSTOM_ID: comments
-    :CLASS: calibre27
-    :END:
+
 
 Any text preceded by the hash mark (pound sign) =#= is ignored by the Python interpreter. This is often used to add comments to code. At times you may also want to exclude certain blocks of code without deleting them. An easy solution is to /comment out/ the code:
 
@@ -783,12 +640,8 @@ Comments can also occur after a line of executed code. While some programmers pr
     print("Reached this line")  # Simple status report
 #+END_EXAMPLE
 
-<<semantics_function_calls>>
 *** Function and object method calls
-    :PROPERTIES:
-    :CUSTOM_ID: function-and-object-method-calls
-    :CLASS: calibre27
-    :END:
+
 
 You call functions using parentheses and passing zero or more arguments, optionally assigning the returned value to a variable:
 
@@ -811,12 +664,8 @@ Functions can take both /positional/ and /keyword/ arguments:
 
 More on this later.
 
-<<semantics_references>>
 *** Variables and argument passing
-    :PROPERTIES:
-    :CUSTOM_ID: variables-and-argument-passing
-    :CLASS: calibre27
-    :END:
+
 
 When assigning a variable (or /name/) in Python, you are creating a /reference/ to the object on the righthand side of the equals sign. In practical terms, consider a list of integers:
 
@@ -846,10 +695,7 @@ Understanding the semantics of references in Python and when, how, and why data 
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-5
-       :CLASS: calibre16
-       :END:
+
 
 Assignment is also referred to as /binding/, as we are binding a name to an object. Variable names that have been assigned may occasionally be referred to as bound variables.
 
@@ -873,12 +719,7 @@ Then we have:
     Out[29]: [1, 2, 3, 4]
 #+END_EXAMPLE
 
-<<semantics_strongly_typed>>
 *** Dynamic references, strong types
-    :PROPERTIES:
-    :CUSTOM_ID: 3Q3TE-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
 
 In contrast with many compiled languages, such as Java and C++, object /references/ in Python have no type associated with them. There is no problem with the following:
 
@@ -941,12 +782,7 @@ Knowing the type of an object is important, and it's useful to be able to write 
     Out[25]: True
 #+END_EXAMPLE
 
-<<attributes_and_methods>>
 *** Attributes and methods
-    :PROPERTIES:
-    :CUSTOM_ID: attributes-and-methods
-    :CLASS: calibre27
-    :END:
 
 Objects in Python typically have both attributes (other Python objects stored “inside” the object) and methods (functions associated with an object that can have access to the object's internal data). Both of them are accessed via the syntax /=obj.attribute_name=/:
 
@@ -973,12 +809,8 @@ Attributes and methods can also be accessed by name via the =getattr= function:
 
 In other languages, accessing objects by name is often referred to as “reflection.” While we will not extensively use the functions =getattr= and related functions =hasattr= and =setattr= in this book, they can be used very effectively to write generic, reusable code.
 
-<<duck_typing>>
 *** Duck typing
-    :PROPERTIES:
-    :CUSTOM_ID: duck-typing
-    :CLASS: calibre27
-    :END:
+
 
 Often you may not care about the type of an object but rather only whether it has certain methods or behavior. This is sometimes called “duck typing,” after the saying “If it walks like a duck and quacks like a duck, then it's a duck.” For example, you can verify that an object is iterable if it implemented the /iterator protocol/. For many objects, this means it has a =__iter__= “magic method,” though an alternative and better way to check is to try using the =iter= function:
 
@@ -1011,12 +843,7 @@ A place where I use this functionality all the time is to write functions that c
         x = list(x)
 #+END_EXAMPLE
 
-<<semantics_imports>>
 *** Imports
-    :PROPERTIES:
-    :CUSTOM_ID: imports
-    :CLASS: calibre27
-    :END:
 
 In Python a /module/ is simply a file with the /.py/ extension containing Python code. Suppose that we had the following module:
 
@@ -1056,12 +883,8 @@ By using the =as= keyword you can give imports different variable names:
     r2 = gf(6, pi)
 #+END_EXAMPLE
 
-<<semantics_binary_ops>>
 *** Binary operators and comparisons
-    :PROPERTIES:
-    :CUSTOM_ID: binary-operators-and-comparisons
-    :CLASS: calibre27
-    :END:
+
 
 Most of the binary math operations and comparisons are as you might expect:
 
@@ -1129,12 +952,9 @@ A very common use of =is= and =is not= is to check if a variable is =None=, sinc
 | =a is not b=      | =True= if =a= and =b= reference different Python objects                                                    |
 #+CAPTION: Table 2-3. Binary operators
 
-<<semantics_mutability>>
+
 *** Mutable and immutable objects
-    :PROPERTIES:
-    :CUSTOM_ID: mutable-and-immutable-objects
-    :CLASS: calibre27
-    :END:
+
 
 Most objects in Python, such as lists, dicts, NumPy arrays, and most user-defined types (classes), are mutable. This means that the object or values that they contain can be modified:
 
@@ -1162,16 +982,12 @@ Others, like strings and tuples, are immutable:
 
 Remember that just because you /can/ mutate an object does not mean that you always /should/. Such actions are known as /side effects/. For example, when writing a function, any side effects should be explicitly communicated to the user in the function's documentation or comments. If possible, I recommend trying to avoid side effects and /favor immutability/, even though there may be mutable objects involved.
 
-<<intro-python-environment>>
 
-<<tut_basics>>
 
-<<scalar_types>>
+
+
 ** Scalar Types
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q4PE-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Python along with its standard library has a small set of built-in types for handling numerical data, strings, boolean (=True= or =False=) values, and dates and time. These “single value” types are sometimes called /scalar types/ and we refer to them in this book as scalars. See [[file:part0004_split_014.html#table_python_scalar_types][Table 2-4]] for a list of the main scalar types. Date and time handling will be discussed separately, as these are provided by the =datetime= module in the standard library.
 
@@ -1185,12 +1001,9 @@ Python along with its standard library has a small set of built-in types for han
 | =int=     | Arbitrary precision signed integer                                                          |
 #+CAPTION: Table 2-4. Standard Python scalar types
 
-<<scalar_numeric>>
+
 *** Numeric types
-    :PROPERTIES:
-    :CUSTOM_ID: numeric-types
-    :CLASS: calibre27
-    :END:
+
 
 The primary Python types for numbers are =int= and =float=. An =int= can store arbitrarily large numbers:
 
@@ -1223,12 +1036,8 @@ To get C-style integer division (which drops the fractional part if the result i
     Out[53]: 1
 #+END_EXAMPLE
 
-<<scalar_strings>>
 *** Strings
-    :PROPERTIES:
-    :CUSTOM_ID: 3Q4S5-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 Many people use Python for its powerful and flexible built-in string processing capabilities. You can write /string literals/ using either single quotes ='= or double quotes ="=:
 
@@ -1357,12 +1166,8 @@ String formatting is a deep topic; there are multiple methods and numerous optio
 
 I discuss general string processing as it relates to data analysis in more detail in [[file:part0010_split_000.html#9H5K3-74490f30505748fab61c1c3ee3dc2f27][Chapter 8]].
 
-<<scalar_bytes>>
 *** Bytes and Unicode
-    :PROPERTIES:
-    :CUSTOM_ID: bytes-and-unicode
-    :CLASS: calibre27
-    :END:
+
 
 In modern Python (i.e., Python 3.0 and up), Unicode has become the first-class string type to enable more consistent handling of ASCII and non-ASCII text. In older versions of Python, strings were all bytes without any explicit Unicode encoding. You could convert to Unicode assuming you knew the character encoding. Let's look at an example:
 
@@ -1421,12 +1226,8 @@ Though you may seldom need to do so, you can define your own byte literals by pr
     Out[88]: 'this is bytes'
 #+END_EXAMPLE
 
-<<scalar_boolean>>
 *** Booleans
-    :PROPERTIES:
-    :CUSTOM_ID: booleans
-    :CLASS: calibre27
-    :END:
+
 
 The two boolean values in Python are written as =True= and =False=. Comparisons and other conditional expressions evaluate to either =True= or =False=. Boolean values are combined with the =and= and =or= keywords:
 
@@ -1438,12 +1239,8 @@ The two boolean values in Python are written as =True= and =False=. Comparisons 
     Out[90]: True
 #+END_EXAMPLE
 
-<<scalar_casting>>
 *** Type casting
-    :PROPERTIES:
-    :CUSTOM_ID: type-casting
-    :CLASS: calibre27
-    :END:
+
 
 The =str=, =bool=, =int=, and =float= types are also functions that can be used to cast values to those types:
 
@@ -1465,12 +1262,8 @@ The =str=, =bool=, =int=, and =float= types are also functions that can be used 
     Out[96]: False
 #+END_EXAMPLE
 
-<<scalar_none>>
 *** None
-    :PROPERTIES:
-    :CUSTOM_ID: none
-    :CLASS: calibre27
-    :END:
+
 
 =None= is the Python null value type. If a function does not explicitly return a value, it implicitly returns =None=:
 
@@ -1505,12 +1298,8 @@ While a technical point, it's worth bearing in mind that =None= is not only a re
     Out[101]: NoneType
 #+END_EXAMPLE
 
-<<scalar_dates>>
 *** Dates and times
-    :PROPERTIES:
-    :CUSTOM_ID: 3Q5L8-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 The built-in Python =datetime= module provides =datetime=, =date=, and =time= types. The =datetime= type, as you may imagine, combines the information stored in =date= and =time= and is the most commonly used:
 
@@ -1605,25 +1394,18 @@ Adding a =timedelta= to a =datetime= produces a new shifted =datetime=:
 | =%D=   | Shortcut for =%m/%d/%y= (e.g., =04/18/12=)                                                                                                    |
 #+CAPTION: Table 2-5. Datetime format specification (ISO C89 compatible)
 
-<<intro-python-environment>>
 
-<<tut_basics>>
 
-<<control_flow>>
+
+
+
 ** Control Flow
-   :PROPERTIES:
-   :CUSTOM_ID: 3Q607-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Python has several built-in keywords for conditional logic, loops, and other standard /control flow/ concepts found in other programming languages.
 
-<<control_if_else>>
 *** if, elif, and else
-    :PROPERTIES:
-    :CUSTOM_ID: if-elif-and-else
-    :CLASS: calibre27
-    :END:
+
 
 The =if= statement is one of the most well-known control flow statement types. It checks a condition that, if =True=, evaluates the code in the block that follows:
 
@@ -1666,12 +1448,8 @@ It is also possible to chain comparisons:
     Out[120]: True
 #+END_EXAMPLE
 
-<<control_for>>
 *** for loops
-    :PROPERTIES:
-    :CUSTOM_ID: for-loops
-    :CLASS: calibre27
-    :END:
+
 
 =for= loops are for iterating over a collection (like a list or tuple) or an iterater. The standard syntax for a =for= loop is:
 
@@ -1730,12 +1508,8 @@ As we will see in more detail, if the elements in the collection or iterator are
         # do something
 #+END_EXAMPLE
 
-<<control_while>>
 *** while loops
-    :PROPERTIES:
-    :CUSTOM_ID: while-loops
-    :CLASS: calibre27
-    :END:
+
 
 A =while= loop specifies a condition and a block of code that is to be executed until the condition evaluates to =False= or the loop is explicitly ended with =break=:
 
@@ -1749,12 +1523,8 @@ A =while= loop specifies a condition and a block of code that is to be executed 
         x = x // 2
 #+END_EXAMPLE
 
-<<control_pass>>
 *** pass
-    :PROPERTIES:
-    :CUSTOM_ID: pass
-    :CLASS: calibre27
-    :END:
+
 
 =pass= is the “no-op” statement in Python. It can be used in blocks where no action is to be taken (or as a placeholder for code not yet implemented); it is only required because Python uses whitespace to delimit blocks:
 
@@ -1768,12 +1538,8 @@ A =while= loop specifies a condition and a block of code that is to be executed 
         print('positive!')
 #+END_EXAMPLE
 
-<<control_range>>
 *** range
-    :PROPERTIES:
-    :CUSTOM_ID: range
-    :CLASS: calibre27
-    :END:
+
 
 The =range= function returns an iterator that yields a sequence of evenly spaced integers:
 
@@ -1815,12 +1581,8 @@ While you can use functions like =list= to store all the integers generated by =
 
 While the range generated can be arbitrarily large, the memory use at any given time may be very small.
 
-<<control_ternary>>
 *** Ternary expressions
-    :PROPERTIES:
-    :CUSTOM_ID: ternary-expressions
-    :CLASS: calibre27
-    :END:
+
 
 A /ternary expression/ in Python allows you to combine an =if-else= block that produces a value into a single line or expression. The syntax for this in Python is:
 

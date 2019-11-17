@@ -1,9 +1,5 @@
-<<numpy>>
+
 * Chapter 4. NumPy Basics: Arrays and Vectorized Computation
-  :PROPERTIES:
-  :CUSTOM_ID: 5N3C3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
 
 NumPy, short for Numerical Python, is one of the most important foundational packages for numerical computing in Python. Most computational packages providing scientific functionality use NumPy's array objects as the /lingua franca/ for data exchange.
 
@@ -32,11 +28,8 @@ While NumPy provides a computational foundation for general numerical data proce
 
 --------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+*** Note
+
 
 Array-oriented computing in Python traces its roots back to 1995, when Jim Hugunin created the Numeric library. Over the next 10 years, many scientific programming communities began doing array programming in Python, but the library ecosystem had become fragmented in the early 2000s. In 2005, Travis Oliphant was able to forge the NumPy project from the then Numeric and Numarray projects to bring the community together around a single array computing framework.
 
@@ -69,95 +62,64 @@ Now let's multiply each sequence by 2:
     Wall time: 1.05 s
 #+END_EXAMPLE
 
-NumPy-based algorithms are generally 10 to 100 times faster (or more) than their pure Python counterparts and use significantly less memory.
-
-<<numpy>>
-
-<<numpy_ndarrays>>
+NumPy-based algorithms are generally 10 to 100 times faster (or more) than their pure Python counterparts and use significantly less
 * 4.1 The NumPy ndarray: A Multidimensional Array Object
-  :PROPERTIES:
-  :CUSTOM_ID: 5N3H8-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 One of the key features of NumPy is its N-dimensional array object, or ndarray, which is a fast, flexible container for large datasets in Python. Arrays enable you to perform mathematical operations on whole blocks of data using similar syntax to the equivalent operations between scalar elements.
-
+# scalar element
 To give you a flavor of how NumPy enables batch computations with similar syntax to scalar values on built-in Python objects, I first import NumPy and generate a small array of random data:
 
-#+BEGIN_EXAMPLE
-    In [12]: import numpy as np
+#+begin_src ipython :session alinbx :results output
+import numpy as np
+# Generate some random data
+data = np.random.randn(2,3)
+print(data)
+#+end_src
 
-    # Generate some random data
-    In [13]: data = np.random.randn(2, 3)
+#+RESULTS:
+: [[-0.26052832  2.33722684  0.07685969]
+:  [-0.07861247 -0.20419033  0.1772966 ]]
 
-    In [14]: data
-    Out[14]: 
-    array([[-0.2047,  0.4789, -0.5194],
-           [-0.5557,  1.9658,  1.3934]])
-#+END_EXAMPLE
 
 I then write mathematical operations with =data=:
 
-#+BEGIN_EXAMPLE
-    In [15]: data * 10
-    Out[15]: 
-    array([[ -2.0471,   4.7894,  -5.1944],
-           [ -5.5573,  19.6578,  13.9341]])
+#+begin_src ipython :session alinbx :results output
+print(data * 10)
+print(data + data)
+#+end_src
 
-    In [16]: data + data
-    Out[16]: 
-    array([[-0.4094,  0.9579, -1.0389],
-           [-1.1115,  3.9316,  2.7868]])
-#+END_EXAMPLE
+#+RESULTS:
+: [[-2.60528318 23.37226837  0.7685969 ]
+:  [-0.78612467 -2.04190329  1.77296602]]
+: [[-0.52105664  4.67445367  0.15371938]
+:  [-0.15722493 -0.40838066  0.3545932 ]]
 
 In the first example, all of the elements have been multiplied by 10. In the second, the corresponding values in each “cell” in the array have been added to each other.
 
---------------
-
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+*** Note
 
 In this chapter and throughout the book, I use the standard NumPy convention of always using =import numpy as np=. You are, of course, welcome to put =from numpy import *= in your code to avoid having to write =np.=, but I advise against making a habit of this. The =numpy= namespace is large and contains a number of functions whose names conflict with built-in Python functions (like =min= and =max=).
 
---------------
 
 An ndarray is a generic multidimensional container for homogeneous data; that is, all of the elements must be the same type. Every array has a =shape=, a tuple indicating the size of each dimension, and a =dtype=, an object describing the /data type/ of the array:
+#+begin_src ipython :session alinbx :results output
+print(data.shape)
+print(data.dtype)
+#+end_src
 
-#+BEGIN_EXAMPLE
-    In [17]: data.shape
-    Out[17]: (2, 3)
+#+RESULTS:
+: (2, 3)
+: float64
 
-    In [18]: data.dtype
-    Out[18]: dtype('float64')
-#+END_EXAMPLE
 
 This chapter will introduce you to the basics of using NumPy arrays, and should be sufficient for following along with the rest of the book. While it's not necessary to have a deep understanding of NumPy for many data analytical applications, becoming proficient in array-oriented programming and thinking is a key step along the way to becoming a scientific Python guru.
 
---------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+*** Note
 
 Whenever you see “array,” “NumPy array,” or “ndarray” in the text, with few exceptions they all refer to the same thing: the ndarray object.
 
---------------
-
-<<numpy>>
-
-<<numpy_ndarrays>>
-
-<<numpy_construction>>
 ** Creating ndarrays
-   :PROPERTIES:
-   :CUSTOM_ID: 5N3MT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 The easiest way to create an array is to use the =array= function. This accepts any sequence-like object (including other arrays) and produces a new NumPy array containing the passed data. For example, a list is a good candidate for conversion:
 
@@ -185,6 +147,7 @@ Nested sequences, like a list of equal-length lists, will be converted into a mu
 
 Since =data2= was a list of lists, the NumPy array =arr2= has two dimensions with shape inferred from the data. We can confirm this by inspecting the =ndim= and =shape= attributes:
 
+# selector
 #+BEGIN_EXAMPLE
     In [25]: arr2.ndim
     Out[25]: 2
@@ -225,17 +188,9 @@ In addition to =np.array=, there are a number of other functions for creating ne
             [ 0.,  0.]]])
 #+END_EXAMPLE
 
---------------
-
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+*** Caution
 
 It's not safe to assume that =np.empty= will return an array of all zeros. In some cases, it may return uninitialized “garbage” values.
-
---------------
 
 =arange= is an array-valued version of the built-in Python =range= function:
 
@@ -246,28 +201,21 @@ It's not safe to assume that =np.empty= will return an array of all zeros. In so
 
 See [[file:part0006_split_002.html#table_array_ctor][Table 4-1]] for a short list of standard array creation functions. Since NumPy is focused on numerical computing, the data type, if not specified, will in many cases be =float64= (floating point).
 
-| Function              | Description                                                                                                                                                                               |
-|-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| =array=               | Convert input data (list, tuple, array, or other sequence type) to an ndarray either by inferring a dtype or explicitly specifying a dtype; copies the input data by default              |
-| =asarray=             | Convert input to ndarray, but do not copy if the input is already an ndarray                                                                                                              |
-| =arange=              | Like the built-in =range= but returns an ndarray instead of a list                                                                                                                        |
-| =ones, ones_like=     | Produce an array of all 1s with the given shape and dtype; =ones_like= takes another array and produces a ones array of the same shape and dtype                                          |
-| =zeros, zeros_like=   | Like =ones= and =ones_like= but producing arrays of 0s instead                                                                                                                            |
-| =empty, empty_like=   | Create new arrays by allocating new memory, but do not populate with any values like =ones= and =zeros=                                                                                   |
-| =full, full_like=     | Produce an array of the given shape and dtype with all values set to the indicated “fill value” =full_like= takes another array and produces a filled array of the same shape and dtype   |
-| =eye, identity=       | Create a square N × N identity matrix (1s on the diagonal and 0s elsewhere)                                                                                                               |
 #+CAPTION: Table 4-1. Array creation functions
+| Function            | Description                                                                        |
+|---------------------+------------------------------------------------------------------------------------|
+| =array=             | Convert input data (list, tuple, array, or other sequence type) to an ndarray e    |
+| =asarray=           | Convert input to ndarray, but do not copy if the input is already an ndarray       |
+| =arange=            | Like the built-in =range= but returns an ndarray instead of a list                 |
+| =ones, ones_like=   | Produce an array of all 1s with the given shape and dtype; =ones_like= takes       |
+| =zeros, zeros_like= | Like =ones= and =ones_like= but producing arrays of 0s instead                     |
+| =empty, empty_like= | Create new arrays by allocating new memory, but do not populate with any values    |
+| =full, full_like=   | Produce an array of the given shape and dtype with all values set to the indicated |
+| =eye, identity=     | Create a square N × N identity matrix (1s on the diagonal and 0s elsewhere)        |
+# creation function也就是constructor
 
-<<numpy>>
 
-<<numpy_ndarrays>>
-
-<<numpy_dtypes>>
 ** Data Types for ndarrays
-   :PROPERTIES:
-   :CUSTOM_ID: 5N43I-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 The /data type/ or =dtype= is a special object containing the information (or /metadata/, data about data) the ndarray needs to interpret a chunk of memory as a particular type of data:
 
@@ -285,13 +233,9 @@ The /data type/ or =dtype= is a special object containing the information (or /m
 
 dtypes are a source of NumPy's flexibility for interacting with data coming from other systems. In most cases they provide a mapping directly onto an underlying disk or memory representation, which makes it easy to read and write binary streams of data to disk and also to connect to code written in a low-level language like C or Fortran. The numerical dtypes are named the same way: a type name, like =float= or =int=, followed by a number indicating the number of bits per element. A standard double-precision floating-point value (what's used under the hood in Python's =float= object) takes up 8 bytes or 64 bits. Thus, this type is known in NumPy as =float64=. See [[file:part0006_split_003.html#table_array_dtypes][Table 4-2]] for a full listing of NumPy's supported data types.
 
---------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-3
-       :CLASS: calibre16
-       :END:
+*** Note
+
 
 Don't worry about memorizing the NumPy dtypes, especially if you're a new user. It's often only necessary to care about the general /kind/ of data you're dealing with, whether floating point, complex, integer, boolean, string, or general Python object. When you need more control over how data are stored in memory and on disk, especially large datasets, it is good to know that you have control over the storage type.
 
@@ -351,11 +295,8 @@ If you have an array of strings representing numbers, you can use =astype= to co
 
 --------------
 
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+*** Caution
+
 
 It's important to be cautious when using the =numpy.string_= type, as string data in NumPy is fixed size and may truncate input without warning. pandas has more intuitive out-of-the-box behavior on non-numeric data.
 
@@ -387,26 +328,19 @@ There are shorthand type code strings you can also use to refer to a dtype:
 
 --------------
 
-****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-4
-       :CLASS: calibre16
-       :END:
+*** Note
+
 
 Calling =astype= /always/ creates a new array (a copy of the data), even if the new dtype is the same as the old dtype.
 
 --------------
 
-<<numpy>>
 
-<<numpy_ndarrays>>
 
-<<ndarray_binops>>
+
+
+
 ** Arithmetic with NumPy Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: 5N4HS-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 Arrays are important because they enable you to express batch operations on data without writing any =for= loops. NumPy users call this /vectorization/. Any arithmetic operations between equal-size arrays applies the operation element-wise:
 
@@ -461,16 +395,12 @@ Comparisons between arrays of the same size yield boolean arrays:
 
 Operations between differently sized arrays is called /broadcasting/ and will be discussed in more detail in [[file:part0017_split_000.html#G6PI3-74490f30505748fab61c1c3ee3dc2f27][Appendix A]]. Having a deep understanding of broadcasting is not necessary for most of this book.
 
-<<numpy>>
 
-<<numpy_ndarrays>>
 
-<<ndarray_indexing>>
+
+
 ** Basic Indexing and Slicing
-   :PROPERTIES:
-   :CUSTOM_ID: 5N4PK-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 NumPy array indexing is a rich topic, as there are many ways you may want to select a subset of your data or individual elements. One-dimensional arrays are simple; on the surface they act similarly to Python lists:
 
@@ -526,11 +456,8 @@ If you are new to NumPy, you might be surprised by this, especially if you have 
 
 --------------
 
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-2
-       :CLASS: calibre18
-       :END:
+*** Caution
+
 
 If you want a copy of a slice of an ndarray instead of a view, you will need to explicitly copy the array --- for example, =arr[5:8].copy()=.
 
@@ -550,7 +477,7 @@ Thus, individual elements can be accessed recursively. But that is a bit too muc
 #+BEGIN_EXAMPLE
     In [74]: arr2d[0][2]
     Out[74]: 3
-
+    # 演化的步骤.
     In [75]: arr2d[0, 2]
     Out[75]: 3
 #+END_EXAMPLE
@@ -628,12 +555,8 @@ This expression is the same as though we had indexed in two steps:
 
 Note that in all of these cases where subsections of the array have been selected, the returned arrays are views.
 
-<<numpy_indexing_slices>>
 *** Indexing with slices
-    :PROPERTIES:
-    :CUSTOM_ID: 5N5E2-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 Like one-dimensional objects such as Python lists, ndarrays can be sliced with the familiar syntax:
 
@@ -711,16 +634,13 @@ Of course, assigning to a slice expression assigns to the whole selection:
 
 [[../images/00010.gif]]
 
-<<numpy>>
 
-<<numpy_ndarrays>>
 
-<<ndarray_boolean>>
+
+
+
 ** Boolean Indexing
-   :PROPERTIES:
-   :CUSTOM_ID: 5N5MP-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Let's consider an example where we have some data in an array and an array of names with duplicates. I'm going to use here the =randn= function in =numpy.random= to generate some random normally distributed data:
 
@@ -763,17 +683,14 @@ This boolean array can be passed when indexing the array:
 
 The boolean array must be of the same length as the array axis it's indexing. You can even mix and match boolean arrays with slices or integers (or sequences of integers; more on this later).
 
---------------
 
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-3
-       :CLASS: calibre18
-       :END:
+
+*** Caution
+
 
 Boolean selection will not fail if the boolean array is not the correct length, so I recommend care when using this feature.
 
---------------
+
 
 In these examples, I select from the rows where =names ==       'Bob'= and index the columns, too:
 
@@ -836,15 +753,11 @@ Selecting data from an array by boolean indexing /always/ creates a copy of the 
 
 --------------
 
-****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-4
-       :CLASS: calibre18
-       :END:
+*** Caution
+
 
 The Python keywords =and= and =or= do not work with boolean arrays. Use =&= (and) and =|= (or) instead.
 
---------------
 
 Setting values with boolean arrays works in a common-sense way. To set all of the negative values in =data= to 0 we need only do:
 
@@ -866,7 +779,7 @@ Setting whole rows or columns using a one-dimensional boolean array is also easy
 
 #+BEGIN_EXAMPLE
     In [115]: data[names != 'Joe'] = 7
-
+ # 就跟bash中一样.
     In [116]: data
     Out[116]: 
     array([[ 7.    ,  7.    ,  7.    ,  7.    ],
@@ -880,16 +793,12 @@ Setting whole rows or columns using a one-dimensional boolean array is also easy
 
 As we will see later, these types of operations on two-dimensional data are convenient to do with pandas.
 
-<<numpy>>
 
-<<numpy_ndarrays>>
 
-<<ndarray_fancy>>
+
+
+
 ** Fancy Indexing
-   :PROPERTIES:
-   :CUSTOM_ID: 5N6FC-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 /Fancy indexing/ is a term adopted by NumPy to describe indexing using integer arrays. Suppose we had an 8 × 4 array:
 
@@ -935,8 +844,8 @@ Hopefully this code did what you expected! Using negative indices selects rows f
 Passing multiple index arrays does something slightly different; it selects a one-dimensional array of elements corresponding to each tuple of indices:
 
 #+BEGIN_EXAMPLE
-    In [122]: arr = np.arange(32).reshape((8, 4))
-
+    In [122]: arr = np.arange(32).reshape((8, 4)
+)
     In [123]: arr
     Out[123]: 
     array([[ 0,  1,  2,  3],
@@ -969,16 +878,11 @@ The behavior of fancy indexing in this case is a bit different from what some us
 
 Keep in mind that fancy indexing, unlike slicing, always copies the data into a new array.
 
-<<numpy>>
 
-<<numpy_ndarrays>>
 
-<<numpy_transposing>>
+
+
 ** Transposing Arrays and Swapping Axes
-   :PROPERTIES:
-   :CUSTOM_ID: 5N6T9-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 Transposing is a special form of reshaping that similarly returns a view on the underlying data without copying anything. Arrays have the =transpose= method and also the special =T= attribute:
 
@@ -1067,14 +971,7 @@ Simple transposing with =.T= is a special case of swapping axes. ndarray has the
 
 =swapaxes= similarly returns a view on the data without making a copy.
 
-<<numpy>>
-
-<<numpy_ufuncs>>
-* 4.2 Universal Functions: Fast Element-Wise Array Functions
-  :PROPERTIES:
-  :CUSTOM_ID: 5N7CF-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+* 4.2 Universal Functions: Fast Element-Wise Array
 
 A universal function, or /ufunc/, is a function that performs element-wise operations on data in ndarrays. You can think of them as fast vectorized wrappers for simple functions that take one or more scalar values and produce one or more scalar results.
 
@@ -1191,14 +1088,9 @@ See Tables [[file:part0006_split_009.html#table_unary_ufuncs][4-3]] and [[file:p
 | =logical_and, logical_or, logical_xor=                         | Compute element-wise truth value of logical operation (equivalent to infix operators =& |, ^=)                   |
 #+CAPTION: Table 4-4. Binary universal functions
 
-<<numpy>>
 
-<<numpy_processing>>
 * 4.3 Array-Oriented Programming with Arrays
-  :PROPERTIES:
-  :CUSTOM_ID: 5N7S7-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Using NumPy arrays enables you to express many kinds of data processing tasks as concise array expressions that might otherwise require writing loops. This practice of replacing explicit loops with array expressions is commonly referred to as /vectorization/. In general, vectorized array operations will often be one or two (or more) orders of magnitude faster than their pure Python equivalents, with the biggest impact in any kind of numerical computations. Later, in [[file:part0017_split_000.html#G6PI3-74490f30505748fab61c1c3ee3dc2f27][Appendix A]], I explain /broadcasting/, a powerful method for vectorizing computations.
 
@@ -1252,16 +1144,8 @@ See [[file:part0006_split_010.html#numpy_vectorize_circle][Figure 4-3]]. Here I
 
 [[../images/00011.jpeg]]
 
-<<numpy>>
 
-<<numpy_processing>>
-
-<<numpy_where>>
 ** Expressing Conditional Logic as Array Operations
-   :PROPERTIES:
-   :CUSTOM_ID: 5N87O-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 The =numpy.where= function is a vectorized version of the ternary expression =x if condition else y=. Suppose we had a boolean array and two arrays of values:
 
@@ -1332,16 +1216,9 @@ You can combine scalars and arrays when using =np.where=. For example, I can rep
 
 The arrays passed to =np.where= can be more than just equal-sized arrays or scalars.
 
-<<numpy>>
 
-<<numpy_processing>>
 
-<<ndarray_statistics>>
 ** Mathematical and Statistical Methods
-   :PROPERTIES:
-   :CUSTOM_ID: 5N8L3-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 A set of mathematical functions that compute statistics about an entire array or about the data along an axis are accessible as methods of the array class. You can use aggregations (often called /reductions/) like =sum=, =mean=, and =std= (standard deviation) either by calling the array instance method or using the top-level NumPy function.
 
@@ -1426,16 +1303,10 @@ See [[file:part0006_split_012.html#table_statistical_methods][Table 4-5]] for a
 | =cumprod=          | Cumulative product of elements starting from 1                                                                         |
 #+CAPTION: Table 4-5. Basic array statistical methods
 
-<<numpy>>
 
-<<numpy_processing>>
 
-<<numpy_boolean_array_methods>>
 ** Methods for Boolean Arrays
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_13
-   :CLASS: calibre20
-   :END:
+
 
 Boolean values are coerced to 1 (=True=) and 0 (=False=) in the preceding methods. Thus, =sum= is often used as a means of counting =True= values in a boolean array:
 
@@ -1460,16 +1331,10 @@ There are two additional methods, =any= and =all=, useful especially for boolean
 
 These methods also work with non-boolean arrays, where non-zero elements evaluate to =True=.
 
-<<numpy>>
 
-<<numpy_processing>>
 
-<<numpy_sorting>>
+
 ** Sorting
-   :PROPERTIES:
-   :CUSTOM_ID: 5N94Q-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
 
 Like Python's built-in list type, NumPy arrays can be sorted in-place with the =sort= method:
 
@@ -1522,16 +1387,10 @@ The top-level method =np.sort= returns a sorted copy of an array instead of modi
 
 For more details on using NumPy's sorting methods, and more advanced techniques like indirect sorts, see [[file:part0017_split_000.html#G6PI3-74490f30505748fab61c1c3ee3dc2f27][Appendix A]]. Several other kinds of data manipulations related to sorting (e.g., sorting a table of data by one or more columns) can also be found in pandas.
 
-<<numpy>>
 
-<<numpy_processing>>
 
-<<numpy_algos_sets>>
 ** Unique and Other Set Logic
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_15
-   :CLASS: calibre20
-   :END:
+
 
 NumPy has some basic set operations for one-dimensional ndarrays. A commonly used one is =np.unique=, which returns the sorted unique values in an array:
 
@@ -1577,14 +1436,7 @@ See [[file:part0006_split_015.html#table_setops][Table 4-6]] for a listing of s
 | =setxor1d(x, y)=      | Set symmetric differences; elements that are in either of the arrays, but not both   |
 #+CAPTION: Table 4-6. Array set operations
 
-<<numpy>>
-
-<<numpy_io_basics>>
 * 4.4 File Input and Output with Arrays
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_16
-  :CLASS: calibre8
-  :END:
 
 NumPy is able to save and load data to and from disk either in text or binary format. In this section I only discuss NumPy's built-in binary format, since most users will prefer pandas and other tools for loading text or tabular data (see [[file:part0008_split_000.html#7K4G3-74490f30505748fab61c1c3ee3dc2f27][Chapter 6]] for much more).
 
@@ -1622,16 +1474,8 @@ If your data compresses well, you may wish to use =numpy.savez_compressed= inste
 
 #+BEGIN_EXAMPLE
     In [219]: np.savez_compressed('arrays_compressed.npz', a=arr, b=arr)
-#+END_EXAMPLE
-
-<<numpy>>
-
-<<numpy_linalg>>
+#+
 * 4.5 Linear Algebra
-  :PROPERTIES:
-  :CUSTOM_ID: 5N9OU-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 Linear algebra, like matrix multiplication, decompositions, determinants, and other square matrix math, is an important part of any array library. Unlike some languages like MATLAB, multiplying two two-dimensional arrays with =*= is an element-wise product instead of a matrix dot product. Thus, there is a function =dot=, both an array method and a function in the =numpy= namespace, for matrix multiplication:
 
@@ -1735,14 +1579,7 @@ See [[file:part0006_split_017.html#table_numpy_linalg][Table 4-7]] for a list o
 | =lstsq=    | Compute the least-squares solution to =Ax = b=                                                                                                               |
 #+CAPTION: Table 4-7. Commonly used numpy.linalg functions
 
-<<numpy>>
-
-<<numpy_random>>
 * 4.6 Pseudorandom Number Generation
-  :PROPERTIES:
-  :CUSTOM_ID: 5NA92-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 The =numpy.random= module supplements the built-in Python =random= with functions for efficiently generating whole arrays of sample values from many kinds of probability distributions. For example, you can get a 4 × 4 array of samples from the standard normal distribution using =normal=:
 
@@ -1806,14 +1643,7 @@ See [[file:part0006_split_018.html#table_numpy_random][Table 4-8]] for a partia
 | =uniform=       | Draw samples from a uniform [0, 1) distribution                                                        |
 #+CAPTION: Table 4-8. Partial list of numpy.random functions
 
-<<numpy>>
-
-<<example_random_walks>>
 * 4.7 Example: Random Walks
-  :PROPERTIES:
-  :CUSTOM_ID: 5NAHD-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 The simulation of [[https://en.wikipedia.org/wiki/Random_walk][random walks]] provides an illustrative application of utilizing array operations. Let's first consider a simple random walk starting at 0 with steps of 1 and --1 occurring with equal probability.
 
@@ -1870,16 +1700,13 @@ A more complicated statistic is the /first crossing time/, the step at which the
 
 Note that using =argmax= here is not always efficient because it always makes a full scan of the array. In this special case, once a =True= is observed we know it to be the maximum value.
 
-<<numpy>>
 
-<<example_random_walks>>
 
-<<example_random_walks_many>>
+
+
+
 ** Simulating Many Random Walks at Once
-   :PROPERTIES:
-   :CUSTOM_ID: 5NAO6-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 If your goal was to simulate many random walks, say 5,000 of them, you can generate all of the random walks with minor modifications to the preceding code. If passed a 2-tuple, the =numpy.random= functions will generate a two-dimensional array of draws, and we can compute the cumulative sum across the rows to compute all 5,000 random walks in one shot:
 
@@ -1943,14 +1770,8 @@ Feel free to experiment with other distributions for the steps other than equal-
        .....:                          size=(nwalks, nsteps))
 #+END_EXAMPLE
 
-<<numpy>>
-
-<<numpy_moving_forward>>
 * 4.8 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_21
-  :CLASS: calibre8
-  :END:
+
 
 While much of the rest of the book will focus on building data wrangling skills with pandas, we will continue to work in a similar array-based style. In [[file:part0017_split_000.html#G6PI3-74490f30505748fab61c1c3ee3dc2f27][Appendix A]], we will dig deeper into NumPy features to help you further develop your array computing skills.
 

@@ -1,22 +1,12 @@
-<<wrangling>>
+
 * Chapter 8. Data Wrangling: Join, Combine, and Reshape
-  :PROPERTIES:
-  :CUSTOM_ID: 9H5K3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 In many applications, data may be spread across a number of files or databases or be arranged in a form that is not easy to analyze. This chapter focuses on tools to help combine, join, and rearrange data.
 
 First, I introduce the concept of /hierarchical indexing/ in pandas, which is used extensively in some of these operations. I then dig into the particular data manipulations. You can see various applied usages of these tools in [[file:part0016_split_000.html#F8903-74490f30505748fab61c1c3ee3dc2f27][Chapter 14]].
 
-<<wrangling>>
-
-<<pandas_hierarchical>>
 * 8.1 Hierarchical Indexing
-  :PROPERTIES:
-  :CUSTOM_ID: 9H5KC-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
 
 /Hierarchical indexing/ is an important feature of pandas that enables you to have multiple (two or more) index /levels/ on an axis. Somewhat abstractly, it provides a way for you to work with higher dimensional data in a lower dimensional form. Let's start with a simple example; create a Series with a list of lists (or arrays) as the index:
 
@@ -155,10 +145,7 @@ The hierarchical levels can have names (as strings or any Python objects). If so
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+
 
 Be careful to distinguish the index names ='state'= and ='color'= from the row labels.
 
@@ -184,16 +171,13 @@ A =MultiIndex= can be created by itself and then reused; the columns in the prec
                            names=['state', 'color'])
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<pandas_hierarchical>>
 
-<<pandas_hierarchical_reorder>>
+
+
+
 ** Reordering and Sorting Levels
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_2
-   :CLASS: calibre20
-   :END:
+
 
 At times you will need to rearrange the order of the levels on an axis or sort the data by the values in one specific level. The =swaplevel= takes two level numbers or names and returns a new object with the levels interchanged (but the data is otherwise unaltered):
 
@@ -236,25 +220,19 @@ At times you will need to rearrange the order of the levels on an axis or sort t
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 Data selection performance is much better on hierarchically indexed objects if the index is lexicographically sorted starting with the outermost level --- that is, the result of calling =sort_index(level=0)= or =sort_index()=.
 
 --------------
 
-<<wrangling>>
 
-<<pandas_hierarchical>>
 
-<<pandas_hierarchical_stats>>
+
+
+
 ** Summary Statistics by Level
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_3
-   :CLASS: calibre20
-   :END:
+
 
 Many descriptive and summary statistics on DataFrame and Series have a =level= option in which you can specify the level you want to aggregate by on a particular axis. Consider the above DataFrame; we can aggregate by level on either the rows or columns like so:
 
@@ -279,16 +257,13 @@ Many descriptive and summary statistics on DataFrame and Series have a =level= o
 
 Under the hood, this utilizes pandas's groupby machinery, which will be discussed in more detail later in the book.
 
-<<wrangling>>
 
-<<pandas_hierarchical>>
 
-<<pandas_hierarchical_set_index>>
+
+
+
 ** Indexing with a DataFrame's columns
-   :PROPERTIES:
-   :CUSTOM_ID: 9H6F0-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 It's not unusual to want to use one or more columns from a DataFrame as the row index; alternatively, you may wish to move the row index into the DataFrame's columns. Here's an example DataFrame:
 
@@ -359,14 +334,11 @@ By default the columns are removed from the DataFrame, though you can leave them
     6  two  3  6  1
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<prep_merge_join>>
+
+
 * 8.2 Combining and Merging Datasets
-  :PROPERTIES:
-  :CUSTOM_ID: 9H6O9-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 Data contained in pandas objects can be combined together in a number of ways:
 
@@ -376,16 +348,13 @@ Data contained in pandas objects can be combined together in a number of ways:
 
 I will address each of these and give a number of examples. They'll be utilized in examples throughout the rest of the book.
 
-<<wrangling>>
 
-<<prep_merge_join>>
 
-<<prep_merge_database>>
+
+
+
 ** Database-Style DataFrame Joins
-   :PROPERTIES:
-   :CUSTOM_ID: 9H6OT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 /Merge/ or /join/ operations combine datasets by linking rows using one or more /keys/. These operations are central to relational databases (e.g., SQL-based). The =merge= function in pandas is the main entry point for using these algorithms on your data.
 
@@ -579,10 +548,7 @@ To determine which key combinations will appear in the result depending on the c
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+
 
 When you're joining columns-on-columns, the indexes on the passed DataFrame objects are discarded.
 
@@ -630,16 +596,13 @@ See [[file:part0010_split_006.html#table_merge_function][Table 8-2]] for an arg
 | =indicator=     | Adds a special column =_merge= that indicates the source of each row; values will be ='left_only'=, ='right_only'=, or ='both'= based on the origin of the joined data in each row.                      |
 #+CAPTION: Table 8-2. merge function arguments
 
-<<wrangling>>
 
-<<prep_merge_join>>
 
-<<prep_merge_index>>
+
+
+
 ** Merging on Index
-   :PROPERTIES:
-   :CUSTOM_ID: 9H7N8-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 In some cases, the merge key(s) in a DataFrame will be found in its index. In this case, you can pass =left_index=True= or =right_index=True= (or both) to indicate that the index should be used as the merge key:
 
@@ -844,16 +807,13 @@ Lastly, for simple index-on-index merges, you can pass a list of DataFrames to =
     f   NaN     NaN       NaN      NaN      16.0    17.0
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<prep_merge_join>>
 
-<<prep_concat>>
+
+
+
 ** Concatenating Along an Axis
-   :PROPERTIES:
-   :CUSTOM_ID: 9H8NF-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Another kind of data combination operation is referred to interchangeably as concatenation, binding, or stacking. NumPy's =concatenate= function can do this with NumPy arrays:
 
@@ -1102,16 +1062,13 @@ In this case, you can pass =ignore_index=True=:
 | =ignore_index=       | Do not preserve indexes along concatenation =axis=, instead producing a new =range(total_length)= index                                                                                                                                                    |
 #+CAPTION: Table 8-3. concat function arguments
 
-<<wrangling>>
 
-<<prep_merge_join>>
 
-<<combine_overlap>>
+
+
+
 ** Combining Data with Overlap
-   :PROPERTIES:
-   :CUSTOM_ID: 9H9P6-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 There is another data combination situation that can't be expressed as either a merge or concatenation operation. You may have two datasets whose indexes overlap in full or part. As a motivating example, consider NumPy's =where= function, which performs the array-oriented equivalent of an if-else expression:
 
@@ -1199,27 +1156,21 @@ With DataFrames, =combine_first= does the same thing column by column, so you ca
     4  7.0  8.0   NaN
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<prep_reshape>>
+
+
 * 8.3 Reshaping and Pivoting
-  :PROPERTIES:
-  :CUSTOM_ID: 9HA6D-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 There are a number of basic operations for rearranging tabular data. These are alternatingly referred to as /reshape/ or /pivot/ operations.
 
-<<wrangling>>
 
-<<prep_reshape>>
 
-<<prep_reshape_hier>>
+
+
+
 ** Reshaping with Hierarchical Indexing
-   :PROPERTIES:
-   :CUSTOM_ID: 9HA6J-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Hierarchical indexing provides a consistent way to rearrange data in a DataFrame. There are two primary actions:
 
@@ -1405,16 +1356,13 @@ When calling =stack=, we can indicate the name of the axis to stack:
            right        10     7
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<prep_reshape>>
 
-<<prep_reshape_pivot>>
+
+
+
 ** Pivoting “Long” to “Wide” Format
-   :PROPERTIES:
-   :CUSTOM_ID: 9HAQ7-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 A common way to store multiple time series in databases and CSV is in so-called /long/ or /stacked/ format. Let's load some example data and do a small amount of time series wrangling and other data cleaning:
 
@@ -1569,16 +1517,13 @@ Note that =pivot= is equivalent to creating a hierarchical index using =set_inde
     1960-09-30  2.70  2839.022   5.6  0.377984  0.286350 -0.753887
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<prep_reshape>>
 
-<<prep_reshape_melt>>
+
+
+
 ** Pivoting “Wide” to “Long” Format
-   :PROPERTIES:
-   :CUSTOM_ID: 9HBOS-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 An inverse operation to =pivot= for DataFrames is =pandas.melt=. Rather than transforming one column into many in a new DataFrame, it merges multiple columns into one, producing a DataFrame that is longer than the input. Let's look at an example:
 
@@ -1684,14 +1629,9 @@ You can also specify a subset of columns to use as value columns:
     8        B     6
 #+END_EXAMPLE
 
-<<wrangling>>
 
-<<wrangling-conclusion>>
 * 8.4 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_14
-  :CLASS: calibre8
-  :END:
+
 
 Now that you have some pandas basics for data import, cleaning, and reorganization under your belt, we are ready to move on to data visualization with matplotlib. We will return to pandas later in the book when we discuss more advanced analytics.
 

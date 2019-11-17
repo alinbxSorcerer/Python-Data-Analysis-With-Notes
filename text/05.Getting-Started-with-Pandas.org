@@ -1,9 +1,6 @@
-<<pandas>>
+
 * Chapter 5. Getting Started with pandas
-  :PROPERTIES:
-  :CUSTOM_ID: 6LJU3-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre6
-  :END:
+
 
 pandas will be a major tool of interest throughout much of the rest of the book. It contains data structures and data manipulation tools designed to make data cleaning and analysis fast and easy in Python. pandas is often used in tandem with numerical computing tools like NumPy and SciPy, analytical libraries like statsmodels and scikit-learn, and data visualization libraries like matplotlib. pandas adopts significant parts of NumPy's idiomatic style of array-based computing, especially array-based functions and a preference for data processing without =for= loops.
 
@@ -23,27 +20,19 @@ Thus, whenever you see =pd.= in code, it's referring to pandas. You may also fin
     In [2]: from pandas import Series, DataFrame
 #+END_EXAMPLE
 
-<<pandas>>
 
-<<pandas_construction>>
 * 5.1 Introduction to pandas Data Structures
-  :PROPERTIES:
-  :CUSTOM_ID: 6LJV4-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 To get started with pandas, you will need to get comfortable with its two workhorse data structures: /Series/ and /DataFrame/. While they are not a universal solution for every problem, they provide a solid, easy-to-use basis for most applications.
 
-<<pandas>>
 
-<<pandas_construction>>
 
-<<pandas_series>>
+
+
+
 ** Series
-   :PROPERTIES:
-   :CUSTOM_ID: 6LJVC-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 A Series is a one-dimensional array-like object containing a sequence of values (of similar types to NumPy types) and an associated array of data labels, called its /index/. The simplest Series is formed from only an array of data:
 
@@ -279,26 +268,20 @@ A Series's index can be altered in-place by assignment:
     dtype: int64
 #+END_EXAMPLE
 
-<<pandas>>
 
-<<pandas_construction>>
 
-<<pandas_dataframe>>
+
+
+
 ** DataFrame
-   :PROPERTIES:
-   :CUSTOM_ID: 6LKLK-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 A DataFrame represents a rectangular table of data and contains an ordered collection of columns, each of which can be a different value type (numeric, string, boolean, etc.). The DataFrame has both a row and column index; it can be thought of as a dict of Series all sharing the same index. Under the hood, the data is stored as one or more two-dimensional blocks rather than a list, dict, or some other collection of one-dimensional arrays. The exact details of DataFrame's internals are outside the scope of this book.
 
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note
-       :CLASS: calibre16
-       :END:
+
 
 While a DataFrame is physically two-dimensional, you can use it to represent higher dimensional data in a tabular format using hierarchical indexing, a subject we will discuss in [[file:part0010_split_000.html#9H5K3-74490f30505748fab61c1c3ee3dc2f27][Chapter 8]] and an ingredient in some of the more advanced data-handling features in pandas.
 
@@ -404,10 +387,7 @@ A column in a DataFrame can be retrieved as a Series either by dict-like notatio
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-1
-       :CLASS: calibre16
-       :END:
+
 
 Attribute-like access (e.g., =frame2.year=) and tab completion of column names in IPython is provided as a convenience.
 
@@ -496,10 +476,7 @@ As an example of =del=, I first add a new column of boolean values where the =st
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution
-       :CLASS: calibre18
-       :END:
+
 
 New columns cannot be created with the =frame2.eastern= syntax.
 
@@ -517,10 +494,7 @@ The =del= method can then be used to remove this column:
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-1
-       :CLASS: calibre18
-       :END:
+
 
 The column returned from indexing a DataFrame is a /view/ on the underlying data, not a copy. Thus, any in-place modifications to the Series will be reflected in the DataFrame. The column can be explicitly copied with the Series's =copy= method.
 
@@ -632,16 +606,13 @@ If the DataFrame's columns are different dtypes, the dtype of the values array w
 | NumPy MaskedArray                  | Like the “2D ndarray” case except masked values become NA/missing in the DataFrame result                                                  |
 #+CAPTION: Table 5-1. Possible data inputs to DataFrame constructor
 
-<<pandas>>
 
-<<pandas_construction>>
 
-<<pandas_index_objects>>
+
+
+
 ** Index Objects
-   :PROPERTIES:
-   :CUSTOM_ID: 6LLNF-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 pandas's Index objects are responsible for holding the axis labels and other metadata (like the axis name or names). Any array or other sequence of labels you use when constructing a Series or DataFrame is internally converted to an Index:
 
@@ -687,10 +658,7 @@ Immutability makes it safer to share Index objects among data structures:
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-2
-       :CLASS: calibre18
-       :END:
+
 
 Some users will not often take advantage of the capabilities provided by indexes, but because some operations will yield results containing indexed data, it's important to understand how they work.
 
@@ -745,27 +713,19 @@ Each Index has a number of methods and properties for set logic, which answer ot
 | =unique=         | Compute the array of unique values in the Index                                             |
 #+CAPTION: Table 5-2. Some Index methods and properties
 
-<<pandas>>
 
-<<pandas_frame>>
 * 5.2 Essential Functionality
-  :PROPERTIES:
-  :CUSTOM_ID: 6LM18-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 This section will walk you through the fundamental mechanics of interacting with the data contained in a Series or DataFrame. In the chapters to come, we will delve more deeply into data analysis and manipulation topics using pandas. This book is not intended to serve as exhaustive documentation for the pandas library; instead, we'll focus on the most important features, leaving the less common (i.e., more esoteric) things for you to explore on your own.
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_reindex>>
+
+
+
 ** Reindexing
-   :PROPERTIES:
-   :CUSTOM_ID: 6LM1C-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 An important method on pandas objects is =reindex=, which means to create a new object with the data /conformed/ to a new index. Consider an example:
 
@@ -882,16 +842,13 @@ As we'll explore in more detail, you can reindex more succinctly by label-indexi
 | =copy=         | If =True=, always copy underlying data even if new index is equivalent to old index; if =False=, do not copy the data when the indexes are equivalent.           |
 #+CAPTION: Table 5-3. reindex function arguments
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_indexing_drop>>
+
+
+
 ** Dropping Entries from an Axis
-   :PROPERTIES:
-   :CUSTOM_ID: 6LMDT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Dropping one or more entries from an axis is easy if you already have an index array or list without those entries. As that can require a bit of munging and set logic, the =drop= method will return a new object with the indicated value or values deleted from an axis:
 
@@ -987,16 +944,13 @@ Many functions, like =drop=, which modify the size or shape of a Series or DataF
 
 Be careful with the =inplace=, as it destroys any data that is dropped.
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_basic_indexing>>
+
+
+
 ** Indexing, Selection, and Filtering
-   :PROPERTIES:
-   :CUSTOM_ID: 6LMOT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Series indexing (=obj[...]=) works analogously to NumPy array indexing, except you can use the Series's index values instead of only integers. Here are some examples of this:
 
@@ -1142,12 +1096,9 @@ Another use case is in indexing with a boolean DataFrame, such as one produced b
 
 This makes DataFrame syntactically more like a two-dimensional NumPy array in this particular case.
 
-<<pandas-loc-iloc>>
+
 *** Selection with loc and iloc
-    :PROPERTIES:
-    :CUSTOM_ID: 6LN9B-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 For DataFrame label-indexing on the rows, I introduce the special indexing operators =loc= and =iloc=. They enable you to select a subset of the rows and columns from a DataFrame with NumPy-like notation using either axis labels (=loc=) or integers (=iloc=).
 
@@ -1209,10 +1160,7 @@ So there are many ways to select and rearrange the data contained in a pandas ob
 --------------
 
 ****** Note
-       :PROPERTIES:
-       :CUSTOM_ID: note-2
-       :CLASS: calibre16
-       :END:
+
 
 When originally designing pandas, I felt that having to type =frame[:, col]= to select a column was too verbose (and error-prone), since column selection is one of the most common operations. I made the design trade-off to push all of the fancy indexing behavior (both labels and integers) into the =ix= operator. In practice, this led to many edge cases in data with integer axis labels, so the pandas team decided to create the =loc= and =iloc= operators to deal with strictly label-based and integer-based indexing, respectively.
 
@@ -1235,16 +1183,13 @@ The =ix= indexing operator still exists, but it is deprecated. I do not recommen
 | =get_value, set_value= methods   | Select single value by row and column label                                                                                                                                                             |
 #+CAPTION: Table 5-4. Indexing options with DataFrame
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<gotchas_integer_index>>
+
+
+
 ** Integer Indexes
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_9
-   :CLASS: calibre20
-   :END:
+
 
 Working with pandas objects indexed by integers is something that often trips up new users due to some differences with indexing semantics on built-in Python data structures like lists and tuples. For example, you might not expect the following code to generate an error:
 
@@ -1294,16 +1239,13 @@ To keep things consistent, if you have an axis index containing integers, data s
     dtype: float64
 #+END_EXAMPLE
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_arithmetic>>
+
+
+
 ** Arithmetic and Data Alignment
-   :PROPERTIES:
-   :CUSTOM_ID: 6LNKV-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 An important pandas feature for some applications is the behavior of arithmetic between objects with different indexes. When you are adding together objects, if any index pairs are not the same, the respective index in the result will be the union of the index pairs. For users with database experience, this is similar to an automatic outer join on the index labels. Let's look at an example:
 
@@ -1413,12 +1355,9 @@ If you add DataFrame objects with no column or row labels in common, the result 
     1 NaN NaN
 #+END_EXAMPLE
 
-<<pandas_arithmetic_methods>>
+
 *** Arithmetic methods with fill values
-    :PROPERTIES:
-    :CUSTOM_ID: 6LO1S-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 In arithmetic operations between differently indexed objects, you might want to fill with a special value, like 0, when an axis label is found in one object but not the other:
 
@@ -1510,12 +1449,9 @@ Relatedly, when reindexing a Series or DataFrame, you can also specify a differe
 | =pow, rpow=             | Methods for exponentiation (**)   |
 #+CAPTION: Table 5-5. Flexible arithmetic methods
 
-<<pandas_frame_series>>
+
 *** Operations between DataFrame and Series
-    :PROPERTIES:
-    :CUSTOM_ID: 6LOD4-74490f30505748fab61c1c3ee3dc2f27
-    :CLASS: calibre27
-    :END:
+
 
 As with NumPy arrays of different dimensions, arithmetic between DataFrame and Series is also defined. First, as a motivating example, consider the difference between a two-dimensional array and one of its rows:
 
@@ -1621,16 +1557,13 @@ If you want to instead broadcast over the columns, matching on the rows, you hav
 
 The axis number that you pass is the /axis to match on/. In this case we mean to match on the DataFrame's row index (=axis='index'= or =axis=0=) and broadcast across.
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_apply>>
+
+
+
 ** Function Application and Mapping
-   :PROPERTIES:
-   :CUSTOM_ID: 6LOQV-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 NumPy ufuncs (element-wise array methods) also work with pandas objects:
 
@@ -1723,16 +1656,13 @@ The reason for the name =applymap= is that Series has a =map= method for applyin
     Name: e, dtype: object
 #+END_EXAMPLE
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_sorting>>
+
+
+
 ** Sorting and Ranking
-   :PROPERTIES:
-   :CUSTOM_ID: 6LP61-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Sorting a dataset by some criterion is another important built-in operation. To sort lexicographically by row or column index, use the =sort_index= method, which returns a new, sorted object:
 
@@ -1926,16 +1856,13 @@ DataFrame can compute ranks over the rows or the columns:
 | ='dense'=     | Like =method='min'=, but ranks always increase by 1 in between groups rather than the number of equal elements in a group   |
 #+CAPTION: Table 5-6. Tie-breaking methods with rank
 
-<<pandas>>
 
-<<pandas_frame>>
 
-<<pandas_index_duplicates>>
+
+
+
 ** Axis Indexes with Duplicate Labels
-   :PROPERTIES:
-   :CUSTOM_ID: calibre_pb_13
-   :CLASS: calibre20
-   :END:
+
 
 Up until now all of the examples we've looked at have had unique axis labels (index values). While many pandas functions (like =reindex=) require that the labels be unique, it's not mandatory. Let's consider a small Series with duplicate indices:
 
@@ -1994,14 +1921,9 @@ The same logic extends to indexing rows in a DataFrame:
     b  0.476985  3.248944 -1.021228
 #+END_EXAMPLE
 
-<<pandas>>
 
-<<pandas_summarize>>
 * 5.3 Summarizing and Computing Descriptive Statistics
-  :PROPERTIES:
-  :CUSTOM_ID: 6LQ26-74490f30505748fab61c1c3ee3dc2f27
-  :CLASS: calibre8
-  :END:
+
 
 pandas objects are equipped with a set of common mathematical and statistical methods. Most of these fall into the category of /reductions/ or /summary statistics/, methods that extract a single value (like the sum or mean) from a Series or a Series of values from the rows or columns of a DataFrame. Compared with the similar methods found on NumPy arrays, they have built-in handling for missing data. Consider a small DataFrame:
 
@@ -2141,16 +2063,13 @@ See [[file:part0007_split_014.html#table_descriptive_stats][Table 5-8]] for a f
 | =pct_change=       | Compute percent changes                                                                       |
 #+CAPTION: Table 5-8. Descriptive and summary statistics
 
-<<pandas>>
 
-<<pandas_summarize>>
 
-<<pandas_corr_cov>>
+
+
+
 ** Correlation and Covariance
-   :PROPERTIES:
-   :CUSTOM_ID: 6LQCT-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Some summary statistics, like correlation and covariance, are computed from pairs of arguments. Let's consider some DataFrames of stock prices and volumes obtained from Yahoo! Finance using the add-on =pandas-datareader= package. If you don't have it installed already, it can be obtained via conda or pip:
 
@@ -2174,10 +2093,7 @@ I use the =pandas_datareader= module to download some data for a few stock ticke
 --------------
 
 ****** Caution
-       :PROPERTIES:
-       :CUSTOM_ID: caution-3
-       :CLASS: calibre18
-       :END:
+
 
 It's possible by the time you are reading this that Yahoo! Finance no longer exists since Yahoo! was acquired by Verizon in 2017. Refer to the pandas-datareader documentation online for the latest functionality.
 
@@ -2262,16 +2178,13 @@ Passing a DataFrame computes the correlations of matching column names. Here I c
 
 Passing =axis='columns'= does things row-by-row instead. In all cases, the data points are aligned by label before the correlation is computed.
 
-<<pandas>>
 
-<<pandas_summarize>>
 
-<<pandas_unique_value_counts>>
+
+
+
 ** Unique Values, Value Counts, and Membership
-   :PROPERTIES:
-   :CUSTOM_ID: 6LQP2-74490f30505748fab61c1c3ee3dc2f27
-   :CLASS: calibre20
-   :END:
+
 
 Another class of related methods extracts information about the values contained in a one-dimensional Series. To illustrate these, consider this example:
 
@@ -2408,14 +2321,9 @@ Passing =pandas.value_counts= to this DataFrame's =apply= function gives:
 
 Here, the row labels in the result are the distinct values occurring in all of the columns. The values are the respective counts of these values in each column.
 
-<<pandas>>
 
-<<pandas_begin_conclusion>>
 * 5.4 Conclusion
-  :PROPERTIES:
-  :CUSTOM_ID: calibre_pb_17
-  :CLASS: calibre8
-  :END:
+
 
 In the next chapter, we'll discuss tools for reading (or /loading/) and writing datasets with pandas. After that, we'll dig deeper into data cleaning, wrangling, analysis, and visualization tools using pandas.
 
