@@ -20,12 +20,35 @@ for org in orgs:
     subprocess.run(cmd, shell=True)
 #+end_src
 
+#+RESULTS:
+
 #+begin_src ipython :session now :results output
 ls  ..
 #+end_src
 
 #+RESULTS:
-: [0m[01;34mimages[0m/  [01;34mtext[0m/
+#+begin_example
+[0m[01;36m00.Preface.org[0m@
+[01;36m01.Preliminaries.org[0m@
+[01;36m02.Python-Language-Basics.org[0m@
+[01;36m03.Built-in-Data-Strutures-Functions-and-Files.org[0m@
+[01;36m04.Numpy-Basics:Array-and-Vector.org[0m@
+[01;36m05.Getting-Started-with-Pandas.org[0m@
+[01;36m06.Data-Loading-Storage-and-File-Formats.org[0m@
+[01;36m07.Data-Cleaning-and-Preparation.org[0m@
+[01;36m08.Data-Wrangling:Join-Combine-and-Reshape.org[0m@
+[01;36m09.Plotting-and-Visualization.org[0m@
+[01;36m10.Data-Aggregation-and-Group-Operation.org[0m@
+[01;36m11.Time-Series.org[0m@
+[01;36m12.Advanced-Pandas.org[0m@
+[01;36m13.Introduction-to-Modeling-Libraries-in-Python.org[0m@
+[01;36m14.Data-Analysis-Example.org[0m@
+[01;36mAppendix-A.Advanced-Numpy.org[0m@
+[01;36mAppendix-B.More-on-the-IPython-System.org[0m@
+[01;34mimages[0m/
+[01;36mpython-data-analysis.org[0m@
+[01;34mtext[0m/
+#+end_example
 
 * Section 1. New for the Second Edition
 
