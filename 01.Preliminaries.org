@@ -18,7 +18,6 @@ This is by no means a complete list. Even though it may not always be obvious, a
 Most users of spreadsheet programs like Microsoft Excel, perhaps the most widely used data analysis tool in the world, will not be strangers to these kinds of data.
 
 
-
 * 1.2 Why Python for Data Analysis?
 
 For many people, the Python programming language has strong appeal. Since its first appearance in 1991, Python has become one of the most popular interpreted programming languages, along with Perl, Ruby, and others. Python and Ruby have become especially popular since 2005 or so for building websites using their numerous web frameworks, like Rails (Ruby) and Django (Python). Such languages are often called /scripting/ languages, as they can be used to quickly write small programs, or /scripts/ to automate other tasks. I don't like the term “scripting language,” as it carries a connotation that they cannot be used for building serious software. Among interpreted languages, for various historical and cultural reasons, Python has developed a large and active scientific computing and data analysis community. In the last 10 years, Python has gone from a bleeding-edge or “at your own risk” scientific computing language to one of the most important languages for data science, machine learning, and general software development in academia and industry.
@@ -45,7 +44,6 @@ As Python is an interpreted programming language, in general most Python code wi
 Python can be a challenging language for building highly concurrent, multithreaded applications, particularly applications with many CPU-bound threads. The reason for this is that it has what is known as the /global interpreter lock/ (GIL), a mechanism that prevents the interpreter from executing more than one Python instruction at a time. The technical reasons for why the GIL exists are beyond the scope of this book. While it is true that in many big data processing applications, a cluster of computers may be required to process a dataset in a reasonable amount of time, there are still situations where a single-process, multithreaded system is desirable.
 
 This is not to say that Python cannot execute truly multithreaded, parallel code. Python C extensions that use native multithreading (in C or C++) can run code in parallel without being impacted by the GIL, so long as they do not need to regularly interact with Python objects.
-
 
 
 * 1.3 Essential Python Libraries
@@ -219,7 +217,6 @@ statsmodels is more focused on statistical inference, providing uncertainty esti
 As with scikit-learn, I will give a brief introduction to statsmodels and how to use it with NumPy and pandas.
 
 
-
 * 1.4 Installation and Setup
 
 Since everyone uses Python for different applications, there is no single solution for setting up Python and required add-on packages. Many readers will not have a complete Python development environment suitable for following along with this book, so here I will give detailed instructions to get set up on each operating system. I recommend using the free Anaconda distribution. At the time of this writing, Anaconda is offered in both Python 2.7 and 3.6 forms, though this might change at some point in the future. This book uses Python 3.6, and I encourage you to use Python 3.6 or higher.
@@ -366,7 +363,6 @@ When building software, however, some users may prefer to use a more richly feat
 Due to the popularity of Python, most text editors, like Atom and Sublime Text 2, have excellent Python support.
 
 
-
 * 1.5 Community and Conferences
 
 Outside of an internet search, the various scientific and data-related Python mailing lists are generally helpful and responsive to questions. Some to take a look at include:
@@ -385,7 +381,6 @@ Each year many conferences are held all over the world for Python programmers. I
 - SciPy and EuroSciPy: Scientific-computing-oriented conferences in North America and Europe, respectively
 - PyData: A worldwide series of regional conferences targeted at data science and data analysis use cases
 - International and regional PyCon conferences (see [[http://pycon.org][/http://pycon.org/]] for a complete listing)
-
 
 
 * 1.6 Navigating This Book

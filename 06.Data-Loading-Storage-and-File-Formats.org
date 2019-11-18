@@ -5,7 +5,6 @@ Accessing data is a necessary first step for using most of the tools in this boo
 
 Input and output typically falls into a few main categories: reading text files and other more efficient on-disk formats, loading data from databases, and interacting with network sources like web APIs.
 
-
 * 6.1 Reading and Writing Data in Text Format
 
 
@@ -860,7 +859,6 @@ You can now access any of the fields (like =href=) in the tag or the link text:
 
 
 
-
 * 6.2 Binary Data Formats
 
 
@@ -1083,7 +1081,6 @@ You can also pass a file path to =to_excel= and avoid the =ExcelWriter=:
 
 
 
-
 * 6.3 Interacting with Web APIs
 
 
@@ -1147,7 +1144,6 @@ Each element in =data= is a dictionary containing all of the data found on a Git
 #+END_EXAMPLE
 
 With a bit of elbow grease, you can create some higher-level interfaces to common web APIs that return DataFrame objects for easy analysis.
-
 
 
 
